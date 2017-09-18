@@ -1,7 +1,7 @@
 var config                  = require('../../config')[APP_ENV],
     session                 = require('express-session'),
     ResponseUtils           = require('../utils/utils'),
-    md5                     = require('MD5'),
+    md5                     = require('md5'),
     path                    = require('path'),
     mongoose	            = require('mongoose'),
     idGenerator             = require('password-generator'),

@@ -2,7 +2,7 @@
  * Migrate emulation
  */
 
-var md5                 = require('MD5'),
+var md5                 = require('md5'),
     Admin               = require('../models/Admin'),
     Home                = require('../models/Home'),
     Landing             = require('../models/Landing'),
