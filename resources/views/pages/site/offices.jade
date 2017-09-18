@@ -1,0 +1,27 @@
+extends ../../layouts/index_layout
+
+block specific_css
+
+block specific_js
+
+block content
+
+    // site navigation bar
+    include components/_navigation
+    // mega full header bock
+    include components/_secondary_mega_nav
+
+    main.offices-main
+        // main content
+        section.scroll-from-header.bg-offices
+            .container.office-page.images-container
+                each data in offices
+                    .col-xs-12.col-sm-4.one-office
+                        a(href='/office-detail?lang=#{lang}&office='+data.uniqueName)
+                            .image-box-offices(style="background-image:url(/images/" + data.main_image_morning + ")")
+                            h5=data.name[lang]
+                                img(src='/img/site/asterisk.svg')
+
+
+        // site footer
+        include components/_footer

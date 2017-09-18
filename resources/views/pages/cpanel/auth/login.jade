@@ -1,0 +1,21 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/login.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/login.js')
+
+block content
+    .wrapper
+        form.login
+            p.title Log in
+            input#username(type='text', placeholder='Username', autofocus='')
+            i.fa.fa-user
+            input#password(type='password', placeholder='Password')
+            i.fa.fa-unlock-alt
+            a(href='#') Forgot your password?
+            button
+                i.spinner
+                span.state Log in
+

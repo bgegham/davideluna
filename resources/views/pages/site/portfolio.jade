@@ -1,0 +1,56 @@
+extends ../../layouts/index_layout
+
+block specific_css
+    link(rel='stylesheet', href='/libs/gridster/dist/jquery.gridster.min.css')
+block specific_js
+    script(type="text/javascript", src='/libs/gridster/dist/jquery.gridster.min.js')
+    script.
+        var gridster = null;
+        $(document).ready(function () {
+            var test = $(".gridster").outerWidth();
+            gridster = $(".gridster ul").gridster({
+                widget_base_dimensions: [test/4-25, test/4-25],
+                autogenerate_stylesheet: true,
+                min_cols: 1,
+                max_cols: 4,
+                widget_margins: [20, 20],
+                resize: {
+                    enabled: false
+                }
+            }).data('gridster').disable();
+            $('.gridster  ul');
+        });
+block content
+
+    // site navigation bar
+    include components/_navigation
+    // mega full header bock
+    include components/_secondary_mega_nav
+
+    main.portfolio-main
+        // main content
+        section.scroll-from-header.images-container.bg-portfolio#portfolioList
+            .container
+                .row
+                    .col-xs-12
+                        if(portfolio && portfolio.length == 0)
+                            h1 Nothing to show
+                        else
+                            .gridster(style="overflow-x: auto;")
+                                ul(style="background: transparent")
+                                    each data in portfolio
+                                        li(
+                                        data-priority=data._id
+                                        data-sizey=data.data_sizey
+                                        data-sizex=data.data_sizex
+                                        data-col=data.data_col
+                                        data-row=data.data_row)
+                                            .gridster-box.sorting-control(style="background-image:url(/images/" + data.alterImage + ")")
+                                                a(href="/portfolio/" + data.uniqueName + "?lang=#{lang}")
+                                                    span=data.name[lang]
+                                                        p=data.dateOfCreate
+                                                    .overlay
+
+
+        // site footer
+        include components/_footer

@@ -1,0 +1,23 @@
+extends ../../layouts/index_layout
+
+block specific_css
+
+block specific_js
+
+block content
+
+    // site navigation bar
+    include components/_navigation
+    // mega full header bock
+    include components/_mega_header
+
+    main.aboute-main
+        // main content
+        section.scroll-from-header
+            div!=landing.content[lang]
+
+        // recent works
+        include components/_recent_works
+
+        // site footer
+        include components/_footer

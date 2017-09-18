@@ -1,0 +1,66 @@
+.row
+    form#editForm(method="post", role='form', action="/control/admin/portfolio/edit/general/#{oldVal._id}")
+        .col-xs-12.col-sm-6
+            .form-group
+                label(for='name_en') Job name (eng)
+                input#name_en.form-control(name="name_en", type='text', placeholder='Name' value=(oldVal && oldVal.name.en) ? oldVal.name.en : '')
+        .col-xs-12.col-sm-6
+            .form-group
+                label(for='name_ru') Название работы (рус)
+                input#name_ru.form-control(name="name_ru", type='text', placeholder='Название' value=(oldVal && oldVal.name.ru) ? oldVal.name.ru : '')
+        .col-xs-12.col-sm-6
+            .form-group
+                label(for='info_en') Description (eng)
+                input#info_en.form-control(name="info_en", type='text', placeholder='Description' value=(oldVal && oldVal.description.en) ? oldVal.description.en : '')
+        .col-xs-12.col-sm-6
+            .form-group
+                label(for='info_ru') Описание (рус)
+                input#info_ru.form-control(name="info_ru", type='text', placeholder='Описание' value=(oldVal && oldVal.description.ru) ? oldVal.description.ru : '')
+        .clearfix
+        hr
+        .clearfix
+        .col-xs-12.col-sm-6
+            .form-group
+                label(for='create_date') Date of create
+                input#create_date.form-control(name="create_date", type='text', placeholder='dd.mm.yyyy' value=(oldVal && oldVal.dateOfCreate) ? oldVal.dateOfCreate : '')
+        .col-xs-12.col-sm-6
+            .form-group
+                label(for='uniqueName') Unique name (name_name_info)
+                input#uniqueName.form-control(required=true name="uniqueName", type='text', placeholder='Unique name' value=(oldVal && oldVal.uniqueName) ? oldVal.uniqueName : '')
+        .col-xs-12.col-sm-6
+            .form-group
+                label Remember!
+                p Think then do ;-)
+        .col-xs-12.col-sm-6
+            .form-group
+                label No Padding
+                br
+                if (!oldVal.withPadding)
+                    label.checkbox-inline
+                        input(name="noPadding" type='checkbox', checked)
+                        |   Disable padding's
+                else
+                    label.checkbox-inline
+                        input(name="noPadding" type='checkbox')
+                        |   Disable padding's
+
+        .col-xs-12
+            .form-group
+                label.tagsLabel Project subscribed for tags:
+                div
+                    if(!tags.length)
+                        a.text-center(href="/control/cpanel/tags") Add the first tag
+                    else
+                        each itemTag in tags
+                            if (oldVal.tags.toString().indexOf(itemTag._id) != -1)
+                                label.checkbox-inline
+                                    input(name="tags" type='checkbox', value=itemTag._id checked)
+                                    |   #{itemTag.name.en}
+                            else
+                                label.checkbox-inline
+                                    input(name="tags" type='checkbox', value=itemTag._id)
+                                    |   #{itemTag.name.en}
+        .col-xs-12
+            .clearfix
+        .col-xs-12.text-center.top-25
+            button.btn.btn-md.btn-success(type="submit") Update general information

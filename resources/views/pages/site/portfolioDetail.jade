@@ -1,0 +1,71 @@
+extends ../../layouts/index_layout
+
+block specific_css
+
+block specific_js
+
+block content
+
+    // site navigation bar
+    include components/_navigation
+
+    main.portfolio-detail-main
+
+        // portfolio top slider
+        include components/_portfolio_slider
+
+        section.bg-portfolio-detail
+            .container.portfolio-detail-page
+                .row
+                    .col-xs-12
+                        h1.text-center.prt-name= portfolio.name[lang]
+                            img(src='/img/site/asterisk.svg')
+                        p.prt-tags
+                            each tg, k in portfolio.tags
+                                if(k != portfolio.tags.length-1)
+                                    span=tg.name[lang] + " / "
+                                else
+                                    span=tg.name[lang]
+
+        section.bg-portfolio-detail
+            .container.portfolio-detail-page.content-section(class=(portfolio.withPadding) ? "" : "no-padding-prt")
+                each data, j in portfolio.content
+                    .row.relative
+                        each _data in data.content
+                            if(_data.node == 'image')
+                                .custom-pd.col-xs-12( class=(_data.layout == 6) ? "col-sm-6" : "" )
+                                    img.prt-image(src="/images/"+_data.elements)
+                            else if (_data.node == 'video')
+                                .custom-pd.col-xs-12( class=(_data.layout == 6) ? "col-sm-6" : "")
+                                    video.video-js.vjs-default-skin(id=_data._id, muted, cc_load_policy='0', controls='0', loop='1', showinfo='0',  volume='0', autoplay='1', data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "' + _data.elements + '"}] }')
+                            else if( _data.node == "text")
+                                .custom-pd2.col-xs-12.static-pos( class=(_data.layout==6) ? "col-sm-6" : "" )
+                                    each txt, _index in _data.elements
+                                        div(class="text-parent-"+_index)
+                                            if(txt.valueHeader[lang])
+                                                h2.text-title(style="font-family:#{(_data.styles.fontFamily == 'custom') ? 'Origo' : 'fedra-book'}")=txt.valueHeader[lang]
+                                                    if(_data.asterisk == 'true')
+                                                        img(src='/img/site/asterisk.svg')
+                                            if(txt.valueMain[lang])
+                                                p.article-text(style=_data.style)=txt.valueMain[lang]
+        section.bg-portfolio-detail.footer-space
+            .container.portfolio-detail-page
+                .row
+                    .col-xs-12.col-sm-6.share-block
+                        .col-xs-12.col-sm-12.project-date
+                            p.col-xs-12.share-title=_tr.share
+                        .col-xs-12.col-sm-12
+                            .col-xs-12.social-icons
+                                i.fa.fa-facebook
+                                i.fa.fa-twitter
+                                i.fa.fa-rss
+                                i.fa.fa-google-plus
+                                i.fa.fa-pinterest-p
+
+
+
+
+
+
+        // site footer
+        include components/_footer

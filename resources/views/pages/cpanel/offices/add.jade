@@ -1,0 +1,133 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/offices.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/offices.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Add office
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                form(method="post", role='form', action="/control/admin/offices/add", enctype="multipart/form-data")
+                    .col-xs-12.col-sm-6
+                        p English
+                        .form-group
+                            label(for='name_en') Office name (end)
+                            input#name_en.form-control(name="name_en", type='text', placeholder='Name', required=true)
+                    .col-xs-12.col-sm-6
+                        p Русский
+                        .form-group
+                            label(for='name_ru') Office name (rus)
+                            input#name_ru.form-control(name="name_ru", type='text', placeholder='Название', required=true)
+                    .clearfix
+                    hr
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='main_color') Name and asterisk color (#fff)
+                            input#main_color.form-control(name="main_color", type='text', placeholder='#fff', required=true)
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label Office time zone
+                            select.form-control(name="timezone")
+                                option(value="armenia") Armenia
+                                option(value="georgia") Georgia
+                                option(value="moscow") Moscow
+                    .clearfix
+                    hr
+                    .col-xs-12.col-sm-6
+                        label Main image morning (*)
+                        .custom-input-file
+                            label.uploadPhoto
+                                | Browse image...
+                                input#main_image_morning.change-file-input(type='file', name='main_image_morning', required="required")
+                    .col-xs-12.col-sm-6
+                        label Main image night (*)
+                        .custom-input-file
+                            label.uploadPhoto
+                                | Browse image...
+                                input#main_image_night.change-file-input(type='file', name='main_image_night', required="required")
+                    .clearfix
+                    hr
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='main_video_morning') Main video(url) morning
+                            input#main_video_morning.form-control(name="main_video_morning", type='text', placeholder='https://')
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='name_ru') Main video(url) night
+                            input#main_video_night.form-control(name="main_video_night", type='text', placeholder='https://')
+                    .clearfix
+                    hr
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label Address eng
+                            textarea#address.form-control(name="address_en", rows=4, required=true)
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label Адрес rus
+                            textarea#addressru.form-control(name="address_ru", rows=4, required=true)
+                    .clearfix
+                    hr
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            div
+                                label Locations
+                            div
+                                .col-xs-6(style="padding-left: 0;")
+                                    input#lat.form-control.col-sm-6(name="lat", type='text', placeholder='lat', required=true)
+                                .col-xs-6
+                                    input#lng.form-control.col-sm-6(name="lng", type='text', placeholder='lng', required=true)
+                        .clearfix
+                        br
+                        .form-group
+                            label.full-width Main layout - Image/Video
+                                .clearfix
+                                label.radio-inline
+                                    input(type='radio', name='layout', value="image" checked)
+                                    | Image
+                                label.radio-inline
+                                    input(type='radio', name='layout', value="video")
+                                    | Video
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for="phone") Phone
+                            input#phone.form-control(name="phone", type='text', placeholder='Phone number', required=true)
+                        .form-group
+                            label(for="email") E-mail
+                            input#email.form-control(name="email", type='email', placeholder='E-mail address', required=true)
+                    .clearfix
+                    hr
+                    .col-xs-12
+                        .form-group
+                            div
+                                label Clients
+                            div#clientsControl.sortable-clients
+                            div
+                                button#addClient.btn.btn-sm.btn-warning(type="button")
+                                    i.fa.fa-plus
+                                    |   Add client
+
+                    .clearfix
+                    hr
+                    .col-xs-12.text-center
+                        button.btn.btn-success(type="submit") SAVE
+
+
+
+
+
+
+

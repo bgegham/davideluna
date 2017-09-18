@@ -1,0 +1,90 @@
+.offices-main{
+  background: $bgwhite;
+
+  #footer-block{
+    background: $bgwhite;
+  }
+  .bg-office{
+    color: $bgwhite;
+  }
+}
+
+.office-page {
+
+
+
+  margin-top: 50px;
+  margin-bottom: 120px;
+
+  .one-office{
+    margin-bottom: 20px;
+
+
+
+
+    a {
+      &:hover{
+        font-weight: 800;
+        h5{
+          font-weight: 800;
+        }
+      }
+      .image-box-offices{
+        position: relative;
+        height: 180px;
+        overflow: hidden;
+        background: #858585;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        @media only screen and (min-width : 580px) {
+          height: 160px;
+        }
+        @media only screen and (min-width : 768px) {
+          height: 180px;
+        }
+        @media only screen and (min-width : 991px) {
+          height: 225px;
+        }
+      }
+
+
+      h5{
+        text-transform: uppercase;
+        position: relative;
+        margin: 20px 0 0 10px;
+        color: $article-title-color;
+
+        svg {
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          left: -10px;
+          top: -8px;
+
+          path {
+            fill: $article-title-color;;
+          }
+        }
+      }
+      img{
+        width: 100%;
+      }
+    }
+  }
+
+
+  @media only screen and (min-width : 580px) {
+
+  }
+
+  @media only screen and (min-width : 768px) {
+    .text-title {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media only screen and (min-width : 992px) {
+
+  }
+}

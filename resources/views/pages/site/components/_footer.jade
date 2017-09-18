@@ -1,0 +1,54 @@
+footer#footer-block
+    div.footer-centered.top-border
+        .container
+            .row
+                .col-xs-12
+                    div.footer-image-info-block
+                        div.contact-info
+                            div.contact-info-row
+                                p.contact-title General Inquiries
+                                a(href='mailto:info@maeutica.com') info@maeutica.com
+                            div.contact-info-row
+                                p.contact-title Media Inquiries
+                                a(href='mailto:pr@maeutica.com') pr@maeutica.com
+                            div.contact-info-row
+                                p.contact-title Support phone
+                                if(!cCode)
+                                    a(href='tel:+37499999881') (099) 999-881
+                                if(cCode == "AM")
+                                    a(href='tel:+37499999881') (099) 999-881
+                                if(cCode == "RU")
+                                    a(href='tel:+79895195145854') +7(801) 519-51-45-54
+                                if(cCode == "GE")
+                                    a(href='tel:+4535345345') +2(201) 519-51-45-54
+                            div.contact-info-row
+                                a.privace(data-toggle="modal",data-target="#privacy") Privacy policy
+                        div.contact-links
+                            a(href="/about?lang=#{lang}")=_tr.about
+                            a(href="/services?lang=#{lang}")=_tr.services
+                            a(href="/portfolio?lang=#{lang}")=_tr.portfolio
+                            a(href="/offices?lang=#{lang}")=_tr.offices
+                            a(href="/team?lang=#{lang}")=_tr.team
+                            //a(href="/blog?lang=#{lang}")=_tr.blog
+
+                        if(footer && footer.image)
+                            .footer-image
+                                img(src='/images/'+footer.image)
+    div.footer-centered.top-border
+        .container
+            .row
+                .col-xs-12
+                    div.footer-copyright-social-links-block
+                        div.social-icons
+                            a(href='https://www.facebook.com/Maeutica' target="_blank")
+                                i.fa.fa-twitter.fa-lg
+                            a(href='https://google.ru' target="_blank")
+                                i.fa.fa-facebook-square.fa-lg
+                            a(href='https://google.ru' target="_blank")
+                                i.fa.fa-linkedin.fa-lg
+                            a(href='https://www.instagram.com/maeutica/' target="_blank")
+                                i.fa.fa-instagram.fa-lg
+                        div.copyright-text
+                            i.fa.fa-copyright
+                            span=_tr.copyright
+    include ../components/_privacy

@@ -1,0 +1,95 @@
+.aboute-main{
+  background: $bgservices;
+  #footer-block{
+    background: #fff;
+  }
+  .bg-about{
+    color: $bgservices;
+  }
+}
+
+.home-content {
+  background-color: $footer-background-color;
+
+  .text-title {
+    margin-bottom: 20px;
+  }
+
+  padding: 0;
+
+  &.pdt40{
+    padding-top: 40px;
+  }
+
+  &.pdb10{
+   padding-bottom: 10px;
+  }
+
+  .article-text {
+    line-height: 1.5;
+  }
+  .text-title {
+    margin-bottom: 10px;
+  }
+
+
+  /*==========  Mobile First Method  ==========*/
+
+  @media only screen and (min-width : 320px) {
+
+  }
+
+  @media only screen and (min-width : 480px) {
+
+  }
+
+  @media only screen and (min-width : 768px) {
+
+    padding: 0 20px;
+
+    .images-container {
+      margin-bottom: 100px
+    }
+  }
+
+  @media only screen and (min-width : 992px) {
+    .images-container {
+      margin-bottom: 130px
+    }
+  }
+
+  @media only screen and (min-width : 1200px) {
+
+  }
+}
+@media only screen and (min-width : 768px) {
+  .images-container {
+    margin-bottom: 100px
+  }
+}
+@media only screen and (min-width : 992px) {
+  .images-container {
+    margin-bottom: 130px
+  }
+}
+.mrgb20{
+  margin-bottom: 20px;
+}
+.hr-line-full{
+  transform: scale(1.5);
+  height: 1px;
+  background: $top-border-color;
+}
+.hr-line-mall{
+  height: 2px;
+  background: $top-border-color;
+}
+.small-ov-hide{
+  overflow: hidden;
+  @media only screen and (min-width : 992px) {
+    .images-container {
+      overflow: auto;
+    }
+  }
+
+}

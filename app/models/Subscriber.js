@@ -1,0 +1,3 @@
+/**
+ *   Subscribed users schema
+ **/

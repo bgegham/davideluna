@@ -1,0 +1,24 @@
+extends ../layouts/error_layout
+
+block content
+
+    // site navigation bar
+    header
+        .container
+            a.site-logo(href="/")
+                img.not-found-brand-name(src='/img/site/brand-name-black.png')
+
+    section(style="padding:0")
+        .container
+            .row
+                .col-xs-12
+                    h1.page-crush 500
+            .row
+                p.text-center.notfound-msg
+                    |   “Ooopsss”
+                    br
+                    |   Something wrong!
+                p.text-center bad die...
+            .row
+                .col-xs-12.text-center
+                    a.btn.btn-home(href="/") HOME

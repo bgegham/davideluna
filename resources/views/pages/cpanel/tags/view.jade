@@ -1,0 +1,99 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/tags.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/tags.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Tags
+            button.btn.btn-sm.btn-success.pull-right(title="Add", data-toggle="modal", data-target="#addTag")
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.sortPriority(title="Sort", class=(!tags.length) ? 'disabled' : '')
+                i.fa.fa-arrows
+                |   Sort tags
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save tags priority
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                .col-xs-12.sortable
+                    if(!tags.length)
+                        h1.text-center Add the first tag
+                    else
+                        each item in tags
+                            .col-xs-6.col-sm-4.col-md-2.item-sort(data-priority=item._id)
+                                .tags
+                                    i.pull-right.fa.fa-trash.removeTag(title="Remove", data-remove=item._id)
+                                    i.pull-right.fa.fa-edit(title="Edit", data-toggle="modal", data-target="#" + "_m" + item._id)
+                                    span #{item.name.en}
+                            .tad-edit
+                                form(method="post",role='form', action="/control/admin/tags/edit/" + item._id)
+                                    .modal.fade(role='dialog', id="_m" + item._id)
+                                        .modal-dialog.modal-lg
+                                            // Modal content
+                                            .modal-content
+                                                .modal-header
+                                                    button.close(type='button', data-dismiss='modal')
+                                                        i.fa.fa-remove
+                                                    h4.modal-title Edit tag
+                                                .modal-body
+                                                    .row
+                                                        .col-xs-12.col-sm-6
+                                                            p English
+                                                            .form-group
+                                                                label.full-width Full name
+                                                                    input.form-control(name="name_en",type='text', placeholder='Full name (eng)',required=true, value=item.name.en)
+                                                        .col-xs-12.col-sm-6
+                                                            p Русский
+                                                            .form-group
+                                                                label.full-width Full name
+                                                                    input.form-control(name="name_ru",type='text', placeholder='Full name (rus)',required=true, value=item.name.ru)
+                                                .modal-footer
+                                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                                    button.btn.btn-success(type='submit') Update
+            .tag-edit
+                form(method="post",role='form', action="/control/admin/tags/add")
+                    #addTag.modal.fade(role='dialog')
+                        .modal-dialog
+                            // Modal content
+                            .modal-content
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal')
+                                        i.fa.fa-remove
+                                    h4.modal-title Add new tag
+                                .modal-body
+                                    .row
+                                        .col-xs-12.col-sm-6
+                                            p English
+                                            .form-group
+                                                label.full-width Tag name
+                                                    input.form-control(name="name_en",type='text', placeholder='name (eng)',required=true)
+                                        .col-xs-12.col-sm-6
+                                            p Русский
+                                            .form-group
+                                                label.full-width Tag name
+                                                    input.form-control(name="name_ru",type='text', placeholder='name (rus)',required=true)
+                                .modal-footer
+                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                    button.btn.btn-success(type='submit') Save
+
+
+
+    footer.footer
+        span.pull-right
+            | Powered by
+            a(href='https://www.linkedin.com/in/g-barseghyan/')  Gegham Barseghyan

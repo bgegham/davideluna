@@ -1,0 +1,19 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name(style="padding-top:16px;padding-bottom:16px")
+            span &nbsp;&nbsp;&nbsp;&nbsp
+        #page-content-wrapper
+            .row
+                .col-xs-12.text-center
+                    br
+                    h1.text-center Hello my beloved administrator. I missed you!!!
+                    br
+                    img(src="/img/cpanel/beloved1.png" style="width:auto;height: 350px")

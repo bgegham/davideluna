@@ -1,0 +1,62 @@
+div.header-nav-slider-block
+    div.nav-slider-container(class=(fixHeader) ? "top-fix" : "")
+        div.brand-name-block
+            a.site-logo(href="/?lang=#{lang}")
+                img.white-brand-name(src='/img/site/brand-name-white.png')
+                img.black-brand-name(src='/img/site/brand-name-black.png')
+        nav.page-navigation.clearfix
+            ul.navigation-items
+                li
+                    a(href="/about?lang=#{lang}", class=(page == 'home') ? "active-nav" : "")=_tr.about
+                        if(page == 'home')
+                            img(src='/img/site/asterisk.svg')
+                li
+                    a(href="/services?lang=#{lang}" class=(page == 'services') ? "active-nav" : "")=_tr.services
+                        if(page == 'services')
+                            img(src='/img/site/asterisk.svg')
+                li
+                    a(href="/portfolio?lang=#{lang}" class=(page == 'portfolio') ? "active-nav" : "")=_tr.portfolio
+                        if(page == 'portfolio')
+                            img(src='/img/site/asterisk.svg')
+                li
+                    a(href="/offices?lang=#{lang}" class=(page == 'offices') ? "active-nav" : "")=_tr.offices
+                        if(page == 'offices')
+                            img(src='/img/site/asterisk.svg')
+                li
+                    a(href="/team?lang=#{lang}" class=(page == 'team') ? "active-nav" : "")=_tr.team
+                        if(page == 'team')
+                            img(src='/img/site/asterisk.svg')
+                //li
+                //    a(href="/blog?lang=#{lang}" class=(page == 'blog') ? "active-nav" : "")=_tr.blog
+                //        if(page == 'blog')
+                //            img(src='/img/site/asterisk.svg')
+                li
+                    a.language.en(data-lang="en") en
+                    a.language.ru(data-lang="ru") ру
+nav
+    ul.cd-primary-nav
+        li
+            a(href="/about?lang=#{lang}", class="active-nav")=_tr.about
+        li
+            a(href="/services?lang=#{lang}")=_tr.services
+        li
+            a(href="/portfolio?lang=#{lang}")=_tr.portfolio
+        li
+            a(href="/offices?lang=#{lang}")=_tr.offices
+        li
+            a(href="/team?lang=#{lang}")=_tr.team
+        //li
+        //    a(href="/blog?lang=#{lang}")=_tr.blog
+        li
+            a.language.en(data-lang="en") en
+            a.language.ru(data-lang="ru") ру
+.cd-overlay-nav
+    span
+.cd-overlay-content
+    span
+span.cd-nav-trigger#nav-hamburger(class=(fixHeader) ? "top-black" : "")
+    | Menu
+    span
+    span
+    span
+    span

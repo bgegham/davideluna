@@ -1,0 +1,146 @@
+.portfolio-detail-main{
+  margin-top: 72px;
+
+  .bg-portfolio-detail{
+    background: $bgwhite;
+  }
+
+  .footer-space{
+    background: $bgwhite;
+    padding-bottom: 110px;
+
+    @media only screen and (min-width : 768px) {
+      padding-bottom: 80px;
+    }
+  }
+
+  #footer-block{
+    background: $bgwhite;
+  }
+
+  @media only screen and (min-width : 580px) {
+    margin-top: 95px;
+  }
+
+  .prt-name{
+    padding-top: 50px;
+    font-weight: normal;
+    font-family: Origo;
+    text-align: center;
+    font-size: 6rem;
+    color: $prtText;
+
+    svg {
+      position: absolute;
+      height: 80px;
+      top: 15px;
+      width: 45px;
+      margin-left: 10px;
+      path {
+        fill: $prtText;
+      }
+    }
+  }
+  .prt-tags{
+    font-size: 16px;
+    color: $prtText;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .prt-image{
+    width: 100%;
+    height: auto;
+  }
+  .custom-pd{
+    padding: 15px!important;
+  }
+  .custom-pd2{
+    padding: 20px!important;
+  }
+  .no-padding-prt{
+    padding-top : 10px;
+    padding-right: 30px!important;
+    padding-left: 30px!important;
+    .row{
+      .custom-pd{
+        padding: 0!important;
+      }
+    }
+  }
+  .content-section{
+    margin-bottom: 30px;
+  }
+  h2.text-title {
+    padding-bottom: 15px;
+    font-weight: bold;
+    svg {
+      width: 20px;
+      height: 20px;
+      left: -15px;
+      top: -8px;
+    }
+  }
+  p.article-text{
+    font-size: 15px;
+    padding-bottom: 20px;
+  }
+  .text-justify{
+    text-align: justify;
+  }
+  .relative{
+    position: relative;
+  }
+  .static-pos{
+    position: static;
+  }
+  .text-parent-0{
+    position: relative;
+  }
+  .text-parent-1{
+    position: absolute;
+    top: 50%;
+  }
+  .text-parent-2{
+    position: absolute;
+    bottom: 0;
+  }
+
+}
+.share-block {
+  padding: 0 0 20px 0;
+
+  .social-icons {
+    float: left;
+
+    i {
+      color: $share-social-icons-color;
+      background-color: $share-social-icons-bkg-color;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 28px;
+      cursor: pointer;
+      margin-right: 10px;
+      font-size: 16px;
+    }
+  }
+
+  .project-date {
+    float: left;
+  }
+
+  .share-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: $share-block-color;
+  }
+
+  .complete-date {
+    font-size: 12px;
+    color: $share-block-date-color;
+    text-transform: capitalize;
+    margin: 0 20px 20px 0;
+  }
+}

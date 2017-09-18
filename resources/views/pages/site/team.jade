@@ -1,0 +1,38 @@
+extends ../../layouts/index_layout
+
+block specific_css
+
+block specific_js
+
+block content
+
+    // site navigation bar
+    include components/_navigation
+    // mega full header bock
+    include components/_secondary_mega_nav
+
+    main.team-main
+        section.scroll-from-header.bg-team
+            .container
+                each item in team
+                    .col-xs-12.col-sm-6
+                        .team-member
+                            if(item.layout == "image")
+                                .team-image
+                                    img(src="/images/" + item.avatar)
+                                    div.asterisk
+                                        img(fill=item.color, width='65px', height='65px')(src='/img/site/asterisk.svg')
+                            .team-content
+                                div.name-asterisk
+                                    img(fill=item.color, width='18px', height='18px')(src='/img/site/asterisk.svg')
+                                h2(style='color: ' + item.color).member-name=item.name[lang]
+                                i(style='color: ' + item.color).fa.fa-angle-up.open-team-desc(title="Open info")
+                            .team-reveal
+                                i(style='color: ' + item.color).fa.fa-angle-down.close-team-desc(title="Open info")
+                                div.name-asterisk
+                                    img(fill=item.color, width='18px', height='18px')(src='/img/site/asterisk.svg')
+                                h2(style='color: ' + item.color).member-name=item.name[lang]
+                                p #{item.info.en}
+
+        // site footer
+        include components/_footer

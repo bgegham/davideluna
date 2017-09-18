@@ -1,0 +1,27 @@
+extends ../layouts/error_layout
+
+block content
+
+    // site navigation bar
+    header
+        .container
+            a.site-logo(href="/")
+                img.not-found-brand-name(src='/img/site/brand-name-black.png')
+
+    section(style="padding:0")
+        .container
+            .row
+                .col-xs-12
+                    h1.page-not-found 404
+            .row
+                .col-xs-12.text-center
+                    img.img-404( src="/img/site/404.png" alt="404")
+                p.text-center.notfound-msg
+                    |   “Alice asked the Cheshire Cat, who was sitting in a tree, “What road do I take?”
+                    br
+                    |   The cat asked, “Where do you want to go?”
+                p.text-center We couldn't find the page you are looking for. Try this instead.
+            .row
+                .col-xs-12.text-center
+                    a.btn.btn-home(href="/") HOME
+                    p.not-f-footer.text-center © Alice in the wonderland

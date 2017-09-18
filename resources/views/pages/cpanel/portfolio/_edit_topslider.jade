@@ -1,0 +1,62 @@
+if(!oldVal.topSlider || oldVal.topSlider.length == 0)
+    h1.text-center Add the first item on slider
+else
+    each item in oldVal.topSlider
+        div.banners-sort(data-priority=item._id)
+            div.actions-control
+                a.pull-right.fa.fa-edit(title="Edit", data-toggle="modal", data-target="#"+"_mtps"+item._id)
+                a.pull-right.fa.fa-trash.removeSliderItem(title="Remove", data-remove=item._id)
+            .col-xs-6.banner-image
+                if(item.layout == "image")
+                    img(src="/images/" + item.image)
+                else
+                    iframe(type="text/html"
+                    id="_video#{item._id}"
+                    style="height:100%;width:100%"
+                    src="https://www.youtube.com/embed/V_7oMPXChXU?controls=0&showinfo=0&rel=0&autoplay=0&loop=1"
+                    frameborder="0")
+            .slider-edit-modal
+                form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/portfolio/edit/topsleder/#{oldVal._id}")
+                    .modal.fade(role='dialog', id="_mtps" + item._id)
+                        .modal-dialog.modal-lg
+                            // Modal content
+                            .modal-content
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal')
+                                        i.fa.fa-remove
+                                    h4.modal-title Edit top slider
+                                .modal-body
+                                    .row
+                                        .col-xs-12
+                                            .custom-input-file.tpedit(style="background-image:url(/images/" + item.image + ")")
+                                                label.uploadPhoto
+                                                    | Edit
+                                                    input.imageview_etp.change-avatar(type='file', name='image_t')
+                                            div
+                                                label Size : (1920x750)px
+                                        .col-xs-12
+                                            label(style='margin-top: 25px') Video url (youtube)
+                                            input#videourlTPEDIT.form-control(placeholder="https://", type="text", name="video", value=item.video)
+                                        .col-xs-12
+                                            .form-group
+                                                if (item.layout == 'image')
+                                                    label.radio-inline
+                                                        input.speditLay(type='radio', name='layout', value="image", checked)
+                                                        | Image
+                                                    label.radio-inline
+                                                        input.speditLay(type='radio', name='layout', value="video")
+                                                        | Video
+                                                else
+                                                    label.radio-inline
+                                                        input.speditLay(type='radio', name='layout', value="image")
+                                                        | Image
+                                                    label.radio-inline
+                                                        input.speditLay(type='radio', name='layout', value="video", checked)
+                                                        | Video
+                                .modal-footer
+                                    input(type="hidden" name="sliderID" value=item._id)
+                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                    button.btn.btn-success(type='submit') Update
+
+
+

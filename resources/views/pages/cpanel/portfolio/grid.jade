@@ -1,0 +1,72 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/libs/gridster/dist/jquery.gridster.min.css')
+    link(rel='stylesheet', href='/css/cpanel/portfolio.css')
+
+block specific_js
+    script(type="text/javascript", src='/libs/gridster/dist/jquery.gridster.min.js')
+    script(type="text/javascript", src='/js/cpanel/gridster-bootstrap.min.js')
+    script(type="text/javascript", src='/libs/underscore/underscore.js')
+    script(type="text/javascript", src='/js/cpanel/portfolio.js')
+    script.
+        var gridster = null;
+        $(document).ready(function () {
+            var test = $(".gridster").outerWidth();
+            gridster = $(".gridster ul").gridster({
+                widget_base_dimensions: [test/4-25, test/4-25],
+                autogenerate_stylesheet: true,
+                min_cols: 1,
+                max_cols: 12,
+                widget_margins: [20, 20],
+                resize: {
+                    enabled: true
+                }
+            }).data('gridster');
+            $('.gridster  ul').css({'padding': '0'});
+
+        });
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Portfolio
+            a.btn.btn-sm.btn-success.pull-right(title="Add" href="/control/admin/portfolio/add")
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save works priority
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                if(!portfolio.length)
+                    h1.text-center Add the first work in portfolio
+                else
+                    .sortable
+                        .gridster.ready
+                            ul
+                                each item in portfolio
+                                    li(
+                                        data-priority=item._id
+                                        data-sizey=item.data_sizey
+                                        data-sizex=item.data_sizex
+                                        data-col=item.data_col
+                                        data-row=item.data_row)
+                                        .gridster-box( style=(item.coverImage) ? "background-image:url(/images/" + item.coverImage + ")" : "background-image:url('/img/cpanel/pictureDefault.png')")
+                                            if (item.isPublished)
+                                                a.sec.pull-right.fa.fa-eye-slash.unpublishPortfolio(title="Unpublish", data-unpublish=item._id)
+                                            else
+                                                a.sec.pull-right.fa.fa-eye.publishPortfolio(title="Publish", data-publish=item._id)
+                                            a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/portfolio/edit?section=general&id=#{item._id}")
+                                            p.badge= item.name.en
+                                            .handle-resize
+

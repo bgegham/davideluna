@@ -1,0 +1,88 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/headers.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/headers.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Add header banner
+            a.btn.btn-sm.btn-success.pull-right(title="back" onclick="window.history.back();")
+                i.fa.fa-arrow-left
+                |   Back
+
+        #page-content-wrapper.add-flow
+            form(method="post",role='form', action="/control/admin/headers/add?page="+tab, enctype="multipart/form-data")
+                .row
+                    .col-xs-12
+                        .custom-input-file
+                            label.uploadPhoto
+                                | Edit
+                                input#imageview.change-avatar(type='file', name='image', required="required")
+                        div
+                            label Size : (1920x750)px
+                    .col-xs-12
+                        label(style='margin-top: 25px') Video url (youtube)
+                        input#videourl.form-control(placeholder="https://",type="text",name="video")
+                    .col-xs-12
+                        .form-group
+                            label.full-width Main layout - Image/Video
+                                .clearfix
+                                label.radio-inline
+                                    input(type='radio', name='layout', value="image" checked)
+                                    | Image
+                                label.radio-inline
+                                    input(type='radio', name='layout', value="video")
+                                    | Video
+                    .col-xs-12
+                        label(style='margin-top: 25px')
+                            input(type='checkbox', name='portfolioItem', value="true")
+                            |   Link to portfolio item
+                    .col-xs-12#portfolidBlock
+                        label(style='margin-top: 25px') Link to portfolio (select by name)
+                        select.form-control(name="portfolio_url" )
+                            each work in portfolio
+                                option(value=work.uniqueName)= work.name.en
+                .row
+                    .col-xs-12.top-25
+                        button.btn.btn3d.btn-success.pull-right(type='submit') Add
+                        button.btn.btn3d.btn-default.pull-right(type='reset', style="margin-right:15px;") Reset
+
+            script.
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('.custom-input-file').css('background-image', 'url(' + e.target.result + ')');
+                        };
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                $("#imageview").change(function () {
+                    readURL(this);
+                });
+                $("input[name='layout']").bind("click", function () {
+                   if($(this).val() == "image"){
+                       $("#imageview").attr("required", "required");
+                       $("#videourl").removeAttr("required");
+                   } else {
+                        $("#imageview").removeAttr("required");
+                        $("#videourl").attr("required", "required");
+                   }
+                });
+                $("#portfolidBlock").hide();
+
+                $("input[name='portfolioItem']").on("change", function () {
+                    if ( $(this).prop("checked") ){
+                        $("#portfolidBlock").show();
+                    }   else {
+                        $("#portfolidBlock").hide();
+                    }
+                });

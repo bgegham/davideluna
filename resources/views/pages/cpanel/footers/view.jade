@@ -1,0 +1,104 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/footers.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/footers.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Footer settings
+            if (!footers)
+                a.btn.btn-sm.btn-success.pull-right(title="Add", data-toggle="modal", data-target="#addFooter")
+                    i.fa.fa-plus
+                    |   Add
+            else
+                a.btn.btn-sm.btn-success.pull-right(title="Edit", data-toggle="modal", data-target="#editModal")
+                    i.fa.fa-pencil
+                    |   Edit
+
+        #page-content-wrapper.tab-flow
+            .row.no-margin
+                ul.nav.nav-tabs
+                    li( class=(tab == 'landing') ? "active" : null )
+                        a(href="/control/admin/footers?page=landing") Landing
+                    li( class=(tab == 'home') ? "active" : null )
+                        a(href="/control/admin/footers?page=home") About
+                    li( class=(tab == 'portfolio') ? "active" : null )
+                        a(href="/control/admin/footers?page=portfolio") Portfolio
+                    li( class=(tab == 'offices') ? "active" : null )
+                        a(href="/control/admin/footers?page=offices") Offices
+                    li( class=(tab == 'services') ? "active" : null )
+                        a(href="/control/admin/footers?page=services") Services
+                    li( class=(tab == 'team') ? "active" : null )
+                        a(href="/control/admin/footers?page=team") Team
+            .pad-20(style="padding-top: 20px;padding-bottom: 0;")
+                .alert-control(style='display: none;')
+                    .alert
+                        a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                        strong
+            .row.pad-20.sortable.no-margin(style="padding-top:0")
+                if(!footers)
+                    h1.text-center Add the image
+                    .tab-add
+                        form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/footers/add?page="+tab)
+                            #addFooter.modal.fade(role='dialog')
+                                .modal-dialog.modal-md
+                                    // Modal content
+                                    .modal-content
+                                        .modal-header
+                                            button.close(type='button', data-dismiss='modal')
+                                                i.fa.fa-remove
+                                            h4.modal-title Add footer image
+                                        .modal-body
+                                            .row
+                                                .col-xs-12
+                                                    .form-group
+                                                        label.no-margin Image
+                                                        .input-group
+                                                            span.input-group-btn
+                                                                span.btn.btn-default.btn-file
+                                                                    | Browse&mldr;
+                                                                    input.inputFile(name="image",type='file', data-preview="prNew")
+                                                            input.form-control(type='text', readonly='')
+                                                        p.help-block Select image in (450 x 350)px size.
+                                                        img.img-upload(style="height: 250px;", id="prNew")
+                                        .modal-footer
+                                            button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                            button.btn.btn-success(type='submit') Save
+                else
+                    .col-xs-12.text-center
+                        img(src="/images/#{footers.image}", title="footer image" style="height: 400px;")
+                   .tab-edit
+                        form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/footers/edit/" + footers._id)
+                            #editModal.modal.fade(role='dialog')
+                                .modal-dialog.modal-md
+                                    // Modal content
+                                    .modal-content
+                                        .modal-header
+                                            button.close(type='button', data-dismiss='modal')
+                                                i.fa.fa-remove
+                                            h4.modal-title Edit footer image
+                                        .modal-body
+                                            .row
+                                                .col-xs-12
+                                                    .form-group
+                                                        label.no-margin Image
+                                                        .input-group
+                                                            span.input-group-btn
+                                                                span.btn.btn-default.btn-file
+                                                                    | Browse&mldr;
+                                                                    input.inputFile(name="image",type='file', data-preview="_pr" + footers._id)
+                                                            input.form-control(type='text', readonly='')
+                                                        p.help-block Select image in (450 x 350)px size.
+                                                        img.img-upload(style="height: 250px;", src="/images/#{footers.image}", id="_pr" + footers._id)
+                                        .modal-footer
+                                            button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                            button.btn.btn-success(type='submit') Update
+

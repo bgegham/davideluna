@@ -1,0 +1,17 @@
+section.cd-hero
+    ul.cd-hero-slider.small-slider
+        each item, i in header
+            if(item.layout == 'image')
+                li(style="background:url(/images/"+item.image+")" class=(i==0) ? "selected" : "")
+                    .cd-full-width
+            else if(item.layout == 'video')
+                li.cd-bg-video(style="background:url(/images/"+item.image+")" class=(i==0) ? "selected" : "")
+                    .cd-full-width.hide-on-touch
+                    .cd-bg-video-wrapper(data-video='assets/video/video')
+                        video.video-js.vjs-default-skin(id=item._id, muted, cc_load_policy='0', controls='0', modestbranding='1', loop='1', showinfo='0', enablejsapi='1', disablekb='0', volume='0', autoplay='1', width='1351', height='690', data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "'+item.video+'"}] }')
+    if(header.length > 1)
+        div#cycle-prev(style='color:#fff')
+            img(src='/img/site/cd-icon-arrows-left.svg')
+
+        div#cycle-next(style='color:#fff')
+            img(src='/img/site/cd-icon-arrows-right.svg')

@@ -1,0 +1,54 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/offices.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/offices.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Offices
+            a.btn.btn-sm.btn-success.pull-right(title="Add" href="/control/admin/offices/add")
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.sortPriority(title="Sort", class=(!offices.length) ? 'disabled' : '')
+                i.fa.fa-arrows
+                |   Sort offices
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save offices priority
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row.sortable
+                if(!offices.length)
+                    h1.text-center Add the first office
+                else
+                    each item in offices
+                        .col-xs-12.col-sm-4
+                            if(item.layout == "image")
+                                .office-item.office-sort(data-priority=item._id, style="background-image:url(/images/" + item.main_image_morning + ")")
+                                    div
+                                        a.pull-right.fa.fa-trash.removeOffice(title="Remove", data-remove=item._id)
+                                        a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/offices/edit/#{item._id}")
+                                        span(style="color: #{item.main_color}") #{item.name.en}
+                            else
+                                .office-item.office-sort(data-priority=item._id)
+                                    iframe(type="text/html"
+                                    id="_video#{item._id}"
+                                    style="height:100%;width:100%"
+                                    src="https://www.youtube.com/embed/V_7oMPXChXU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1"
+                                    frameborder="0")
+                                    div
+                                        a.pull-right.fa.fa-trash.removeOffice(title="Remove", data-remove=item._id)
+                                        a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/offices/edit/#{item._id}")
+                                        span(style="color: #{item.main_color}") #{item.name.en}

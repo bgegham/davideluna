@@ -1,0 +1,82 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/portfolio.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/portfolio.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Portfolio
+            a.btn.btn-sm.btn-success.pull-right(title="Add" href="/control/admin/portfolio/add")
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.sortPriority(title="Sort", class=(!portfolio.length) ? 'disabled' : '')
+                i.fa.fa-arrows
+                |   Sort works
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save works priority
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                if(!portfolio.length)
+                    h1.text-center Add the first work in portfolio
+                else
+                    .sortable
+                        each item in portfolio
+                            .col-xs-12.col-sm-4.item-sort(data-priority=item._id, style="position:relative")
+                                .portfolio-item
+                                    div.portlet-header(class=(!item.isPublished ? 'unpublish-style' : ''))
+                                        if (item.isPublished)
+                                            a.sec.pull-right.fa.fa-eye-slash.unpublishPortfolio(title="Unpublish", data-unpublish=item._id)
+                                        else
+                                            a.sec.pull-right.fa.fa-eye.publishPortfolio(title="Publish", data-publish=item._id)
+                                        a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/portfolio/edit?section=general&id=#{item._id}")
+                                        span.badge= item.name.en
+                                    if(item.coverImage)
+                                        div.info(style="background-image:url(/images/" + item.coverImage + ")")
+                                    else
+                                        div.info(style="background-image:url('/img/cpanel/pictureDefault.png')")
+                    .col-xs-12.col-sm-6
+                        each moreInfo in portfolio
+                            .portfolio-more-control(id="more_#{moreInfo._id}")
+                                div
+                                    label Share image:
+                                    if(moreInfo.shareImage)
+                                        img(style="height: 200px;", src="/images/#{moreInfo.shareImage}")
+                                    else
+                                        span.badge.not-sel Not selected
+                                div
+                                    label Unique name:
+                                    if(moreInfo.uniqueName)
+                                        span.badge=moreInfo.uniqueName
+                                    else
+                                        span.badge.not-sel Not selected
+                                div
+                                    label Subscribed tags:
+                                    if(!moreInfo.tags.length)
+                                        span.badge.not-sel Not selected
+                                    else
+                                        each itemTag in moreInfo.tags
+                                            span.badge=itemTag.name.en
+                                div
+                                    label Date of create:
+                                    if(moreInfo.dateOfCreate)
+                                        span.badge=moreInfo.dateOfCreate
+                                    else
+                                        span.badge.not-sel Not selected
+
+
+
+

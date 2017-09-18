@@ -1,0 +1,209 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/team.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/team.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Team
+            button.btn.btn-sm.btn-success.pull-right(title="Add", data-toggle="modal", data-target="#addMember")
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.sortPriority(title="Sort", class=(!team.length) ? 'disabled' : '')
+                i.fa.fa-arrows
+                |   Sort members
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save members priority
+
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                .col-xs-12.sortable
+                    if(!team.length)
+                        h1.text-center Add the first member of the team
+                    else
+                        each item in team
+                            .col-xs-12.col-md-6.team-sort(data-priority=item._id)
+                                .team-member
+                                    if(item.layout == "video")
+                                        iframe(type="text/html"
+                                        id="_video#{item._id}"
+                                        src="https://www.youtube.com/embed/V_7oMPXChXU?controls=0&showinfo=0&rel=0&autoplay=1&loop=1"
+                                        frameborder="0")
+                                    else
+                                        .team-image(style="background-image:url(/images/"+item.avatar+")")
+                                    .team-content
+                                        span.team-title.activator.grey-text.text-darken-4
+                                            | #{item.name.en}
+                                            i.pull-right.fa.fa-trash.removeMember(title="Remove", data-remove=item._id)
+                                            i.pull-right.fa.fa-ellipsis-v.open-team-desc(title="Open info" )
+                                            i.pull-right.fa.fa-edit(title="Edit", data-toggle="modal", data-target="#"+"_m"+item._id)
+                                    .team-reveal
+                                        span.team-title
+                                            i.pull-right.fa.fa-ellipsis-v.close-team-desc
+                                        label Info
+                                        p #{item.info.en}
+                                        .clearfix
+                                        label Color
+                                        span.color-item(style="background:"+item.color)
+                                    .team-edit
+                                        form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/team/edit/"+item._id)
+                                            .modal.fade(role='dialog', id="_m"+item._id)
+                                                .modal-dialog.modal-lg
+                                                    // Modal content
+                                                    .modal-content
+                                                        .modal-header
+                                                            button.close(type='button', data-dismiss='modal')
+                                                                i.fa.fa-remove
+                                                            h4.modal-title Edit team member
+                                                        .modal-body
+                                                            .row
+                                                                .col-xs-12.col-sm-6
+                                                                    p English
+                                                                    .form-group
+                                                                        label.full-width Full name
+                                                                            input.form-control(name="name_en",type='text', placeholder='Full name (eng)',required=true, value=item.name.en)
+                                                                    .form-group
+                                                                        label.full-width Biography
+                                                                            textarea.form-control(name="biography_en", placeholder='Biography (eng)',required=true, rows="4")
+                                                                                | #{item.info.en}
+                                                                .col-xs-12.col-sm-6
+                                                                    p Русский
+                                                                    .form-group
+                                                                        label.full-width Full name
+                                                                            input.form-control(name="name_ru",type='text', placeholder='Full name (rus)',required=true, value=item.name.ru)
+                                                                    .form-group
+                                                                        label.full-width Biography
+                                                                            textarea.form-control(name="biography_ru", placeholder='Biography (rus)',required=true rows="4")
+                                                                                | #{item.info.ru}
+                                                                .col-xs-12
+                                                                    hr
+                                                                .clearfix
+                                                                .col-xs-12.col-sm-6
+                                                                    .form-group
+                                                                        label.no-margin Avatar
+                                                                        .input-group
+                                                                            span.input-group-btn
+                                                                                span.btn.btn-default.btn-file
+                                                                                    | Browse&mldr;
+                                                                                    input.inputFile(name="avatar",type='file', data-preview="_pr"+item._id)
+                                                                            input.form-control(type='text', readonly='')
+                                                                        if errors && errors.image
+                                                                            p.text-error= errors.image
+                                                                        p.help-block Select avatar image in (640 x 750) px size.
+                                                                        img.img-upload(style="height: 100px;", src="/images/#{item.avatar}", id="_pr"+item._id)
+                                                                .col-xs-12.col-sm-6
+                                                                    .form-group
+                                                                        label.full-width Video url (youtube.com)
+                                                                            input.form-control(name="video",type='text', placeholder='https://', value=item.video)
+                                                                    .form-group
+                                                                        label.full-width Color (#f9d533)
+                                                                            input.form-control(name="color", type='text', placeholder='hex code', value=item.color)
+                                                                    .form-group
+                                                                        label.full-width Image/Video
+                                                                            .clearfix
+                                                                            if (item.layout == 'image')
+                                                                                label.radio-inline
+                                                                                    input(type='radio', name='layout', value="image", checked)
+                                                                                    | Image
+                                                                                label.radio-inline
+                                                                                    input(type='radio', name='layout', value="video")
+                                                                                    | Video
+                                                                            else
+                                                                                label.radio-inline
+                                                                                    input(type='radio', name='layout', value="image")
+                                                                                    | Image
+                                                                                label.radio-inline
+                                                                                    input(type='radio', name='layout', value="video", checked)
+                                                                                    | Video
+
+                                                        .modal-footer
+                                                            button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                                            button.btn.btn-success(type='submit') Update
+            .team-edit
+                form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/team/add")
+                    #addMember.modal.fade(role='dialog')
+                        .modal-dialog.modal-lg
+                            // Modal content
+                            .modal-content
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal')
+                                        i.fa.fa-remove
+                                    h4.modal-title Add team member
+                                .modal-body
+                                    .row
+                                        .col-xs-12.col-sm-6
+                                            p English
+                                            .form-group
+                                                label.full-width Full name
+                                                    input.form-control(name="name_en",type='text', placeholder='Full name (eng)',required=true)
+                                            .form-group
+                                                label.full-width Biography
+                                                    textarea.form-control(name="biography_en", placeholder='Biography (eng)',required=true, rows="4")
+                                        .col-xs-12.col-sm-6
+                                            p Русский
+                                            .form-group
+                                                label.full-width Full name
+                                                    input.form-control(name="name_ru",type='text', placeholder='Full name (rus)',required=true)
+                                            .form-group
+                                                label.full-width Biography
+                                                    textarea.form-control(name="biography_ru", placeholder='Biography (rus)',required=true rows="4")
+                                        .col-xs-12
+                                            hr
+                                        .clearfix
+                                        .col-xs-12.col-sm-6
+                                            .form-group
+                                                label.no-margin Avatar
+                                                .input-group
+                                                    span.input-group-btn
+                                                        span.btn.btn-default.btn-file
+                                                            | Browse&mldr;
+                                                            input.inputFile(name="avatar",type='file',required=true, data-preview="prNew")
+                                                    input.form-control(type='text', readonly='')
+                                                if errors && errors.image
+                                                    p.text-error= errors.image
+                                                p.help-block Select avatar image in (640 x 750) px size.
+                                                img.img-upload(style="height: 100px;", id="prNew")
+                                        .col-xs-12.col-sm-6
+                                            .form-group
+                                                label.full-width Video url (youtube.com)
+                                                    input.form-control(name="video",type='text', placeholder='https://')
+                                            .form-group
+                                                label.full-width Color (#f9d533)
+                                                    input.form-control(name="color", type='text', placeholder='hex code')
+                                            .form-group
+                                                label.full-width Image/Video
+                                                    .clearfix
+                                                    label.radio-inline
+                                                        input(type='radio', name='layout', value="image")
+                                                        | Image
+                                                    label.radio-inline
+                                                        input(type='radio', name='layout', value="video")
+                                                        | Video
+
+                                .modal-footer
+                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                    button.btn.btn-success(type='submit') Save
+
+
+
+
+
+
+    footer.footer
+        span.pull-right
+            | Powered by
+            a(href='https://www.linkedin.com/in/g-barseghyan/')  Gegham Barseghyan

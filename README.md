@@ -1,2 +1,20 @@
-# davideluna
-web page
+                                                                                                                                                                                                    
+                                                                                                                                                                                                    
+ MMMMMMMM               MMMMMMMM               AAA               EEEEEEEEEEEEEEEEEEEEEEUUUUUUUU     UUUUUUUUTTTTTTTTTTTTTTTTTTTTTTTIIIIIIIIII        CCCCCCCCCCCCC               AAA                
+ M:::::::M             M:::::::M              A:::A              E::::::::::::::::::::EU::::::U     U::::::UT:::::::::::::::::::::TI::::::::I     CCC::::::::::::C              A:::A               
+ M::::::::M           M::::::::M             A:::::A             E::::::::::::::::::::EU::::::U     U::::::UT:::::::::::::::::::::TI::::::::I   CC:::::::::::::::C             A:::::A              
+ M:::::::::M         M:::::::::M            A:::::::A            EE::::::EEEEEEEEE::::EUU:::::U     U:::::UUT:::::TT:::::::TT:::::TII::::::II  C:::::CCCCCCCC::::C            A:::::::A             
+ M::::::::::M       M::::::::::M           A:::::::::A             E:::::E       EEEEEE U:::::U     U:::::U TTTTTT  T:::::T  TTTTTT  I::::I   C:::::C       CCCCCC           A:::::::::A            
+ M:::::::::::M     M:::::::::::M          A:::::A:::::A            E:::::E              U:::::D     D:::::U         T:::::T          I::::I  C:::::C                        A:::::A:::::A           
+ M:::::::M::::M   M::::M:::::::M         A:::::A A:::::A           E::::::EEEEEEEEEE    U:::::D     D:::::U         T:::::T          I::::I  C:::::C                       A:::::A A:::::A          
+ M::::::M M::::M M::::M M::::::M        A:::::A   A:::::A          E:::::::::::::::E    U:::::D     D:::::U         T:::::T          I::::I  C:::::C                      A:::::A   A:::::A         
+ M::::::M  M::::M::::M  M::::::M       A:::::A     A:::::A         E:::::::::::::::E    U:::::D     D:::::U         T:::::T          I::::I  C:::::C                     A:::::A     A:::::A        
+ M::::::M   M:::::::M   M::::::M      A:::::AAAAAAAAA:::::A        E::::::EEEEEEEEEE    U:::::D     D:::::U         T:::::T          I::::I  C:::::C                    A:::::AAAAAAAAA:::::A       
+ M::::::M    M:::::M    M::::::M     A:::::::::::::::::::::A       E:::::E              U:::::D     D:::::U         T:::::T          I::::I  C:::::C                   A:::::::::::::::::::::A      
+ M::::::M     MMMMM     M::::::M    A:::::AAAAAAAAAAAAA:::::A      E:::::E       EEEEEE U::::::U   U::::::U         T:::::T          I::::I   C:::::C       CCCCCC    A:::::AAAAAAAAAAAAA:::::A     
+ M::::::M               M::::::M   A:::::A             A:::::A   EE::::::EEEEEEEE:::::E U:::::::UUU:::::::U       TT:::::::TT      II::::::II  C:::::CCCCCCCC::::C   A:::::A             A:::::A    
+ M::::::M               M::::::M  A:::::A               A:::::A  E::::::::::::::::::::E  UU:::::::::::::UU        T:::::::::T      I::::::::I   CC:::::::::::::::C  A:::::A               A:::::A   
+ M::::::M               M::::::M A:::::A                 A:::::A E::::::::::::::::::::E    UU:::::::::UU          T:::::::::T      I::::::::I     CCC::::::::::::C A:::::A                 A:::::A  
+ MMMMMMMM               MMMMMMMMAAAAAAA                   AAAAAAAEEEEEEEEEEEEEEEEEEEEEE      UUUUUUUUU            TTTTTTTTTTT      IIIIIIIIII        CCCCCCCCCCCCCAAAAAAA                   AAAAAAA 
+                                                                                                                                                                                                    
+                                                                                                                                                                                                    

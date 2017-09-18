@@ -1,0 +1,157 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/portfolio.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/portfolio.js')
+    if (active_section == "media_add")
+        script(type="text/javascript", src='/js/cpanel/portfolio_add_row.js')
+    if (active_section == "media_edit")
+        script(type="text/javascript", src='/js/cpanel/portfolio_edit_row.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        include ../../../partial/_loader
+        .page-name
+            span Edit portfolio work
+            if (active_section == "topslider")
+                a.btn.btn-sm.btn-info.pull-right(title="Add", data-toggle="modal", data-target="#addSliderModal")
+                    i.fa.fa-plus
+                    |   Add slider
+                button.btn.btn-sm.btn-warning.pull-right.sortPriorityTP(title="Sort", class=(!oldVal.topSlider || oldVal.topSlider.length == 0) ? 'disabled' : '')
+                    i.fa.fa-arrows
+                    |   Sort slider
+                button.btn.btn-sm.btn-warning.pull-right.savePriorityTP(title="Save")
+                    i.fa.fa-floppy-o
+                    |   Save slider priority
+            else if(active_section == "media")
+                a.btn.btn-sm.btn-info.pull-right(href="/control/admin/portfolio/edit?section=media_add&id=" + oldVal._id)
+                    i.fa.fa-plus
+                    |   Add row
+                button.btn.btn-sm.btn-warning.pull-right.sortRowPort(title="Sort", class=(oldVal.content && oldVal.content.length != 0) ? '' : 'disabled')
+                    i.fa.fa-arrows
+                    |   Sort sections
+                button.btn.btn-sm.btn-warning.pull-right.saveRowPort(title="Save")
+                    i.fa.fa-floppy-o
+                    |   Save sections priority
+            else if(active_section == "media_add")
+                a.btn.btn-sm.btn-info.pull-right#_addElement(title="Add")
+                    i.fa.fa-plus
+                    |   Add element
+                a.btn.btn-sm.btn-success.pull-right#saveRowJson
+                    i.fa.fa-floppy-o
+                    |   Save
+            else if(active_section == "media_edit")
+                a.btn.btn-sm.btn-success.pull-right#saveRowEditJson
+                    i.fa.fa-floppy-o
+                    |   Save
+                a.btn.btn-sm.btn-info.pull-right#_addElement(title="Add")
+                    i.fa.fa-plus
+                    |   Add element
+            else
+                a.btn.btn-sm.btn-success.pull-right(title="back" onclick="window.history.back();")
+                    i.fa.fa-arrow-left
+                    |   Back
+        #page-content-wrapper.tab-flow
+            .row.no-margin
+                ul.nav.nav-tabs
+                    li( class=(active_section == 'general') ? "active" : null )
+                        a(href="/control/admin/portfolio/edit?section=general&id=" + oldVal._id) General
+                    li( class=(active_section == 'coverimg') ? "active" : null )
+                        a(href="/control/admin/portfolio/edit?section=coverimg&id=" + oldVal._id) Cover image
+                    li( class=(active_section == 'metadata') ? "active" : null )
+                        a(href="/control/admin/portfolio/edit?section=metadata&id=" + oldVal._id) Meta data
+                    li( class=(active_section == 'topslider') ? "active" : null )
+                        a(href="/control/admin/portfolio/edit?section=topslider&id=" + oldVal._id) Top slider
+                    li( class=(active_section == 'media') ? "active" : null )
+                        a(href="/control/admin/portfolio/edit?section=media&id=" + oldVal._id) Media content
+            .pad-20(style="padding-top: 20px;padding-bottom: 0;")
+                .alert-control(style='display: none;')
+                    .alert
+                        a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                        strong
+            .row.pad-20.sortable.no-margin(style="padding-top:0")
+                if (active_section == "general")
+                    include _edit_general
+                if (active_section == "coverimg")
+                    include _edit_coverimg
+                if (active_section == "metadata")
+                    include _edit_metadata
+                if (active_section == "topslider")
+                    include _edit_topslider
+                if (active_section == "media")
+                    include _edit_media_view
+                if (active_section == "media_add")
+                    include _edit_media_add
+                if (active_section == "media_edit")
+                    include _edit_media_edit
+
+            // modals
+            .slider-add-modal
+                form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/portfolio/add/topsleder/#{oldVal._id}")
+                    #addSliderModal.modal.fade(role='dialog')
+                        .modal-dialog.modal-lg
+                            // Modal content
+                            .modal-content
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal')
+                                        i.fa.fa-remove
+                                    h4.modal-title Add top slider item
+                                .modal-body
+                                    .row
+                                        .col-xs-12
+                                            .custom-input-file.tpadd
+                                                label.uploadPhoto
+                                                    | Edit
+                                                    input#imageview_tpadd.change-avatar(type='file', name='image_t', required="required")
+                                            div
+                                                label Size : (1920x750)px
+                                        .col-xs-12
+                                            label(style='margin-top: 25px') Video url (youtube)
+                                            input#videourl_tpadd.form-control(placeholder="https://",type="text",name="video")
+                                        .col-xs-12
+                                            .form-group
+                                                label.full-width Layout - Image/Video
+                                                    .clearfix
+                                                    label.radio-inline
+                                                        input.tpadd(type='radio', name='layout', value="image" checked)
+                                                        | Image
+                                                    label.radio-inline
+                                                        input.tpadd(type='radio', name='layout', value="video")
+                                                        | Video
+
+                                .modal-footer
+                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                    button.btn.btn-success(type='submit') Save
+
+            input#prt_id(type="hidden", value=oldVal._id)
+
+            // media tab modals
+            .modal.fade.bottom#addElement(role='dialog')
+                .modal-dialog
+                    // Modal content
+                    .modal-content
+                        .modal-header
+                            button.close(type='button', data-dismiss='modal')
+                                i.fa.fa-remove
+                            h4.modal-title Create element
+                        .modal-body
+                            .row
+                                .col-xs-2.text-center
+                                    a.new-element-types.element-text
+                                        img(src="/img/cpanel/textIcon.png")
+                                        span TEXT
+                                .col-xs-2.text-center
+                                    a.new-element-types.element-image
+                                        img(src="/img/cpanel/imageIcon.png")
+                                        span IMAGE
+                                .col-xs-2.text-center
+                                    a.new-element-types.element-video
+                                        img(src="/img/cpanel/videoIcon.png")
+                                        span VIDEO
+

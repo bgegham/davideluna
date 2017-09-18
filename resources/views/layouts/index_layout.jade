@@ -1,0 +1,35 @@
+// __       __   ______   ________  __    __  ________  ______   ______    ______
+// /  \     /  | /      \ /        |/  |  /  |/        |/      | /      \  /      \
+// $$  \   /$$ |/$$$$$$  |$$$$$$$$/ $$ |  $$ |$$$$$$$$/ $$$$$$/ /$$$$$$  |/$$$$$$  |
+// $$$  \ /$$$ |$$ |__$$ |$$ |__    $$ |  $$ |   $$ |     $$ |  $$ |  $$/ $$ |__$$ |
+// $$$$  /$$$$ |$$    $$ |$$    |   $$ |  $$ |   $$ |     $$ |  $$ |      $$    $$ |
+// $$ $$ $$/$$ |$$$$$$$$ |$$$$$/    $$ |  $$ |   $$ |     $$ |  $$ |   __ $$$$$$$$ |
+// $$ |$$$/ $$ |$$ |  $$ |$$ |_____ $$ \__$$ |   $$ |    _$$ |_ $$ \__/  |$$ |  $$ |
+// $$ | $/  $$ |$$ |  $$ |$$       |$$    $$/    $$ |   / $$   |$$    $$/ $$ |  $$ |
+// $$/      $$/ $$/   $$/ $$$$$$$$/  $$$$$$/     $$/    $$$$$$/  $$$$$$/  $$/   $$/
+doctype html
+html
+    head
+        // meta
+        include ../static/site/_meta
+
+        // title
+        include ../static/site/_title
+
+        // stylesheets
+        include ../static/site/_css
+
+        // custom css
+        block specific_css
+
+    body
+
+        noscript
+            include ../static/site/_noscript
+
+        include ../pages/site/components/_preloader
+
+        block content
+
+        // js
+        include ../static/site/_js

@@ -1,0 +1,64 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/mediaFiles.js')
+
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Media files
+            a.btn.btn-sm.btn-success.pull-right(title="Add", data-toggle="modal", data-target="#addMediaFiles")
+                i.fa.fa-plus
+                |   Add
+
+        #page-content-wrapper.tab-flow
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row.pad-20.sortable.no-margin(style="padding-top:0")
+                if(!mediaFiles)
+                    h1.text-center Add the first media file
+                else
+                    each item in mediaFiles
+                        .col-xs-6.col-sm-4.col-md-3.media-files-grid
+                            .img-thumbnail.media-file.text-center
+                                a(target="_blank", href="/images/"+item.image)
+                                    img(src="/images/"+item.image)
+                                i.fa.fa-trash.removeMediaFile(title="Remove", data-remove=item._id)
+
+
+            .tab-add
+                form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/media-files/add")
+                    #addMediaFiles.modal.fade(role='dialog')
+                        .modal-dialog.modal-md
+                            // Modal content
+                            .modal-content
+                                .modal-header
+                                    button.close(type='button', data-dismiss='modal')
+                                        i.fa.fa-remove
+                                    h4.modal-title Add image
+                                .modal-body
+                                    .row
+                                        .col-xs-12
+                                            .form-group
+                                                label.no-margin Image
+                                                .input-group
+                                                    span.input-group-btn
+                                                        span.btn.btn-default.btn-file
+                                                            | Browse&mldr;
+                                                            input.inputFile(name="image",type='file', data-preview="prNew")
+                                                    input.form-control(type='text', readonly='')
+                                                p.help-block Select image in any size
+                                                img.img-upload(style="height: 250px;", id="prNew")
+                                .modal-footer
+                                    button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                    button.btn.btn-success(type='submit') Save
+

@@ -1,0 +1,183 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/services.css')
+
+block specific_js
+    script(type="text/javascript", src='/ckeditor/ckeditor.js')
+    script(type="text/javascript", src='/ckeditor/adapters/jquery.js')
+    script(type="text/javascript", src='/js/cpanel/services.js')
+    script.
+        $(document).ready(function () {
+            CKEDITOR.replace('editor', {
+                skin: 'bootstrapck',
+                uiColor: "#9AB8F3",
+                allowedContent : true,
+                font_names: 'Arial/Arial, Helvetica, sans-serif;' +
+                'Origo;' +
+                'Times New Roman/Times New Roman, Times, serif;' +
+                'Verdana'
+            });
+
+            $(".saveCK").bind("click", function () {
+                console.log(CKEDITOR.instances.editor.getData());
+                $.ajax({
+                    type: 'POST',
+                    url: '/control/admin/services/save/#{services._id}/#{lang}',
+                    dataType: 'json',
+                    data: {
+                        content: CKEDITOR.instances.editor.getData()
+                    },
+                    success: function () {
+                        document.location.reload();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        document.location.reload();
+                    }
+                });
+            });
+
+
+        });
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Services (#{lang})
+            button.btn.btn-sm.btn-warning.pull-right.saveCK(title="Save")
+                i.fa.fa-floppy-o
+                |   Save
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                .col-xs-12.sortable
+                    if(!services)
+                        h1.text-center Add the first service
+                    else
+                        textarea#editor=services.content[lang]
+            //            each item in services
+            //                .col-xs-6.col-sm-4.item-sort(data-priority=item._id)
+            //                    .service-item-control
+            //                        i.pull-right.fa.fa-trash.removeServices(title="Remove", data-remove=item._id)
+            //                        i.pull-right.fa.fa-edit(title="Edit", data-toggle="modal", data-target="#" + "_m" + item._id)
+            //                        div
+            //                            if(item.icon)
+            //                                img(src="/images/#{item.icon}", alt="service")
+            //                        div
+            //                            span
+            //                                b=item.name.en
+            //                            .clearfix
+            //                            p=item.info.en
+            //                .tad-edit
+            //                    form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/services/edit/" + item._id)
+            //                        .modal.fade(role='dialog', id="_m" + item._id)
+            //                            .modal-dialog.modal-md
+            //                                // Modal content
+            //                                .modal-content
+            //                                    .modal-header
+            //                                        button.close(type='button', data-dismiss='modal')
+            //                                            i.fa.fa-remove
+            //                                        h4.modal-title Edit service
+            //                                    .modal-body
+            //                                        .row
+            //                                            .col-xs-12.col-sm-6
+            //                                                p English
+            //                                                .form-group
+            //                                                    label.full-width Full name
+            //                                                        input.form-control(name="name_en",type='text', placeholder='Full name (eng)', value=item.name.en)
+            //                                            .col-xs-12.col-sm-6
+            //                                                p Русский
+            //                                                .form-group
+            //                                                    label.full-width Full name
+            //                                                        input.form-control(name="name_ru",type='text', placeholder='Full name (rus)', value=item.name.ru)
+            //                                            .col-xs-12.col-sm-6
+            //                                                .form-group
+            //                                                    label.full-width Description
+            //                                                        textarea.form-control(name="info_en", placeholder='Description (eng)', rows="4")
+            //                                                            | #{item.info.en}
+            //                                            .col-xs-12.col-sm-6
+            //                                                .form-group
+            //                                                    label.full-width Описание
+            //                                                        textarea.form-control(name="info_ru", placeholder='Описание(rus)', rows="4")
+            //                                                            | #{item.info.en}
+            //                                            .col-xs-12
+            //                                                hr
+            //                                            .clearfix
+            //                                            .col-xs-12
+            //                                                .form-group
+            //                                                    label.no-margin Icon
+            //                                                    .input-group
+            //                                                        span.input-group-btn
+            //                                                            span.btn.btn-default.btn-file
+            //                                                                | Browse&mldr;
+            //                                                                input.inputFile(name="icon",type='file', data-preview="_pr" + item._id)
+            //                                                        input.form-control(type='text', readonly='')
+            //                                                    if errors && errors.image
+            //                                                        p.text-error= errors.image
+            //                                                    p.help-block Select icon image in (150 x 15) px size.
+            //                                                    img.img-upload(style="height: 100px;", src="/images/#{item.icon}", id="_pr" + item._id)
+            //                                    .modal-footer
+            //                                        button.btn.btn-default(type='button', data-dismiss='modal') Close
+            //                                        button.btn.btn-success(type='submit') Update
+            //.tag-service
+            //    form(method="post",role='form', enctype="multipart/form-data", action="/control/admin/services/add")
+            //        #addServices.modal.fade(role='dialog')
+            //            .modal-dialog.modal-md
+            //                // Modal content
+            //                .modal-content
+            //                    .modal-header
+            //                        button.close(type='button', data-dismiss='modal')
+            //                            i.fa.fa-remove
+            //                        h4.modal-title Add new service
+            //                    .modal-body
+            //                        .row
+            //                            .col-xs-12.col-sm-6
+            //                                p English
+            //                                .form-group
+            //                                    label.full-width Service name (eng)
+            //                                        input.form-control(name="name_en",type='text', placeholder='name (eng)')
+            //                            .col-xs-12.col-sm-6
+            //                                p Русский
+            //                                .form-group
+            //                                    label.full-width Название
+            //                                        input.form-control(name="name_ru",type='text', placeholder='name (rus)')
+            //                            .col-xs-12.col-sm-6
+            //                                .form-group
+            //                                    label.full-width Description
+            //                                        textarea.form-control(name="info_en", placeholder='Description (eng)' rows="4")
+            //                            .col-xs-12.col-sm-6
+            //                                .form-group
+            //                                    label.full-width Описание
+            //                                        textarea.form-control(name="info_ru", placeholder='Описание (rus)' rows="4")
+            //                            .col-xs-12
+            //                                hr
+            //                            .clearfix
+            //                            .col-xs-12
+            //                                .form-group
+            //                                    label.no-margin Icon
+            //                                    .input-group
+            //                                        span.input-group-btn
+            //                                            span.btn.btn-default.btn-file
+            //                                                | Browse&mldr;
+            //                                                input.inputFile(name="icon",type='file', data-preview="prNew")
+            //                                        input.form-control(type='text', readonly='')
+            //                                    p.help-block Select icon image in (150 x 150) px size.
+            //                                    img.img-upload(style="height: 100px;", id="prNew")
+            //                    .modal-footer
+            //                        button.btn.btn-default(type='button', data-dismiss='modal') Close
+            //                        button.btn.btn-success(type='submit') Save
+
+
+
+    footer.footer
+        span.pull-right
+            | Powered by
+            a(href='https://www.linkedin.com/in/g-barseghyan/')  Gegham Barseghyan

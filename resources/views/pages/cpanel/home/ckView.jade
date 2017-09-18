@@ -1,0 +1,62 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/home.css')
+
+block specific_js
+    script(type="text/javascript", src='/ckeditor/ckeditor.js')
+    script(type="text/javascript", src='/ckeditor/adapters/jquery.js')
+    script.
+        $(document).ready(function () {
+            CKEDITOR.replace('editor', {
+                skin: 'bootstrapck',
+                uiColor: "#9AB8F3",
+                allowedContent : true,
+                font_names :
+                'Arial/Arial, Helvetica, sans-serif;' +
+                'Origo;' +
+                'Times New Roman/Times New Roman, Times, serif;' +
+                'Verdana'
+            });
+
+            $(".saveCK").bind("click", function () {
+                console.log(CKEDITOR.instances.editor.getData());
+                $.ajax({
+                    type: 'POST',
+                    url: '/control/admin/home/save/#{home._id}/#{lang}',
+                    dataType: 'json',
+                    data: {
+                        content: CKEDITOR.instances.editor.getData()
+                    },
+                    success: function () {
+                        document.location.reload();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        document.location.reload();
+                    }
+                });
+            });
+        });
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Home page (#{lang})
+            button.btn.btn-sm.btn-warning.pull-right.saveCK(title="Save")
+                i.fa.fa-floppy-o
+                |   Save
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#", data-dismiss="alert", aria-label="close") &times;
+                    strong
+            .row
+                .col-xs-12.sortable
+                    if(!home)
+                        h1.text-center Add the first content
+                    else
+                        textarea#editor=home.content[lang]

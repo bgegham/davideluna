@@ -1,0 +1,153 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/home.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/home.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Home page
+            a.btn.btn-sm.btn-success.pull-right(title="create new element" data-toggle="modal", data-target="#addNew")
+                i.fa.fa-plus
+                |   Create element
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#", data-dismiss="alert", aria-label="close") &times;
+                    strong
+            .row.sortable-row#homeContent
+            .row
+                .col-xs-12.text-center.top-25
+                    button.btn.btn-md.btn-success#saveFormJson SAVE
+
+        .modal.fade.bottom#addNew(role='dialog' data-toggle-col="")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal')
+                            i.fa.fa-remove
+                        h4.modal-title Create element
+                    .modal-body
+                        .row
+                            .col-xs-2.text-center
+                                a.new-element-types.element-text
+                                    img(src="/img/cpanel/textIcon.png")
+                                    span TEXT
+                            //.col-xs-2.text-center
+                            //    a.new-element-types.element-image
+                            //        img(src="/img/cpanel/imageIcon.png")
+                            //        span IMAGE
+                            .col-xs-2.text-center
+                                a.new-element-types.element-divider
+                                    img(src="/img/cpanel/dividerIcon.png")
+                                    span Divider Line
+                            .col-xs-2.text-center
+                                a.new-element-types.element-space
+                                    img(src="/img/cpanel/spaceIcon.png")
+                                    span Divider Transparent
+        .modal.fade.bottom#editModalText(role='dialog' data-toggle-col="")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal')
+                            i.fa.fa-remove
+                        h4.modal-title Edit element
+                    .modal-body
+                        .row
+                            .col-xs-2.text-center
+                                p.bold Layout size
+                                .btn-group(data-toggle="buttons")
+                                    label.layout-btn.btn.btn-xs.btn-primary.active
+                                        input#layout1(type="radio" name="layout" value="12" data-class-name="col-md-12")
+                                        i.fa.fa-align-justify
+                                    label.layout-btn.btn.btn-xs.btn-primary
+                                        input#layout2(type="radio" name="layout" value="6" data-class-name="col-md-6")
+                                        i.fa.fa-columns
+                            .col-xs-2.text-center
+                                p.bold Asterisk
+                                div.material-switch
+                                    input#asteriskStatus(name="asteriskStatus" type="checkbox")
+                                    label(for="asteriskStatus" class="label-success")
+                            .col-xs-2.text-center
+                                p.bold Text bold
+                                label.radio-inline
+                                    input(type='radio', name='text-bold' value="header")
+                                    | Header
+                                label.radio-inline
+                                    input(type='radio', name='text-bold' value="all")
+                                    | All
+                                label.radio-inline
+                                    input(type='radio', name='text-bold' value="none")
+                                    | None
+                            .col-xs-2.text-center
+                                p.bold Text align
+                                label.radio-inline
+                                    input(type='radio', name='text-alignment' value="left")
+                                    | L
+                                label.radio-inline
+                                    input(type='radio', name='text-alignment' value="center")
+                                    | C
+                                label.radio-inline
+                                    input(type='radio', name='text-alignment' value="right")
+                                    | R
+                                label.radio-inline
+                                    input(type='radio', name='text-alignment' value="justify")
+                                    | J
+                            .col-xs-2.text-center
+                                p.bold Text font-family
+                                label.radio-inline
+                                    input(type='radio', name='text-font-family' value="default")
+                                    | Fedra
+                                label.radio-inline
+                                    input(type='radio', name='text-font-family' value="custom")
+                                    | Origo
+        .modal.fade.bottom#editModalDivLine(role='dialog' data-toggle-col="")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal')
+                            i.fa.fa-remove
+                        h4.modal-title Edit element
+                    .modal-body
+                        .row
+                            .col-xs-2.text-center
+                                p.bold Layout size
+                                .btn-group(data-toggle="buttons")
+                                    label.layout-btn.btn.btn-xs.btn-primary.active
+                                        input.layout1(type="radio" name="layout" value="12" data-class-name="col-md-12")
+                                        i.fa.fa-align-justify
+                                    label.layout-btn.btn.btn-xs.btn-primary
+                                        input.layout2(type="radio" name="layout" value="6" data-class-name="col-md-6")
+                                        i.fa.fa-columns
+        .modal.fade.bottom#editModalDivSpace(role='dialog' data-toggle-col="")
+            .modal-dialog
+                // Modal content
+                .modal-content
+                    .modal-header
+                        button.close(type='button', data-dismiss='modal')
+                            i.fa.fa-remove
+                        h4.modal-title Edit element
+                    .modal-body
+                        .row
+                            .col-xs-2.text-center
+                                p.bold Layout size
+                                .btn-group(data-toggle="buttons")
+                                    label.layout-btn.btn.btn-xs.btn-primary.active
+                                        input.layout1(type="radio" name="layout" value="12" data-class-name="col-md-12")
+                                        i.fa.fa-align-justify
+                                    label.layout-btn.btn.btn-xs.btn-primary
+                                        input.layout2(type="radio" name="layout" value="6" data-class-name="col-md-6")
+                                        i.fa.fa-columns
+                            .col-xs-2.text-center
+                                p.bold Height (px)
+                                input#spaceHeight(name="spaceHeight" type="number" class="form-control")

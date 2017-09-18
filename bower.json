@@ -1,0 +1,27 @@
+{
+  "name": "maeutica",
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.3.0",
+    "datatables.net": "^1.10.12",
+    "moment": "^2.13.0",
+    "jquery-ui": "^1.12.1",
+    "videojs-youtube": "^2.4.0",
+    "gridster": "gridster-js#^0.7.0"
+  }
+}

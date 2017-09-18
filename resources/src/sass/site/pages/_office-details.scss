@@ -1,0 +1,180 @@
+.office-detail-main{
+  margin-top: 72px;
+
+  .bg-office-detail{
+    background: $officeDetail;
+  }
+  .recent-works-section{
+    background: $officeDetail;
+  }
+  #footer-block{
+    background: $bgwhite;
+  }
+
+  @media only screen and (min-width : 580px) {
+    margin-top: 95px;
+  }
+
+}
+
+.offices-top-section-control{
+  position: relative;
+
+  img{
+    width: 100%;
+    height: auto;
+  }
+  .time-section{
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    text-align: center;
+    span{
+      font-family: "fedra-book","Sans",Georgia,Serif !important;
+      font-size: 18px;
+      color: #fff;
+      font-weight: 800;
+      margin: 0 auto;
+    }
+    @media only screen and (min-width : 580px) {
+      bottom: 35px;
+      span{
+        font-size: 34px;
+      }
+    }
+  }
+}
+
+.office-detail-page{
+
+  padding-top: 50px;
+  padding-bottom: 40px;
+  .address-block {
+    margin: 0 0 30px 0;
+    padding-left: 15px;
+    font-family: "fedra-book","Sans",Georgia,Serif !important;
+
+    p {
+      line-height: 1.5;
+      font-size: 15px;
+      font-family: "fedra-book","Sans",Georgia,Serif !important;
+    }
+
+    &:last-child{
+      margin-bottom: 0!important;
+    }
+  }
+
+  h2.text-title {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 5px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      left: -15px;
+      top: -8px;
+    }
+  }
+
+  .google-map {
+    height: 1px;
+    display: table;
+    padding: 0 10px;
+    margin: 0 0 30px 0;
+    width: 100%;
+  }
+  .text-field-title {
+    text-transform: capitalize;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: $send-email-title-color;
+  }
+  .send-msg-title {
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+
+  .title-text-field-block {
+    & > div {
+      margin-top: 10px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid $send-message-input-border-color;
+      border-radius: 3px;
+      color: $send-email-title-color;
+      font-size: 12px;
+      padding: 5px;
+      outline: none;
+    }
+  }
+  .send-btn {
+    background-color: $send-message-btn-color;
+    color: $brand-white-color;
+    text-transform: uppercase;
+    padding: 4px 40px;
+    font-size: 15px;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .logo-block {
+    padding: 0 10px;
+    display: table;
+    flex-wrap: wrap;
+    max-height: 240px;
+    overflow: auto;
+  }
+  .client-img{
+    float: left;
+    display: block;
+    width: 70px;
+    min-width: 50px;
+    margin: 5px;
+
+    @media only screen and (min-width : 580px) {
+      width: 85px;
+      min-width: 50px;
+      margin: 12px;
+    }
+  }
+
+  div > .list-block {
+    padding-left: 15px;
+    margin: 0 0 20px 0;
+    line-height: 22px;
+    max-height: 240px;
+    overflow: auto;
+    flex: 1;
+
+    a {
+      display: block;
+    }
+  }
+  .clients-control{
+    h2.text-title{
+      padding-left: 15px;
+    }
+    .col-xs-12{
+      .pd15{
+        padding-left: 15px;
+      }
+    }
+  }
+}
+.clients-control{
+  .col-xs-12{
+    .pd15{
+      padding-left: 15px;
+    }
+  }
+}

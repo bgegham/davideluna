@@ -1,0 +1,45 @@
+.row
+    .col-xs-12.col-sm-6
+        form#editForm1(method="post", role='form', action="/control/admin/portfolio/edit/coverimg1/#{oldVal._id}", enctype="multipart/form-data")
+            .col-xs-12
+                .form-group
+                    label.no-margin Project general cover image:
+                    .input-group
+                        span.input-group-btn
+                            span.btn.btn-default.btn-file.meta-image
+                                | Browse&mldr;
+                                input.inputFile(name="image_c",type='file', data-preview="metaImagePr1", id="metaImagePath1")
+                        input.form-control(type='text', readonly='')
+                    if errors && errors.shareImage
+                        p.text-error= errors.shareImage
+                    p.help-block Select image in any size.
+                    if(oldVal.alterImage)
+                        img.img-upload(style="max-height: 350px;max-width:90%", src="/images/#{oldVal.alterImage}", id="metaImagePr1")
+                    else
+                        img.img-upload(style="max-height: 350px;max-width:90%", src="/img/cpanel/pictureDefault.png", id="metaImagePr1")
+            .col-xs-12
+                .clearfix
+            .col-xs-12.text-center.top-25
+                button.btn.btn-sm.btn-success(type="submit") Update general cover image
+    .col-xs-12.col-sm-6
+        form#editForm(method="post", role='form', action="/control/admin/portfolio/edit/coverimg2/#{oldVal._id}", enctype="multipart/form-data")
+            .col-xs-12
+                .form-group
+                    label.no-margin Project cover image:
+                    .input-group
+                        span.input-group-btn
+                            span.btn.btn-default.btn-file.meta-image
+                                | Browse&mldr;
+                                input.inputFile(name="image_c",type='file', data-preview="metaImagePr2", id="metaImagePath2")
+                        input.form-control(type='text', readonly='')
+                    if errors && errors.shareImage
+                        p.text-error= errors.shareImage
+                    p.help-block Select image in (640 x 640) px size.
+                    if(oldVal.coverImage)
+                        img.img-upload(style="max-height: 350px;max-width:90%", src="/images/#{oldVal.coverImage}", id="metaImagePr2")
+                    else
+                        img.img-upload(style="max-height: 350px;max-width:90%", src="/img/cpanel/pictureDefault.png", id="metaImagePr2")
+            .col-xs-12
+                .clearfix
+            .col-xs-12.text-center.top-25
+                button.btn.btn-sm.btn-success(type="submit") Update secondary cover image

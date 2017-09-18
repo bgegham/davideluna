@@ -1,0 +1,21 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/blog.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/blog.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Blog
+            a.btn.btn-sm.btn-success.pull-right(title="Add", data-toggle="modal", data-target="#addBlog")
+                i.fa.fa-plus
+                |   Add
+        #page-content-wrapper
+            h1.text-center Page coming soon!

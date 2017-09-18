@@ -1,0 +1,24 @@
+.row
+    .col-xs-12.top-25#mainMediaContent
+        if (oldVal.content && oldVal.content.length != 0)
+            .sortable
+                each rowData in oldVal.content
+                    .single-row-port-view(data-priority=rowData._id)
+                        div.actions-control.row-edit-action
+                            a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/portfolio/edit?section=media_edit&id=" + oldVal._id+"&rowId="+ rowData._id)
+                            a.pull-right.fa.fa-trash.removeRowSection(title="Remove", data-remove=rowData._id)
+                        div
+                            each item in rowData.content
+                                if (item.node == 'text')
+                                    .div(class=(item.layout == 6 ? 'col-xs-12 col-sm-6' : 'col-xs-12'), style=item.styles)
+                                        each field in item.elements
+                                            label=field.valueHeader.en
+                                            p=field.valueMain.en
+                                else if (item.node == 'video')
+                                    .div(class=(item.layout == 6 ? 'col-xs-12 col-sm-6' : 'col-xs-12'))
+                                        img(src='//img.youtube.com/vi/'+item.elements.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop() + '/0.jpg' style="max-width: 100%;",)
+                                else
+                                    .div(class=(item.layout == 6 ? 'col-xs-12 col-sm-6' : 'col-xs-12'))
+                                        img(src="/images/#{item.elements}" style="max-width: 100%;",)
+        else
+            h1#emptyData.text-center Add the first element

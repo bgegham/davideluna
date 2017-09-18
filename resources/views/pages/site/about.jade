@@ -1,0 +1,60 @@
+extends ../../layouts/index_layout
+
+block specific_css
+
+block specific_js
+
+block content
+
+    // site navigation bar
+    include components/_navigation
+    // mega full header bock
+    include components/_secondary_mega_nav
+
+    main.aboute-main
+        // main content
+        section.scroll-from-header.bg-about
+            .container
+                .home-content!=home.content[lang]
+                //each data in home.content
+                //    if(data.layout == 12)
+                //        if(data.node == 'hr')
+                //            .col-xs-12.small-ov-hide
+                //                .hr-line-full
+                //        if(data.node == 'space')
+                //            .col-xs-12(style="height: #{data.styles.height}px")
+                //        if(data.node == 'text')
+                //            .col-xs-12
+                //                div.home-content
+                //                    if(data.elements.valueHeader[lang])
+                //                        h2.text-title(style="text-align:#{data.styles.textAlign};font-family:#{(data.styles.fontFamily == 'custom') ? 'Origo' : ''}")
+                //                            |   #{data.elements.valueHeader[lang]}
+                //                            if(data.asterisk == 'true')
+                //                                img(src='/img/site/asterisk.svg')
+                //                    if(data.elements.valueMain[lang])
+                //                        .row
+                //                            p.col-xs-12.article-text.text-justify(style="text-align:#{data.styles.textAlign};font-weight:#{(data.styles.bold == 'all') ? '800' : '300'};")=data.elements.valueMain[lang]
+                //    if(data.layout == 6)
+                //        if(data.node == 'hr')
+                //            .col-xs-12.col-sm-6.small-ov-hide
+                //                .hr-line-small
+                //        if(data.node == 'space')
+                //            .col-xs-12(style="height: #{data.styles.height}px")
+                //        if(data.node == 'text')
+                //            .col-xs-12.col-sm-6
+                //                div.home-content
+                //                    if(data.elements.valueHeader[lang])
+                //                        h2.text-title(style="font-family:#{(data.styles.fontFamily == 'custom') ? 'Origo' : ''}")=data.elements.valueHeader[lang]
+                //                            if(data.asterisk == 'true')
+                //                                img(src='/img/site/asterisk.svg')
+                //                    else
+                //                        h2.text-title(style="height:22px")
+                //                    if(data.elements.valueMain[lang])
+                //                        .row
+                //                            p.col-xs-12.article-text.text-justify(style=data.style)=data.elements.valueMain[lang]
+
+        // recent works
+        include components/_recent_works
+
+        // site footer
+        include components/_footer

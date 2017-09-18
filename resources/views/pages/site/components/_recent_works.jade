@@ -1,0 +1,19 @@
+section.top-border.recent-works-section
+    .container
+        .col-xs-12
+            .home-content.scroll-from-header.pdb10.pdt40
+                h2.text-title #{_tr.future_works}
+                    img(src='/img/site/asterisk.svg')
+        .col-xs-12.images-container
+            each _recent in recent
+                .col-xs-12.col-sm-6.col-md-3.mrgb20
+                    a(href="/portfolio/" + _recent.work.uniqueName + "?lang=#{lang}")
+                        .image-cover
+                            img(src="/images/"+_recent.work.coverImage)
+                    a.prt-desc(href="/portfolio/" + _recent.work.uniqueName + "?lang=#{lang}").image-link
+                        if(_recent.work.description[lang].length != 0)
+                            span.text=_recent.work.description[lang]
+                            span.yellow-line
+                        else
+                            span.text &nbsp;
+                    h5.image-titles=_recent.work.name[lang]

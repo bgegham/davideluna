@@ -1,0 +1,76 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/portfolio.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/portfolio.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Add portfolio
+            a.btn.btn-sm.btn-success.pull-right(title="back" onclick="window.history.back();")
+                i.fa.fa-arrow-left
+                |   Back
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                form(method="post",role='form', action="/control/admin/portfolio/add")
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='name_en') Job name (eng)
+                            input#name_en.form-control(required=true name="name_en", type='text', placeholder='Name')
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='name_ru') Название работы (рус)
+                            input#name_ru.form-control(name="name_ru", type='text', placeholder='Название')
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='info_en') Description (eng)
+                            input#info_en.form-control(name="info_en", type='text', placeholder='Description')
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='info_ru') Описание (рус)
+                            input#info_ru.form-control(name="info_ru", type='text', placeholder='Описание')
+                    .clearfix
+                    hr
+                    .clearfix
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='create_date') Date of create
+                            input#create_date.form-control(name="create_date", type='text', placeholder='dd.mm.yyyy')
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label(for='uniqueName') Unique name (name_name_info)
+                            input#uniqueName.form-control(required=true name="uniqueName", type='text', placeholder='Unique name')
+                    .col-xs-12.col-sm-6
+                        .form-group
+                            label Info!
+                            p This project by default is unpublished.
+                    .col-xs-12
+                        .form-group
+                            label.tagsLabel Project subscribed for tags:
+                            div
+                                if(!tags.length)
+                                    a.text-center(href="/control/admin/tags") Add the first tag
+                                else
+                                    each itemTag in tags
+                                        label.checkbox-inline
+                                            input(name="tags" type='checkbox', value=itemTag._id)
+                                            |   #{itemTag.name.en}
+                    .col-xs-12
+                        .clearfix
+                    .col-xs-12.text-center.top-25
+                        button.btn.btn-lg.btn-success(type="submit") Save and Continue
+
+
+

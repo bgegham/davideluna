@@ -1,0 +1,70 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/recent.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/recent.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Recent works
+            button.btn.btn-sm.btn-success.pull-right(title="Add", data-toggle="modal", data-target="#addRecent")
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.sortPriority(title="Sort", class=(!recent.length) ? 'disabled' : '')
+                i.fa.fa-arrows
+                |   Sort works
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save recent priority
+
+        #page-content-wrapper
+            .alert-control(style='display: none;')
+                .alert
+                    a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                    strong
+            .row
+                .col-xs-12.sortable
+                    if(!recent.length)
+                        h1.text-center Add the first recent work
+                    else
+                        each item in recent
+                            .col-xs-6.col-sm-4.item-sort(data-priority=item._id)
+                                .recent(style="background-image:url(/images/" + item.work.coverImage + ")")
+                                    i.pull-right.fa.fa-trash.removeRecent(title="Remove", data-remove=item._id)
+                                    span= item.work.name.en
+        .recent-add
+            form(method="post",role='form', action="/control/admin/recent/add")
+                #addRecent.modal.fade(role='dialog')
+                    .modal-dialog
+                        // Modal content
+                        .modal-content
+                            .modal-header
+                                button.close(type='button', data-dismiss='modal')
+                                    i.fa.fa-remove
+                                h4.modal-title Add new tag
+                            .modal-body
+                                .row
+                                    .col-xs-12.col-sm-6
+                                        p Select work on list
+                                        .form-group
+                                            label.full-width By work name
+                                                select.form-control(name="recentWork" )
+                                                    each work in portfolio
+                                                        option(value=work._id)= work.name.en
+
+                            .modal-footer
+                                button.btn.btn-default(type='button', data-dismiss='modal') Close
+                                button.btn.btn-success(type='submit') Add
+
+
+    footer.footer
+        span.pull-right
+            | Powered by
+            a(href='https://www.linkedin.com/in/g-barseghyan/')  Gegham Barseghyan

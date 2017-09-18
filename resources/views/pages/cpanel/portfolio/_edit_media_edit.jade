@@ -1,0 +1,97 @@
+.col-xs-12.text-center.top-25.sortable-row#addNewRow
+
+.modal.fade.bottom#editModalText(role='dialog' data-toggle-col="")
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal')
+                    i.fa.fa-remove
+                h4.modal-title Edit element
+            .modal-body
+                .row
+                    .col-xs-2.text-center
+                        p.bold Layout size
+                        .btn-group(data-toggle="buttons")
+                            label.layout-btn.btn.btn-xs.btn-primary.active
+                                input#layout1(type="radio" name="layout" value="12" data-class-name="col-md-12")
+                                i.fa.fa-align-justify
+                            label.layout-btn.btn.btn-xs.btn-primary
+                                input#layout2(type="radio" name="layout" value="6" data-class-name="col-md-6")
+                                i.fa.fa-columns
+                    .col-xs-2.text-center
+                        p.bold Asterisk
+                        div.material-switch
+                            input#asteriskStatus(name="asteriskStatus" type="checkbox")
+                            label(for="asteriskStatus" class="label-success")
+                    .col-xs-2.text-center
+                        p.bold Text bold
+                        label.radio-inline
+                            input(type='radio', name='text-bold' value="header")
+                            | Header
+                        label.radio-inline
+                            input(type='radio', name='text-bold' value="all")
+                            | All
+                        label.radio-inline
+                            input(type='radio', name='text-bold' value="none")
+                            | None
+                    .col-xs-2.text-center
+                        p.bold Text align
+                        label.radio-inline
+                            input(type='radio', name='text-alignment' value="left")
+                            | Left
+                        label.radio-inline
+                            input(type='radio', name='text-alignment' value="center")
+                            | Center
+                        label.radio-inline
+                            input(type='radio', name='text-alignment' value="right")
+                            | Right
+                    .col-xs-2.text-center
+                        p.bold Text font-family
+                        label.radio-inline
+                            input(type='radio', name='text-font-family' value="default")
+                            | Default
+                        label.radio-inline
+                            input(type='radio', name='text-font-family' value="custom")
+                            | Custom
+                    .col-xs-2.text-center
+                        p.bold New text row
+                        button.btn.btn-sm.btn-info#addtextRow Add
+.modal.fade.bottom#editModalImage(role='dialog' data-toggle-col="")
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal')
+                    i.fa.fa-remove
+                h4.modal-title Edit element
+            .modal-body
+                .row
+                    .col-xs-2.text-center
+                        p.bold Layout size
+                        .btn-group(data-toggle="buttons")
+                            label.layout-btn.btn.btn-xs.btn-primary.active
+                                input#layout3(type="radio" name="layout" value="12" data-class-name="col-md-12")
+                                i.fa.fa-align-justify
+                            label.layout-btn.btn.btn-xs.btn-primary
+                                input#layout4(type="radio" name="layout" value="6" data-class-name="col-md-6")
+                                i.fa.fa-columns
+.modal.fade.bottom#editModalVideo(role='dialog' data-toggle-col="")
+    .modal-dialog
+        // Modal content
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal')
+                    i.fa.fa-remove
+                h4.modal-title Edit video element src
+            .modal-body
+                .row
+                    .col-xs-2.text-center
+                        p.bold Layout size
+                        .btn-group(data-toggle="buttons")
+                            label.layout-btn.btn.btn-xs.btn-primary.active
+                                input#layout5(type="radio" name="layout" value="12" data-class-name="col-md-12")
+                                i.fa.fa-align-justify
+                            label.layout-btn.btn.btn-xs.btn-primary
+                                input#layout6(type="radio" name="layout" value="6" data-class-name="col-md-6")
+                                i.fa.fa-columns

@@ -1,0 +1,70 @@
+extends ../../../layouts/admin_layout
+
+block specific_css
+    link(rel='stylesheet', href='/css/cpanel/admin.css')
+    link(rel='stylesheet', href='/css/cpanel/headers.css')
+
+block specific_js
+    script(type="text/javascript", src='/js/cpanel/headers.js')
+
+block content
+    include ../../../partial/_admin_header
+
+    #wrapper
+        include ../../../partial/_sidebar
+        .page-name
+            span Header banners
+            a.btn.btn-sm.btn-success.pull-right(title="Add" href="/control/admin/headers/add?page="+tab)
+                i.fa.fa-plus
+                |   Add
+            button.btn.btn-sm.btn-warning.pull-right.sortPriority(title="Sort", class=(!headers.length) ? 'disabled' : '')
+                i.fa.fa-arrows
+                |   Sort headers
+            button.btn.btn-sm.btn-warning.pull-right.savePriority(title="Save")
+                i.fa.fa-floppy-o
+                |   Save headers priority
+
+        #page-content-wrapper.tab-flow
+            .row.no-margin
+                ul.nav.nav-tabs
+                    li( class=(tab == 'landing') ? "active" : null )
+                        a(href="/control/admin/headers?page=landing") Landing
+                    li( class=(tab == 'home') ? "active" : null )
+                        a(href="/control/admin/headers?page=home") About
+                    li( class=(tab == 'portfolio') ? "active" : null )
+                        a(href="/control/admin/headers?page=portfolio") Portfolio
+                    li( class=(tab == 'offices') ? "active" : null )
+                        a(href="/control/admin/headers?page=offices") Offices
+                    li( class=(tab == 'services') ? "active" : null )
+                        a(href="/control/admin/headers?page=services") Services
+                    li( class=(tab == 'team') ? "active" : null )
+                        a(href="/control/admin/headers?page=team") Team
+             .pad-20(style="padding-top: 20px;padding-bottom: 0;")
+                 .alert-control(style='display: none;')
+                     .alert
+                         a.close(href="#",data-dismiss="alert",aria-label="close") &times;
+                         strong
+            .row.pad-20.sortable.no-margin(style="padding-top:0")
+                if(!headers.length)
+                    h1.text-center Add the first banner
+                else
+                    each item in headers
+                        div.banners-sort(data-priority=item._id)
+                            div.actions-control
+                                a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/headers/edit/"+item._id)
+                                a.pull-right.fa.fa-trash.removeHeader(title="Remove", data-remove=item._id)
+                            .col-xs-6.banner-image
+                                if(item.layout == "image")
+                                    img(src="/images/"+item.image)
+                                else
+                                    iframe(type="text/html"
+                                    id="_video#{item._id}"
+                                    style="height:100%;width:100%"
+                                    src=item.video
+                                    frameborder="0")
+                            .col-xs-6.banner-info
+                                    label Portfolio url:
+                                    p
+                                        a(href='/portfolio/'+item.portfolio_url, target="_blank")= item.portfolio_url
+                                    hr
+
