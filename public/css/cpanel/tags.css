@@ -1,1 +1,61 @@
-.tag-edit{height:0}.ui-sortable .tags i{display:none !important}.tags:hover i{display:block}.tags span{background-color:#68a4d0;width:100%;text-align:center;padding:10px;color:#fff;display:inline-block;font-size:14px;text-transform:uppercase;line-height:14px;border-radius:2px;margin-bottom:5px;margin-right:2px;text-decoration:none}.tags span:hover{background-color:#5f95be}.tags i{display:none;position:absolute;top:-15px;background:#eea236;color:#fff;right:10px;line-height:30px;margin-right:-10px;box-shadow:0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);width:30px;height:30px;text-align:center;border-radius:50%}.tags i:hover{cursor:pointer;box-shadow:0 2px 2px 0 rgba(0,0,0,0.28),0 1px 5px 0 rgba(0,0,0,0.4),0 3px 1px -2px rgba(0,0,0,0.76)}.tags i:first-child{right:50px}
+/* line 1, ../../../resources/src/sass/cpanel/tags.scss */
+.tag-edit {
+  height: 0;
+}
+
+/* line 6, ../../../resources/src/sass/cpanel/tags.scss */
+.ui-sortable .tags i {
+  display: none !important;
+}
+
+/* line 13, ../../../resources/src/sass/cpanel/tags.scss */
+.tags:hover i {
+  display: block;
+}
+/* line 17, ../../../resources/src/sass/cpanel/tags.scss */
+.tags span {
+  background-color: #68a4d0;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  text-transform: uppercase;
+  line-height: 14px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-right: 2px;
+  text-decoration: none;
+}
+/* line 32, ../../../resources/src/sass/cpanel/tags.scss */
+.tags span:hover {
+  background-color: #5f95be;
+}
+/* line 37, ../../../resources/src/sass/cpanel/tags.scss */
+.tags i {
+  display: none;
+  position: absolute;
+  top: -15px;
+  background: #eea236;
+  color: #fff;
+  right: 10px;
+  line-height: 30px;
+  margin-right: -10px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 50%;
+}
+/* line 52, ../../../resources/src/sass/cpanel/tags.scss */
+.tags i:hover {
+  cursor: pointer;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.28), 0 1px 5px 0 rgba(0, 0, 0, 0.4), 0 3px 1px -2px rgba(0, 0, 0, 0.76);
+}
+/* line 57, ../../../resources/src/sass/cpanel/tags.scss */
+.tags i:first-child {
+  right: 50px;
+}
+
+/*# sourceMappingURL=tags.css.map */

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": ";AAAA,CAAC;EACC,UAAU,EAAE,UAAU",
+"sources": ["../../../resources/src/sass/cpanel/main.scss"],
+"names": [],
+"file": "main.css"
+}
