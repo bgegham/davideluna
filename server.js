@@ -1,5 +1,5 @@
 /**
- * <MAEUTICA> created by Gegham Barseghyan | phone: +(374)99999881.
+ * <davideluna> created by Gegham Barseghyan | phone: +(374)99999881.
  */
 
 var express             = require('express'),
@@ -104,7 +104,7 @@ app.get('*', function(req, res) {
     var _tr  = Translate[lang];
 
     res.render( path.resolve('resources/views/errors/404.jade'), {
-        title           : "MAEUTICA: PAGE NOT FOUND",
+        title           : "DAVIDELUNA: PAGE NOT FOUND",
         page            : "",
         lang            : lang,
         cCode           : cCode,
@@ -129,7 +129,7 @@ app.use(function(error, req, res, next) {
     if(error.statusCode == 500){
         res.status(500);
         res.render( path.resolve('resources/views/errors/500.jade'), {
-            title           : "MAEUTICA: Internal server error",
+            title           : "DAVIDELUNA: Internal server error",
             page            : "",
             lang            : lang,
             cCode           : cCode,
@@ -139,7 +139,7 @@ app.use(function(error, req, res, next) {
         console.log(error);
         res.status(400);
         res.render( path.resolve('resources/views/errors/400.jade'), {
-            title           : "MAEUTICA: bad request",
+            title           : "DAVIDELUNA: bad request",
             page            : "",
             lang            : lang,
             error           : error,
@@ -156,7 +156,7 @@ app.listen(config.http_port, config.http_host);
 // shout out to the user
 console.log(' ----------------------------------------------------------');
 console.log('|                                                          |');
-console.log('|           << MAEUTICA >> started on port ' + config.http_port + '            |');
+console.log('|           << DAVIDELUNA >> started on port ' + config.http_port + '            |');
 console.log('|                                                          |');
 console.log(' ----------------------------------------------------------');
 console.log('');

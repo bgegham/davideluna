@@ -28,6 +28,10 @@
       }
 
       .page-navigation {
+
+        .active-nav{
+          border-bottom: solid 1px $nav-open-color;
+        }
         color: $nav-open-color;
 
         .language{

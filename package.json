@@ -1,5 +1,5 @@
 {
-  "name": "maeutica",
+  "name": "davideluna",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -10,14 +10,13 @@
     "del": "^2.2.0",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^3.3.0",
+    "gulp-sass": "^3.1.0",
     "gulp-uglyfly": "^1.4.2",
     "node-normalize-scss": "^3.0.0",
     "run-sequence": "^1.1.5"
   },
   "dependencies": {
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-contrib-sass": "^1.0.0",
     "apicache": "^0.3.4",
     "async": "^1.5.2",
     "body-parser": "~1.13.2",
@@ -31,7 +30,6 @@
     "express-session": "^1.13.0",
     "express-validator": "^2.20.2",
     "gridfs-stream": "~1.1.1",
-    "gulp-imagemin": "^3.2.0",
     "i18n": "^0.8.3",
     "jade": "~1.11.0",
     "json5": "^0.2.0",
@@ -48,6 +46,8 @@
     "morgan": "~1.6.1",
     "multer": "~1.1.0",
     "mustache": "*",
+    "node-normalize-scss": "^3.0.0",
+    "node-sass": "^4.5.3",
     "password-generator": "^2.0.2",
     "request-country": "^0.1.0",
     "sendgrid": "^4.0.1",

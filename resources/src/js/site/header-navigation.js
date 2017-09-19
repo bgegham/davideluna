@@ -62,7 +62,7 @@ $( window ).ready(function() {
     setTimeout(function () {
         //open site content
         $(".siteLoader").fadeOut();
-    }, 500);
+    }, 800);
 });
 
 jQuery(document).ready(function($){

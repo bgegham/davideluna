@@ -12,8 +12,7 @@
     width: 100%;
 
     img {
-      width: 200px;
-      max-width: calc(100% - 20px);
+      width: 100%;
       margin: 0 auto;
       display: table;
     }
@@ -200,10 +199,6 @@
       }
     }
 
-    .footer-image-info-block,
-    .footer-copyright-social-links-block {
-      width: 900px;
-    }
 
     .footer-image-info-block {
       padding: 70px 0;

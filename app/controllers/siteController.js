@@ -26,108 +26,6 @@ var config                  = require('../../config')[APP_ENV],
 
 var SiteController                              =  function() {};
 
-// landing page
-SiteController.prototype.landingPage            = function (request, response) {
-
-    var lang    = "en";
-    var cCode   = request["cCode"];
-    if(request.query.lang){
-        if(request.query.lang == "ru") lang = "ru"
-    } else if(request["cCode"] && request["cCode"] == "RU"){
-        lang = "ru"
-    }
-
-    var _tr  = Translate[lang];
-
-    var $header,$landing,$recent,$footer;
-    async.series([
-        function _Header(cb) {
-            Headers
-                .find({page : "landing"})
-                .sort({"priority": 1})
-                .exec( function (err, _header) {
-                    if(err){
-                        $header = null;
-                        cb();
-                    } else {
-                        if (_header == null) {
-                            $header = null;
-                            cb();
-                        } else {
-                            $header = _header;
-                            cb();
-                        }
-                    }
-                });
-        },
-        function _Landing(cb) {
-            Landing
-                .findOne({})
-                .exec( function (err, _landing) {
-                    if(err){
-                        $landing = "";
-                        cb();
-                    } else {
-                        if (_landing == null) {
-                            $home = "";
-                            cb();
-                        } else {
-                            $landing = _landing;
-                            cb();
-                        }
-                    }
-                });
-        },
-        function _Recent(cb) {
-            Recent
-                .find({})
-                .sort({"priority": 1})
-                .populate("work")
-                .exec( function (err, _recent) {
-                    if (_recent == null) {
-                        $recent = null;
-                        cb();
-                    } else {
-                        $recent = _recent;
-                        cb();
-                    }
-                });
-        },
-        function _Footer(cb) {
-            Footers
-                .findOne({ page : "landing" })
-                .exec( function (err, _footer) {
-                    if (_footer == null) {
-                        $footer = null;
-                        cb();
-                    } else {
-                        $footer = _footer;
-                        cb();
-                    }
-                });
-        }
-    ], function resolve (err) {
-        if(err){
-            response.redirect('/503');
-            response.end();
-        } else {
-            response.render( path.resolve('resources/views/pages/site/landing.jade'), {
-                title           : "MAEUTICA: landing page",
-                page            : "",
-                lang            : lang,
-                cCode           : cCode,
-                _tr             : _tr,
-                header          : $header,
-                landing         : $landing,
-                recent          : $recent,
-                footer          : $footer
-            });
-            response.end();
-        }
-    });
-
-};
-
 // home page
 SiteController.prototype.aboutPage              =  function (request, response) {
 
@@ -214,7 +112,7 @@ SiteController.prototype.aboutPage              =  function (request, response) 
             response.end();
         } else {
             response.render( path.resolve('resources/views/pages/site/about.jade'), {
-                title           : "MAEUTICA: about page",
+                title           : "DAVIDELUNA: about page",
                 page            : "home",
                 lang            : lang,
                 cCode           : cCode,
@@ -330,7 +228,7 @@ SiteController.prototype.portfolioPage          =  function (request, response) 
                 response.cookie('to_section', "portfolioList", { maxAge: 900000, httpOnly: false });
             }
             response.render( path.resolve('resources/views/pages/site/portfolio.jade'), {
-                title           : "MAEUTICA: portfolio list page",
+                title           : "DAVIDELUNA: portfolio list page",
                 page            : "portfolio",
                 lang            : lang,
                 cCode           : cCode,
@@ -415,7 +313,7 @@ SiteController.prototype.portfolioDetailPage    =  function (request, response) 
         } else {
             if($portfolio && $portfolio.length != 0){
                 response.render( path.resolve('resources/views/pages/site/portfolioDetail.jade'), {
-                    title           : "MAEUTICA: "+$portfolio.name[lang],
+                    title           : "DAVIDELUNA: "+$portfolio.name[lang],
                     page            : "portfolio",
                     fixHeader       : true,
                     lang            : lang,
@@ -427,7 +325,7 @@ SiteController.prototype.portfolioDetailPage    =  function (request, response) 
                 response.end();
             } else {
                 response.render( path.resolve('resources/views/errors/404.jade'), {
-                    title           : "MAEUTICA: PAGE NOT FOUND"
+                    title           : "DAVIDELUNA: PAGE NOT FOUND"
                 });
                 response.end();
             }
@@ -507,7 +405,7 @@ SiteController.prototype.servicesPage           =  function (request, response) 
             response.end();
         } else {
             response.render( path.resolve('resources/views/pages/site/services.jade'), {
-                title           : "MAEUTICA: services page",
+                title           : "DAVIDELUNA: services page",
                 page            : "services",
                 lang            : lang,
                 cCode           : cCode,
@@ -599,7 +497,7 @@ SiteController.prototype.officesPage            =  function (request, response) 
             response.end();
         } else {
             response.render( path.resolve('resources/views/pages/site/offices.jade'), {
-                title           : "MAEUTICA: offices page",
+                title           : "DAVIDELUNA: offices page",
                 page            : "offices",
                 lang            : lang,
                 cCode           : cCode,
@@ -692,7 +590,7 @@ SiteController.prototype.officeDetailPage       =  function (request, response) 
                 $office.clients = _clients;
 
                 response.render( path.resolve('resources/views/pages/site/office_detail.jade'), {
-                    title           : "MAEUTICA: office detail page",
+                    title           : "DAVIDELUNA: office detail page",
                     page            : "offices",
                     lang            : lang,
                     cCode           : cCode,
@@ -847,7 +745,7 @@ SiteController.prototype.teamPage               =  function (request, response) 
             response.end();
         } else {
             response.render( path.resolve('resources/views/pages/site/team.jade'), {
-                title           : "MAEUTICA: team page",
+                title           : "DAVIDELUNA: team page",
                 page            : "team",
                 lang            : lang,
                 cCode           : cCode,
@@ -880,7 +778,7 @@ SiteController.prototype.pageNotFound   =  function (request, response) {
     var _tr  = Translate[lang];
 
     response.render( path.resolve('resources/views/errors/404.jade'), {
-        title           : "MAEUTICA: PAGE NOT FOUND",
+        title           : "DAVIDELUNA: PAGE NOT FOUND",
         page            : "",
         lang            : lang,
         cCode           : cCode,

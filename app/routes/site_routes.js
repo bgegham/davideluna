@@ -5,7 +5,7 @@ module.exports = function(app, multipart) {
 
     app.use('/',                                requestCountry.middleware({ attributeName: 'cCode' }));
 
-    app.get('/',                                multipart.array(), function(req, res){ siteController.landingPage(req, res); });
+    app.get('/',                                multipart.array(), function(req, res){ siteController.aboutPage(req, res); });
 
     app.get('/about',                           multipart.array(), function(req, res){ siteController.aboutPage(req, res); });
 

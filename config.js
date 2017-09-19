@@ -1,12 +1,12 @@
 module.exports = {
     development: {
-        baseUrl             : "http://37.186.125.214:6060",
+        baseUrl             : "http://37.186.125.214:1516",
         secret              : 'cssdbf5047ess9s4e0d8ff9a87f4b5acb92abb8sds26662ff2d5c74e33d1e24e0af7ssaa904825ae63ls967418s98b1effd06531s15637cdca372bff0004f035',
         mongo_url           : 'mongodb://127.0.0.1:27017/davideluna',
         SENDGRID_API_KEY    : "",
         office_fromEmail    : "office@help.email",
         office_toEmail      : "b.gegham@gmail.com",
-        http_port           : 6060,
+        http_port           : 1516,
         http_host           : '0.0.0.0'
     },
     production: {
