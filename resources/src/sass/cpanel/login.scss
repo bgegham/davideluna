@@ -3,7 +3,7 @@ $primary: #2196F3;
 body {
   font-family: "Open Sans", sans-serif;
   height: 100vh;
-  background: url(/img/cpanel/background-body.png) 50% fixed;
+  background: url(https://www.oakdenehouse.org.au/wp-content/uploads/2012/04/Background_Image1.png) 50% fixed;
   background-size: cover;
 }
 
@@ -105,7 +105,7 @@ body {
       }
       outline: none;
       color: #444;
-      border-color: $primary;
+      border-color: #2e5b6f;
       border-left-width: 30px;
     }
 
@@ -113,7 +113,7 @@ body {
 
   a {
     font-size: 0.8em;
-    color: $primary;
+    color: #2e5b6f;
     text-decoration: none;
   }
 
@@ -130,7 +130,7 @@ body {
     width: 100%;
     height: 100%;
     padding: 10px 10px;
-    background: $primary;
+    background: #2e5b6f;
     color: #fff;
     display: block;
     border: none;
@@ -169,7 +169,7 @@ body {
   }
 
   &:not(.loading) button:hover {
-    box-shadow: 0px 1px 3px $primary;
+    box-shadow: 0px 1px 3px #2e5b6f;
   }
   &:not(.loading) button:focus {
     .spinner{

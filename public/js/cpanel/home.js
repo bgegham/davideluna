@@ -1,1 +1,501 @@
-$(document).ready(function(){var t=$("#homeContent");$.ajax({type:"GET",url:"/control/admin/home/json",success:function(a){if(0==a.content.length)$("<h2 id='emptyData' class='text-center'>Create first element</h2>").appendTo(t),$("#saveFormJson").hide();else{var e=a.content;e.forEach(function(a){switch(a.node){case"text":var e=$($("<div>")).addClass(a.className).attr("id",a.id).attr("data-layout",a.layout).attr("data-node",a.node).attr("data-asterisk",a.asterisk).attr("data-bold",a.styles.bold).attr("data-alignment",a.styles.textAlign).attr("data-family",a.styles.fontFamily).fadeIn("fast"),n="header"==a.styles.bold||"all"==a.styles.bold?600:100,o="all"==a.styles.bold?600:100,l="font-weight:"+n+";font-family:"+a.styles.fontFamily+";text-align:"+a.styles.textAlign+";",r="font-weight:"+o+";font-family:"+a.styles.fontFamily+";text-align:"+a.styles.textAlign+";",i=$("<input name='eng' style='"+l+"' value='"+a.elements.valueHeader.en+"' placeholder='eng' class='form-control width-6 el-header' type='text'><input name='rus' style='"+l+"' value='"+a.elements.valueHeader.ru+"' placeholder='rus' class='form-control width-6 el-header' type='text'><textarea rows='4' style='"+r+"' name='eng' placeholder='eng' class='form-control width-6'>"+a.elements.valueMain.en+"</textarea><textarea rows='4' style='"+r+"' name='rus' placeholder='rus' class='form-control width-6'>"+a.elements.valueMain.ru+"</textarea>"),d=s("text-edit-mod");d.appendTo(e),i.appendTo(e),e.appendTo(t);break;case"hr":var e=$($("<div>")).addClass(a.className).attr("id",a.id).attr("data-layout",a.layout).attr("data-node",a.node).fadeIn("fast"),d=s("text-line-mod"),i=$("<hr/>");d.appendTo(e),i.appendTo(e),e.appendTo(t);break;case"space":var e=$($("<div>")).addClass(a.className).attr("id",a.id).attr("data-layout",a.layout).attr("data-node",a.node).attr("data-height",a.styles.height).attr("style","height:"+a.styles.height+"px").fadeIn("fast"),d=s("divider-space-mod");d.appendTo(e),e.appendTo(t)}}),setTimeout(function(){l()},200)}},error:function(){window.location.href="/control/admin/oauth/login"}});var a=$("#editModalText"),e=$("#editModalDivLine"),n=$("#editModalDivSpace"),o=function(){$("#addNew").modal("hide"),l()};a.bind("hide",function(){l()});var l=function(){$(".sortable-row").sortable({connectWith:".sortable-row",handle:"span.el-move"}).disableSelection(),$("#emptyData").hide(),$("#saveFormJson").show()},r=function(t,e,n,o,l,r){a.attr("data-toggle-col",e),a.find(t).click(),"false"==n?a.find("#asteriskStatus").removeAttr("checked"):a.find("#asteriskStatus").prop("checked",!0),a.find("input[name='text-bold']").each(function(){$(this).val()==o&&$(this).click()}),a.find("input[name='text-alignment']").each(function(){$(this).val()==l&&$(this).click()}),a.find("input[name='text-font-family']").each(function(){$(this).val()==r&&$(this).click()}),a.modal("show")},i=function(t,a){e.attr("data-toggle-col",a),e.find(t).click(),e.modal("show")},d=function(t,a,e){n.attr("data-toggle-col",a),n.find(t).click(),n.find("#spaceHeight").val(e),n.modal("show")},s=function(t){return $("<div class='el-control-actions'><span class='fa fa-remove el-remove pull-right' title='Remove'></span><span class='fa fa-edit el-edit pull-right "+t+"' title='Edit'></span><span class='fa fa-arrows-alt el-move pull-right' title='Sort'></span></div>")},c=function(){return"_id_"+Math.floor(9954151998462e4*Math.random())};$(".element-text").bind("click",function(){var a=$("<div class='col-xs-12 el-create-sort' data-layout='12' data-asterisk='true' data-bold='header' data-alignment='left' data-family='default' data-node='text' id='"+c()+"'></div>"),e=$("<input name='eng' placeholder='eng' class='form-control width-6 el-header' type='text'><input name='rus' placeholder='rus' class='form-control width-6 el-header' type='text'><textarea rows='4' name='eng' placeholder='eng' class='form-control width-6'></textarea><textarea rows='4' name='rus' placeholder='rus' class='form-control width-6'></textarea>"),n=s("text-edit-mod");n.appendTo(a),e.appendTo(a),a.appendTo(t),o()}),$(".element-divider").bind("click",function(){var a=$("<div class='col-xs-12 el-create-sort' data-layout='12' data-node='hr' id='"+c()+"'></div>"),e=s("divider-line-mod"),n=$("<hr/>");e.appendTo(a),n.appendTo(a),a.appendTo(t),o()}),$(".element-space").bind("click",function(){var a=$("<div class='col-xs-12 el-create-sort' data-layout='12' data-height='50' data-node='space' id='"+c()+"'></div>"),e=s("divider-space-mod");e.appendTo(a),a.appendTo(t),o()}),$(document).on("click","span.text-edit-mod",function(t){t.preventDefault();var a=$(this),e=a.parents("div.el-create-sort"),n="#layout1",o=e.attr("data-layout");"6"==o&&(n="#layout2");var l=e.attr("id"),i="true";"false"===e.attr("data-asterisk")&&(i="false");var d="header";"all"===e.attr("data-bold")&&(d="all"),"none"===e.attr("data-bold")&&(d="none");var s="left";"center"===e.attr("data-alignment")&&(s="center"),"right"===e.attr("data-alignment")&&(s="right"),"justify"===e.attr("data-alignment")&&(s="justify");var c="default";"default"!==e.attr("data-family")&&(c="custom"),r(n,l,i,d,s,c)}),$(document).on("click","span.divider-line-mod",function(t){t.preventDefault();var a=$(this),e=a.parents("div.el-create-sort"),n=".layout1",o=e.attr("data-layout");"6"==o&&(n=".layout2");var l=e.attr("id");i(n,l)}),$(document).on("click","span.divider-space-mod",function(t){t.preventDefault();var a=$(this),e=a.parents("div.el-create-sort"),n=".layout1",o=e.attr("data-layout");"6"==o&&(n=".layout2");var l=e.attr("data-height"),r=e.attr("id");d(n,r,l)}),$(document).on("click","label.layout-btn",function(t){t.preventDefault();var a=$(this),e=a.parents("div.modal").attr("data-toggle-col"),n=a.find("input").attr("data-class-name"),o=$("#"+e);o.attr("class",""),o.addClass(n+" col-xs-12 el-create-sort"),o.attr("data-layout",a.find("input").attr("value"))}),$(document).on("click","input#asteriskStatus",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.prop("checked"),n=$("#"+a);n.attr("data-asterisk",e)}),$(document).on("change","input#spaceHeight",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),n=$("#"+a);n.css({height:e+"px"}),n.attr("data-height",e)}),$(document).on("click","input[name='text-bold']",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),n=$("#"+a);n.attr("data-bold",e),"header"==e&&(n.find("input.form-control").css({"font-weight":600}),n.find("textarea.form-control").css({"font-weight":100})),"all"==e&&(n.find("input.form-control").css({"font-weight":600}),n.find("textarea.form-control").css({"font-weight":600})),"none"==e&&(n.find("input.form-control").css({"font-weight":100}),n.find("textarea.form-control").css({"font-weight":100}))}),$(document).on("click","input[name='text-alignment']",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),n=$("#"+a);n.attr("data-alignment",e),"left"==e&&n.find(".form-control").css({"text-align":"left"}),"center"==e&&n.find(".form-control").css({"text-align":"center"}),"right"==e&&n.find(".form-control").css({"text-align":"right"}),"justify"==e&&n.find(".form-control").css({"text-align":"justify"})}),$(document).on("click","input[name='text-font-family']",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),n=$("#"+a);n.attr("data-family",e),"default"==e&&n.find("input.form-control").css({"font-family":""}),"custom"==e&&n.find("input.form-control").css({"font-family":"custom"})}),$(document).on("click","span.el-remove",function(t){t.preventDefault(),confirm("Are you sure?")&&$(this).parents(".el-create-sort").remove()}),$("#saveFormJson").bind("click",function(a){a.preventDefault();var e=[],n=t.find(".el-create-sort");n.each(function(){var t=$(this);switch(t.attr("data-node")){case"text":e.push({node:t.attr("data-node"),id:t.attr("id"),layout:t.attr("data-layout"),className:t.attr("class"),asterisk:t.attr("data-asterisk"),styles:{bold:t.attr("data-bold"),textAlign:t.attr("data-alignment"),fontFamily:t.attr("data-family")},elements:{valueHeader:{en:t.find("input[name='eng']").val(),ru:t.find("input[name='rus']").val()},valueMain:{en:t.find("textarea[name='eng']").val(),ru:t.find("textarea[name='rus']").val()}}});break;case"hr":e.push({node:t.attr("data-node"),id:t.attr("id"),layout:t.attr("data-layout"),className:t.attr("class"),styles:null,elements:{hr:"hr"}});break;case"space":e.push({node:t.attr("data-node"),id:t.attr("id"),layout:t.attr("data-layout"),className:t.attr("class"),styles:{height:t.attr("data-height")},elements:null})}}),setTimeout(function(){$.ajax({type:"POST",url:"/control/admin/home",dataType:"json",data:{data:e},success:function(){document.location.reload()},error:function(){document.location.reload()}})},100)})});
+$(document).ready(function () {
+
+    var $homeContent = $("#homeContent");
+
+    // old data
+    $.ajax({
+        type: 'GET',
+        url: '/control/admin/home/json',
+        success: function (data) {
+
+            if(data.content.length == 0){
+                $("<h2 id='emptyData' class='text-center'>Create first element</h2>").appendTo($homeContent);
+                $("#saveFormJson").hide();
+            } else {
+
+                // console.log(data.content);
+
+                var $repeatedData = data.content;
+                $repeatedData.forEach(function (item) {
+                    switch( item["node"]) {
+                        case "text":
+                            var d  = $($("<div>"))
+                                .addClass(item.className)
+                                .attr("id", item.id)
+                                .attr("data-layout", item.layout)
+                                .attr("data-node", item.node)
+                                .attr("data-asterisk", item.asterisk)
+                                .attr("data-bold", item.styles.bold)
+                                .attr("data-alignment", item.styles.textAlign)
+                                .attr("data-family", item.styles.fontFamily)
+                                .fadeIn( "fast" );
+                            var fw1 = (item.styles.bold == "header" || item.styles.bold == "all") ? 600 : 100;
+                            var fw2 = (item.styles.bold == "all") ? 600 : 100;
+
+                            var s1 = "font-weight:"+fw1+";font-family:"+item.styles.fontFamily+";text-align:"+item.styles.textAlign+";";
+                            var s2 = "font-weight:"+fw2+";font-family:"+item.styles.fontFamily+";text-align:"+item.styles.textAlign+";";
+
+                            var c    = $(
+                                "<input name='eng' style='"+s1+"' value='"+ item.elements.valueHeader.en +"' placeholder='eng' class='form-control width-6 el-header' type='text'>" +
+                                "<input name='rus' style='"+s1+"' value='"+ item.elements.valueHeader.ru +"' placeholder='rus' class='form-control width-6 el-header' type='text'>" +
+                                "<textarea rows='4' style='"+s2+"' name='eng' placeholder='eng' class='form-control width-6'>"+ item.elements.valueMain.en +"</textarea>" +
+                                "<textarea rows='4' style='"+s2+"' name='rus' placeholder='rus' class='form-control width-6'>"+ item.elements.valueMain.ru +"</textarea>"
+                            );
+                            var a = _actions("text-edit-mod");
+                            a.appendTo(d);
+                            c.appendTo(d);
+                            d.appendTo($homeContent);
+                            break;
+                        case "hr":
+                            var d  = $($("<div>"))
+                                .addClass(item.className)
+                                .attr("id", item.id)
+                                .attr("data-layout", item.layout)
+                                .attr("data-node", item.node)
+                                .fadeIn( "fast" );
+                            var a = _actions("text-line-mod");
+                            var c    = $(
+                                "<hr/>"
+                            );
+                            a.appendTo(d);
+                            c.appendTo(d);
+                            d.appendTo($homeContent);
+                            break;
+                        case "space":
+                            var d  = $($("<div>"))
+                                .addClass(item.className)
+                                .attr("id", item.id)
+                                .attr("data-layout", item.layout)
+                                .attr("data-node", item.node)
+                                .attr("data-height", item.styles.height)
+                                .attr("style", "height:"+item.styles.height+"px")
+                                .fadeIn( "fast" );
+                            var a = _actions("divider-space-mod");
+                            a.appendTo(d);
+                            d.appendTo($homeContent);
+                            break;
+                        default:
+                            break;
+                    }
+                });
+                setTimeout(function () {
+                    initSortable();
+                }, 200);
+            }
+
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            window.location.href = "/control/admin/oauth/login";
+        }
+    });
+
+
+    var $edit_modal_text = $('#editModalText');
+    var $edit_modal_dline = $('#editModalDivLine');
+    var $edit_modal_dspace = $('#editModalDivSpace');
+
+    var $addNewModalClose = function () {
+        $('#addNew').modal('hide');
+        initSortable();
+    };
+    $edit_modal_text.bind('hide', function () {
+        initSortable();
+    });
+    var initSortable = function () {
+        $( ".sortable-row" ).sortable({
+            connectWith: ".sortable-row",
+            handle: 'span.el-move'
+        }).disableSelection();
+        $("#emptyData").hide();
+        $("#saveFormJson").show();
+    };
+    var $modalEditOpenText = function (targetLayoutId, refId, $asterisk, $bold, $alignment, $family) {
+        $edit_modal_text.attr("data-toggle-col", refId);
+        $edit_modal_text.find(targetLayoutId).click();
+        if($asterisk == "false"){
+            $edit_modal_text.find("#asteriskStatus").removeAttr('checked');
+        } else {
+            $edit_modal_text.find("#asteriskStatus").prop('checked',true);
+        }
+        $edit_modal_text.find("input[name='text-bold']").each(function( index ) {
+            if($(this).val() == $bold){
+                $(this).click();
+            }
+        });
+        $edit_modal_text.find("input[name='text-alignment']").each(function( index ) {
+            if($(this).val() == $alignment){
+                $(this).click();
+            }
+        });
+        $edit_modal_text.find("input[name='text-font-family']").each(function( index ) {
+            if($(this).val() == $family){
+                $(this).click();
+            }
+        });
+
+        //
+        $edit_modal_text.modal('show');
+    };
+    var $modalEditOpenDivLine = function (targetLayoutId, refId) {
+        $edit_modal_dline.attr("data-toggle-col", refId);
+        $edit_modal_dline.find(targetLayoutId).click();
+        //
+        $edit_modal_dline.modal('show');
+    };
+    var $modalEditOpenDivSpace = function (targetLayoutId, refId, height) {
+        $edit_modal_dspace.attr("data-toggle-col", refId);
+        $edit_modal_dspace.find(targetLayoutId).click();
+        $edit_modal_dspace.find("#spaceHeight").val(height);
+        //
+        $edit_modal_dspace.modal('show');
+    };
+
+    var _actions = function (type) {
+        return $("<div class='el-control-actions'>" +
+            "<span class='fa fa-remove el-remove pull-right' title='Remove'></span>" +
+            "<span class='fa fa-edit el-edit pull-right "+type+"' title='Edit'></span>" +
+            "<span class='fa fa-arrows-alt el-move pull-right' title='Sort'></span>" +
+            "</div>");
+    };
+    var setId = function () {
+        // create random ID
+        return "_id_"+Math.floor(Math.random() * 99541519984619999);
+    };
+
+    $(".element-text").bind("click", function () {
+
+        var $newEl      = $("<div class='col-xs-12 el-create-sort' " +
+            "data-layout='12' " +
+            "data-asterisk='true' " +
+            "data-bold='header' " +
+            "data-alignment='left' " +
+            "data-family='default' " +
+            "data-node='text' " +
+            "id='"+setId()+"'></div>");
+        var $content    = $(
+            "<input name='eng' placeholder='eng' class='form-control width-6 el-header' type='text'>" +
+            "<input name='rus' placeholder='rus' class='form-control width-6 el-header' type='text'>" +
+            "<textarea rows='4' name='eng' placeholder='eng' class='form-control width-6'></textarea>" +
+            "<textarea rows='4' name='rus' placeholder='rus' class='form-control width-6'></textarea>"
+        );
+        var $actions = _actions("text-edit-mod");
+
+        $actions.appendTo($newEl);
+        $content.appendTo($newEl);
+        $newEl.appendTo($homeContent);
+        $addNewModalClose();
+    });
+
+    $(".element-divider").bind("click", function () {
+
+        var $newEl      = $("<div class='col-xs-12 el-create-sort' " +
+            "data-layout='12' " +
+            "data-node='hr' " +
+            "id='"+setId()+"'></div>");
+        var $actions = _actions("divider-line-mod");
+        var $content    = $(
+            "<hr/>"
+        );
+
+        $actions.appendTo($newEl);
+        $content.appendTo($newEl);
+        $newEl.appendTo($homeContent);
+        $addNewModalClose();
+    });
+
+    $(".element-space").bind("click", function () {
+
+        var $newEl      = $("<div class='col-xs-12 el-create-sort' " +
+            "data-layout='12' " +
+            "data-height='50' " +
+            "data-node='space' " +
+            "id='"+setId()+"'></div>");
+        var $actions = _actions("divider-space-mod");
+
+        $actions.appendTo($newEl);
+        $newEl.appendTo($homeContent);
+        $addNewModalClose();
+    });
+
+    $(document).on("click", "span.text-edit-mod" ,  function(e) {
+        e.preventDefault();
+        var _this       = $(this),
+            _ref        = _this.parents('div.el-create-sort');
+
+        // layout
+        var targetLayoutId = "#layout1";
+        var targetLayout = _ref.attr("data-layout");
+        if(targetLayout == '6') {
+            targetLayoutId = "#layout2";
+        }
+        var refId = _ref.attr("id");
+        // asterisk
+        var $asterisk = "true";
+        if(_ref.attr("data-asterisk") === 'false'){
+            $asterisk = "false";
+        }
+        // text bold
+        var $bold = "header";
+        if(_ref.attr("data-bold") === 'all'){
+            $bold = "all";
+        }
+        if(_ref.attr("data-bold") === 'none'){
+            $bold = "none";
+        }
+        // text alignment
+        var $alignment = "left";
+        if(_ref.attr("data-alignment") === 'center'){
+            $alignment = "center";
+        }
+        if(_ref.attr("data-alignment") === 'right'){
+            $alignment = "right";
+        }
+        if(_ref.attr("data-alignment") === 'justify'){
+            $alignment = "justify";
+        }
+        // font-family
+        var $family = "default";
+        if(_ref.attr("data-family") !== 'default'){
+            $family = "custom";
+        }
+
+        $modalEditOpenText(targetLayoutId, refId, $asterisk, $bold, $alignment, $family);
+    });
+    $(document).on("click", "span.divider-line-mod" ,  function(e) {
+        e.preventDefault();
+        var _this       = $(this),
+            _ref        = _this.parents('div.el-create-sort');
+
+        // layout
+        var targetLayoutId = ".layout1";
+        var targetLayout = _ref.attr("data-layout");
+        if(targetLayout == '6') {
+            targetLayoutId = ".layout2";
+        }
+        var refId = _ref.attr("id");
+
+        $modalEditOpenDivLine(targetLayoutId, refId);
+    });
+    $(document).on("click", "span.divider-space-mod" ,  function(e) {
+        e.preventDefault();
+        var _this       = $(this),
+            _ref        = _this.parents('div.el-create-sort');
+
+        // layout
+        var targetLayoutId = ".layout1";
+        var targetLayout = _ref.attr("data-layout");
+        if(targetLayout == '6') {
+            targetLayoutId = ".layout2";
+        }
+
+        var $_height = _ref.attr("data-height");
+        var refId = _ref.attr("id");
+
+        $modalEditOpenDivSpace(targetLayoutId, refId, $_height);
+    });
+
+    $(document).on("click", "label.layout-btn" ,  function(e) {
+        e.preventDefault();
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _className  = _this.find('input').attr("data-class-name");
+
+        var $ref = $("#"+_ref);
+        $ref.attr('class','');
+        $ref.addClass(_className + " col-xs-12 el-create-sort");
+        $ref.attr( "data-layout", _this.find('input').attr("value"));
+    });
+    $(document).on("click", "input#asteriskStatus" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.prop("checked");
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-asterisk", _value);
+    });
+    $(document).on("change", "input#spaceHeight" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.css({
+            "height" : _value + "px"
+        });
+        $ref.attr("data-height", _value);
+    });
+    $(document).on("click", "input[name='text-bold']" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-bold", _value);
+        if(_value == "header"){
+            $ref.find("input.form-control").css({
+                "font-weight" : 600
+            });
+            $ref.find("textarea.form-control").css({
+                "font-weight" : 100
+            });
+        }
+        if(_value == "all"){
+            $ref.find("input.form-control").css({
+                "font-weight" : 600
+            });
+            $ref.find("textarea.form-control").css({
+                "font-weight" : 600
+            });
+        }
+        if(_value == "none"){
+            $ref.find("input.form-control").css({
+                "font-weight" : 100
+            });
+            $ref.find("textarea.form-control").css({
+                "font-weight" : 100
+            });
+        }
+
+    });
+    $(document).on("click", "input[name='text-alignment']" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-alignment", _value);
+        if(_value == "left"){
+            $ref.find(".form-control").css({
+                "text-align" : "left"
+            });
+        }
+        if(_value == "center"){
+            $ref.find(".form-control").css({
+                "text-align" : "center"
+            });
+        }
+        if(_value == "right"){
+            $ref.find(".form-control").css({
+                "text-align" : "right"
+            });
+        }
+        if(_value == "justify"){
+            $ref.find(".form-control").css({
+                "text-align" : "justify"
+            });
+        }
+
+    });
+    $(document).on("click", "input[name='text-font-family']" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-family", _value);
+        if(_value == "default"){
+            $ref.find("input.form-control").css({
+                "font-family" : ""
+            });
+        }
+        if(_value == "custom"){
+            $ref.find("input.form-control").css({
+                "font-family" : "custom"
+            });
+        }
+
+    });
+
+    $(document).on("click", "span.el-remove" ,  function(e) {
+        e.preventDefault();
+        if(confirm("Are you sure?")){
+            $(this).parents(".el-create-sort").remove();
+        }
+    });
+
+    // serialize and save
+    $("#saveFormJson").bind("click", function (e) {
+        e.preventDefault();
+        var result = [];
+        var _data = $homeContent.find(".el-create-sort");
+        // console.log(_data);
+
+        _data.each(function() {
+            var _this = $(this);
+
+            switch( _this.attr("data-node") ) {
+                case "text":
+                    result.push({
+                        node        : _this.attr("data-node"),
+                        id          : _this.attr("id"),
+                        layout      : _this.attr("data-layout"),
+                        className   : _this.attr("class"),
+                        asterisk    : _this.attr("data-asterisk"),
+                        styles      : {
+                            bold        : _this.attr("data-bold"),
+                            textAlign   : _this.attr("data-alignment"),
+                            fontFamily  : _this.attr("data-family")
+                        },
+                        elements    : {
+                            valueHeader : {
+                                en : _this.find("input[name='eng']").val(),
+                                ru : _this.find("input[name='rus']").val(),
+                            },
+                            valueMain   : {
+                                en : _this.find("textarea[name='eng']").val(),
+                                ru : _this.find("textarea[name='rus']").val()
+                            }
+                        }
+                    });
+                    break;
+                case "hr":
+                    result.push({
+                        node        : _this.attr("data-node"),
+                        id          : _this.attr("id"),
+                        layout      : _this.attr("data-layout"),
+                        className   : _this.attr("class"),
+                        styles      : null,
+                        elements    : {
+                            hr : "hr"
+                        }
+                    });
+                    break;
+                case "space":
+                    result.push({
+                        node        : _this.attr("data-node"),
+                        id          : _this.attr("id"),
+                        layout      : _this.attr("data-layout"),
+                        className   : _this.attr("class"),
+                        styles      : {
+                            height  : _this.attr("data-height")
+                        },
+                        elements    : null
+                    });
+                    break;
+                default:
+                    break;
+            }
+
+        });
+
+        // save on db
+        setTimeout(function () {
+            $.ajax({
+                type: 'POST',
+                url: '/control/admin/home',
+                dataType: 'json',
+                data: {
+                    data : result
+                },
+                success: function () {
+                    document.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    document.location.reload();
+                }
+            });
+        }, 100);
+
+    });
+
+});

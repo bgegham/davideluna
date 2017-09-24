@@ -1,1 +1,175 @@
-$(document).ready(function(){function e(e){if(e.files&&e.files[0]){var t=new FileReader;t.onload=function(t){$(e).parents(".custom-input-file").css("background-image","url("+t.target.result+")")},t.readAsDataURL(e.files[0])}}$(".sortPriority").bind("click",function(){$(".sortable").sortable({connectWith:".office-sort"}).disableSelection(),$(this).hide(),$(".savePriority").show()}),$(".savePriority").bind("click",function(){var e=[],t=$(".sortable").find("div[data-priority]");$.each(t,function(t,n){e.push($(n).attr("data-priority").replace(/\"/g,""))}),$.ajax({type:"POST",url:"/control/admin/offices/priority",dataType:"json",data:{priority:e},success:function(){document.location.reload()},error:function(){document.location.reload()}}),$(this).hide(),$(".sortPriority").show()}),$(".removeOffice").bind("click",function(){var e=$(this).attr("data-remove").replace(/\"/g,"");e&&confirm("Are you sure?")&&$.ajax({type:"POST",url:"/control/admin/offices/remove",dataType:"json",data:{id:e},success:function(){document.location.reload()},error:function(){document.location.reload()}})}),$(".change-file-input").change(function(){e(this)}),$("#addClient").bind("click",function(){{var e=($("#clientsControl").find(".client-on-line").length,$("<div>").addClass("row client-on-line")),t=$("<div>").addClass("col-xs-3"),n=($("<label>").html("Name en").appendTo(t),$("<input>").addClass("form-control").attr("name","client_name_en").attr("type","text").attr("placeholder","English").attr("required","required").appendTo(t),$("<div>").addClass("col-xs-3")),a=($("<label>").html("Name rus").appendTo(n),$("<input>").addClass("form-control").attr("name","client_name_ru").attr("type","text").attr("placeholder","Русский").attr("required","required").appendTo(n),$("<div>").addClass("col-xs-3")),i=($("<label>").html("Image file").appendTo(a),$("<div>").addClass("input-group").appendTo(a)),o=($("<label>").addClass("input-group-btn").html("<span class='btn btn-primary'>Browse&hellip;<input name='client_image' class='client-image' required='required' type='file' style='display: none;'></span>").appendTo(i),$("<input>").addClass("form-control nameShow").attr("type","text").attr("readonly","readonly").appendTo(i),$("<div>").addClass("col-xs-3"));$("<img>").addClass("image-show-clients").appendTo(o),$("<button>").attr("type","button").addClass("btn btn-xs btn-danger").html("<i class='fa fa-remove'><i>").appendTo(o).attr("style","margin-left: 30px;margin-top: 18px").click(function(){$(this).parents("div.client-on-line").remove()}),$("<span>").attr("type","button").addClass("btn btn-xs btn-info sort-clients").html("<i class='fa fa-bars'><i>").attr("style","margin-left: 10px;margin-top: 18px;cursor:move;").appendTo(o)}t.appendTo(e),n.appendTo(e),a.appendTo(e),o.appendTo(e);var l=$($("<input type='hidden' value='new' name='old_client_id'>"));l.appendTo(e),e.appendTo($("#clientsControl")),$(".sortable-clients").sortable({connectWith:".client-on-line",handle:"span.sort-clients"}).disableSelection()}),$(".remove-old-client").on("click",function(){var e=$(this).attr("data-client-id").replace(/\"/g,"");console.log(e),$("#editForm").append("<input type='hidden' name='client_remove' value='"+e+"'/>"),$(this).parents("div.client-on-line").remove()}),$(document).on("change",".client-image",function(){var e=$(this),n=e.val().replace(/\\/g,"/").replace(/.*\//,"");e.parents("div.input-group").find("input.nameShow").val(n),t(this,e.parents("div.client-on-line").find("img.image-show-clients"))});var t=function(e,t){if(e.files){var n=e.files.length;for(i=0;i<n;i++){var a=new FileReader;a.onload=function(e){t.attr("src",e.target.result)},a.readAsDataURL(e.files[i])}}}});
+$(document).ready(function () {
+
+    // view
+    $(".sortPriority").bind("click", function () {
+
+        $( ".sortable" ).sortable({
+            connectWith: ".office-sort"
+        }).disableSelection();
+
+        $(this).hide();
+        $(".savePriority").show();
+    });
+
+    $(".savePriority").bind("click", function () {
+
+        var _data = [];
+        var sortCashe = $(".sortable").find("div[data-priority]");
+        $.each(sortCashe, function (index, item) {
+            _data.push($(item).attr('data-priority').replace(/\"/g, ""));
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/control/admin/offices/priority',
+            dataType: 'json',
+            data: {
+                priority : _data
+            },
+            success: function () {
+                document.location.reload();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                document.location.reload();
+            }
+        });
+
+        $(this).hide();
+        $(".sortPriority").show();
+    });
+
+    $(".removeOffice").bind("click", function () {
+        var id = $(this).attr("data-remove").replace(/\"/g, "");
+
+        if(id && confirm("Are you sure?") ){
+            $.ajax({
+                type: 'POST',
+                url: '/control/admin/offices/remove',
+                dataType: 'json',
+                data: {
+                    id : id
+                },
+                success: function () {
+                    document.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    document.location.reload();
+                }
+            });
+        }
+    });
+
+    //add
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(input).parents(".custom-input-file").css('background-image', 'url(' + e.target.result + ')');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    };
+
+    $(".change-file-input").change(function () {
+        readURL(this);
+    });
+
+    $("#addClient").bind("click", function () {
+
+        var _id =  $("#clientsControl").find(".client-on-line").length,
+            d   = $("<div>")
+                .addClass("row client-on-line"),
+            d1   = $("<div>").addClass("col-xs-3"),
+            d1l  = $("<label>").html("Name en").appendTo(d1),
+            i   = $("<input>")
+                .addClass("form-control")
+                .attr("name", "client_name_en" )
+                .attr("type", "text")
+                .attr("placeholder", "English")
+                .attr("required", "required")
+                .appendTo(d1),
+            d11   = $("<div>").addClass("col-xs-3"),
+            d11l  = $("<label>").html("Name rus").appendTo(d11),
+            i2  = $("<input>")
+                .addClass("form-control")
+                .attr("name", "client_name_ru" )
+                .attr("type", "text")
+                .attr("placeholder", "Русский")
+                .attr("required", "required")
+                .appendTo(d11),
+            d2   = $("<div>").addClass("col-xs-3"),
+            d2l  = $("<label>").html("Image file").appendTo(d2),
+            d2m  = $("<div>").addClass("input-group").appendTo(d2),
+            l   = $("<label>")
+                .addClass("input-group-btn")
+                .html("<span class='btn btn-primary'>Browse&hellip;<input name='client_image' class='client-image' required='required' type='file' style='display: none;'></span>")
+                .appendTo(d2m),
+            r   = $("<input>")
+                .addClass("form-control nameShow")
+                .attr("type", "text")
+                .attr("readonly", "readonly")
+                .appendTo(d2m),
+            d3   = $("<div>").addClass("col-xs-3"),
+            img = $("<img>")
+                .addClass("image-show-clients")
+                .appendTo(d3),
+            b    = $("<button>")
+                .attr("type", "button")
+                .addClass("btn btn-xs btn-danger")
+                .html("<i class='fa fa-remove'><i>")
+                .appendTo(d3)
+                .attr("style", "margin-left: 30px;margin-top: 18px")
+                .click(function () {
+                    $(this).parents("div.client-on-line").remove();
+                }),
+            bs    = $("<span>")
+                .attr("type", "button")
+                .addClass("btn btn-xs btn-info sort-clients")
+                .html("<i class='fa fa-bars'><i>")
+                .attr("style", "margin-left: 10px;margin-top: 18px;cursor:move;")
+                .appendTo(d3);
+        d1.appendTo(d);
+        d11.appendTo(d);
+        d2.appendTo(d);
+        d3.appendTo(d);
+        var oldId = $($("<input type='hidden' value='new' name='old_client_id'>"));
+        oldId.appendTo(d);
+        d.appendTo($("#clientsControl"));
+
+        // ini sortable
+        $( ".sortable-clients" ).sortable({
+            connectWith: ".client-on-line",
+            handle: 'span.sort-clients'
+        }).disableSelection();
+    });
+
+
+    $(".remove-old-client").on("click", function () {
+        var deleted_item = $(this).attr("data-client-id").replace(/\"/g, "");
+        console.log(deleted_item);
+        $("#editForm").append("<input type='hidden' name='client_remove' value='" + deleted_item + "'/>");
+        $(this).parents("div.client-on-line").remove();
+    });
+
+    $(document).on('change', '.client-image', function() {
+        var input = $(this),
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.parents("div.input-group").find("input.nameShow").val(label);
+        imagesPreview(this, input.parents("div.client-on-line").find("img.image-show-clients"));
+    });
+
+    var imagesPreview = function (input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    placeToInsertImagePreview.attr('src', event.target.result);
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+});

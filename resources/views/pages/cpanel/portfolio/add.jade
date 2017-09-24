@@ -13,7 +13,7 @@ block content
     #wrapper
         include ../../../partial/_sidebar
         .page-name
-            span Add portfolio
+            span Add event
             a.btn.btn-sm.btn-success.pull-right(title="back" onclick="window.history.back();")
                 i.fa.fa-arrow-left
                 |   Back
@@ -27,11 +27,11 @@ block content
                 form(method="post",role='form', action="/control/admin/portfolio/add")
                     .col-xs-12.col-sm-6
                         .form-group
-                            label(for='name_en') Job name (eng)
+                            label(for='name_en') Event name (eng)
                             input#name_en.form-control(required=true name="name_en", type='text', placeholder='Name')
                     .col-xs-12.col-sm-6
                         .form-group
-                            label(for='name_ru') Название работы (рус)
+                            label(for='name_ru') Название (рус)
                             input#name_ru.form-control(name="name_ru", type='text', placeholder='Название')
                     .col-xs-12.col-sm-6
                         .form-group
@@ -55,18 +55,7 @@ block content
                     .col-xs-12.col-sm-6
                         .form-group
                             label Info!
-                            p This project by default is unpublished.
-                    .col-xs-12
-                        .form-group
-                            label.tagsLabel Project subscribed for tags:
-                            div
-                                if(!tags.length)
-                                    a.text-center(href="/control/admin/tags") Add the first tag
-                                else
-                                    each itemTag in tags
-                                        label.checkbox-inline
-                                            input(name="tags" type='checkbox', value=itemTag._id)
-                                            |   #{itemTag.name.en}
+                            p This event by default is unpublished.
                     .col-xs-12
                         .clearfix
                     .col-xs-12.text-center.top-25

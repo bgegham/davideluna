@@ -25,6 +25,11 @@
   .footer-image-info-block,
   .footer-copyright-social-links-block {
     margin: 0 auto;
+    float: left;
+
+    &.float-center{
+      float: none;
+    }
 
     &:after {
       display: table;
@@ -36,7 +41,6 @@
   .contact-info {
     padding: 0 0 0 20px;
     font-size: 12px;
-    width: 50%;
     box-sizing: border-box;
   }
 
@@ -57,7 +61,7 @@
   }
 
   .contact-links {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 0;
     margin: 20px 0 0 0;
     font-size: 12px;
     width: 50%;
@@ -159,7 +163,6 @@
     }
 
     .copyright-text {
-      float: right;
       margin: 0 20px 0 0;
     }
   }
@@ -183,7 +186,6 @@
     }
 
     .copyright-text {
-      float: right;
       margin: 0 20px 0 0;
     }
   }

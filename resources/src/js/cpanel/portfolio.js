@@ -5,13 +5,13 @@ $(document).ready(function () {
      */
     $(".morePortfolio").bind("click", function () {
 
-       $(".portfolio-more-control").hide();
-       var _this = this;
+        $(".portfolio-more-control").hide();
+        var _this = this;
         $(".morePortfolio").removeClass('active');
-       $(_this).addClass('active');
-       setTimeout(function () {
-           $("#more_"+$(_this).attr("data-more").replace(/\"/g, "")).show();
-       }, 100);
+        $(_this).addClass('active');
+        setTimeout(function () {
+            $("#more_"+$(_this).attr("data-more").replace(/\"/g, "")).show();
+        }, 100);
     });
 
     /**
@@ -26,22 +26,13 @@ $(document).ready(function () {
         $(this).hide();
         $(".savePriority").show();
     });
-    $(".savePriority").show();
     $(".savePriority").bind("click", function () {
 
         var _data = [];
-        var sortCashe = $(".gridster ul").find("li[data-priority]");
-
+        var sortCashe = $(".sortable").find("div.item-sort[data-priority]");
         $.each(sortCashe, function (index, item) {
-            _data.push({
-                priority : $(item).attr('data-priority').replace(/\"/g, ""),
-                data_sizey : parseInt($(item).attr('data-sizey')),
-                data_sizex : parseInt($(item).attr('data-sizex')),
-                data_col : parseInt($(item).attr('data-col')),
-                data_row : parseInt($(item).attr('data-row')),
-            });
+            _data.push($(item).attr('data-priority').replace(/\"/g, ""));
         });
-
 
         $.ajax({
             type: 'POST',
@@ -64,8 +55,8 @@ $(document).ready(function () {
 
 
     /**
-    * publish | unpublish
-    */
+     * publish | unpublish
+     */
     $(".publishPortfolio").bind("click", function () {
         if(confirm("Are you sure?")){
             var p_id = $(this).attr('data-publish').replace(/\"/g, "");
@@ -109,12 +100,6 @@ $(document).ready(function () {
      * edit | meta data
      */
     $("#metaImagePath").change(function () {
-        readURL(this);
-    });
-    $("#metaImagePath1").change(function () {
-        readURL(this);
-    });
-    $("#metaImagePath2").change(function () {
         readURL(this);
     });
     $(document).on('change', '.btn-file.meta-image :file', function () {
@@ -198,8 +183,8 @@ $(document).ready(function () {
     });
 
     /**
-    *  edit | top slider
-    */
+     *  edit | top slider
+     */
     function readURLTPEDIT(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();

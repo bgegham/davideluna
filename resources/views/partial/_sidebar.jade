@@ -13,21 +13,6 @@ script.
     });
 #sidebar-wrapper
     ul.sidebar-nav#myAccordion
-        //li.sidebar-brand
-        //li.divider
-        li(class=(active_menu === 'landing' ? 'activeMenu' : ''), data-toggle="collapse",data-target="#_landing", data-parent="#myAccordion")
-            a
-                i.fa.fa-desktop
-                span    Landing
-            ul#_landing.sub-menu.collapse
-                li
-                    a(href="/control/admin/landing?lang=en")
-                        i.fa.fa-angle-double-right
-                        |  Edit (eng)
-                li
-                    a(href="/control/admin/landing?lang=ru")
-                        i.fa.fa-angle-double-right
-                        |  Edit (rus)
         li(class=(active_menu === 'home' ? 'activeMenu' : ''), data-toggle="collapse",data-target="#_home", data-parent="#myAccordion")
             a
                 i.fa.fa-address-card-o
@@ -41,26 +26,10 @@ script.
                     a(href="/control/admin/home?lang=ru")
                         i.fa.fa-angle-double-right
                         |  Edit (rus)
-        li(class=(active_menu === 'portfolio' ? 'activeMenu' : ''))
-            a(href="/control/admin/portfolio")
-                i.fa.fa-briefcase
-                span    Portfolio
-        li(class=(active_menu === 'recent' ? 'activeMenu' : ''))
-            a(href="/control/admin/recent")
-                i.fa.fa-sitemap
-                span    Recent works
-        li(class=(active_menu === 'offices' ? 'activeMenu' : ''))
-            a(href="/control/admin/offices")
-                i.fa.fa-building-o
-                span    Offices
-        li(class=(active_menu === 'team' ? 'activeMenu' : ''))
-            a(href="/control/admin/team")
-                i.fa.fa-users
-                span    Team
         li(class=(active_menu === 'services' ? 'activeMenu' : ''), data-toggle="collapse",data-target="#_services", data-parent="#myAccordion")
             a
                 i.fa.fa-cubes
-                span    Services
+                span    Successes
             ul#_services.sub-menu.collapse
                 li
                     a(href="/control/admin/services?lang=en")
@@ -70,23 +39,38 @@ script.
                     a(href="/control/admin/services?lang=ru")
                         i.fa.fa-angle-double-right
                         |  Edit (rus)
-        li(class=(active_menu === 'blog' ? 'activeMenu' : ''))
-            a(href="/control/admin/blog")
-                i.fa.fa-window-restore
-                span    Blog
+        li(class=(active_menu === 'portfolio' ? 'activeMenu' : ''))
+            a(href="/control/admin/portfolio")
+                i.fa.fa-briefcase
+                span    My Works
+        li(class=(active_menu === 'recent' ? 'activeMenu' : ''))
+            a(href="/control/admin/recent")
+                i.fa.fa-sitemap
+                span    Last Updates
+        li(class=(active_menu === 'covers' ? 'activeMenu' : ''), data-toggle="collapse",data-target="#_covers", data-parent="#myAccordion")
+            a
+                i.fa.fa-caret-square-o-right
+                span    Covers
+            ul#_covers.sub-menu.collapse
+                li
+                    a(href="/control/admin/covers?lang=en")
+                        i.fa.fa-angle-double-right
+                        |  Edit (eng)
+                li
+                    a(href="/control/admin/covers?lang=ru")
+                        i.fa.fa-angle-double-right
+                        |  Edit (rus)
+        li(class=(active_menu === 'team' ? 'activeMenu' : ''))
+            a(href="/control/admin/offices/edit/contacts")
+                i.fa.fa-users
+                span    Contacts
+
         li.divider
         li(class=(active_menu === 'headers' ? 'activeMenu' : ''))
             a(href="/control/admin/headers")
                 i.fa.fa-file-image-o
                 span    Headers
-        li(class=(active_menu === 'footers' ? 'activeMenu' : ''))
-            a(href="/control/admin/footers")
-                i.fa.fa-sticky-note-o
-                span    Footers
-        li(class=(active_menu === 'tags' ? 'activeMenu' : ''))
-            a(href="/control/admin/tags")
-                i.fa.fa-bookmark-o
-                span    Tags
+
         li.divider
         li(class=(active_menu === 'media-files' ? 'activeMenu' : ''))
             a(href="/control/admin/media-files")

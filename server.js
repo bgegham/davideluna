@@ -156,7 +156,7 @@ app.listen(config.http_port, config.http_host);
 // shout out to the user
 console.log(' ----------------------------------------------------------');
 console.log('|                                                          |');
-console.log('|           << DAVIDELUNA >> started on port ' + config.http_port + '            |');
+console.log('|          << DAVIDELUNA >> started on port ' + config.http_port + '           |');
 console.log('|                                                          |');
 console.log(' ----------------------------------------------------------');
 console.log('');

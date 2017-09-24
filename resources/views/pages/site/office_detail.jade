@@ -16,19 +16,16 @@ block content
         // main content
         section.scroll-from-header.bg-office-detail
             .container.office-detail-page
-                .col-xs-12.col-sm-2#size-for-map
+                .col-xs-12.col-sm-6#size-for-map
                     div.address-block
                         h2.text-title=_tr.address
-                            img(src='/img/site/asterisk.svg')
                         p!=office.address[lang].replace(/\n/g, '<br />').replace(/\n/g, '')
                     div.address-block
                         h2.text-title=_tr.phone
-                            img(src='/img/site/asterisk.svg')
                         p
                             a(href="tel:"+office.phone.replace(/[^\d]/g, ''))=office.phone
                     div.address-block
                         h2.text-title=_tr.email
-                            img(src='/img/site/asterisk.svg')
                         p
                             a(href="mailto:"+office.email)=office.email
                 .col-xs-12.col-sm-6
@@ -55,43 +52,6 @@ block content
 
                             });
                         }
-
-                .col-xs-12.col-sm-4
-                    div.send-msg-block
-                        p.send-msg-title=_tr.whatWeCan
-                        div.title-text-field-block
-                            div
-                                p.text-field-title=_tr.fullName
-                                input#full_name(type='text', name="full_name" required=true)
-                            div
-                                p.text-field-title=_tr.email
-                                input#email(type='email', name="email" required=true)
-                            div
-                                p.text-field-title=_tr.message
-                                textarea#text(rows='4', cols='30', name="text" required=true)
-                            div
-                                .office-form-error
-                                    p=_tr.msgError
-                                .office-form-success
-                                    p=_tr.msgSuccess
-                            button.send-btn#sendOfficeEmail Send
-
-
-
-        section.bg-offices.top-border.bg-office-detail
-            .container.office-detail-page.clients-control
-                .col-xs-12
-                    .pd15
-                        h2.text-title=_tr.clients
-                            img(src='/img/site/asterisk.svg')
-                .col-xs-12.col-sm-2
-                    .list-block
-                        each client in office.clients
-                            p=client.name[lang]
-                .col-xs-12.col-sm-10
-                    .logo-block
-                        each client in office.clients
-                            img.client-img(src="/images/"+client.image)
 
         // recent works
         include components/_recent_works

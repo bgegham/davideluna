@@ -2,11 +2,11 @@
     form#editForm(method="post", role='form', action="/control/admin/portfolio/edit/general/#{oldVal._id}")
         .col-xs-12.col-sm-6
             .form-group
-                label(for='name_en') Job name (eng)
+                label(for='name_en') Event name (eng)
                 input#name_en.form-control(name="name_en", type='text', placeholder='Name' value=(oldVal && oldVal.name.en) ? oldVal.name.en : '')
         .col-xs-12.col-sm-6
             .form-group
-                label(for='name_ru') Название работы (рус)
+                label(for='name_ru') Название (рус)
                 input#name_ru.form-control(name="name_ru", type='text', placeholder='Название' value=(oldVal && oldVal.name.ru) ? oldVal.name.ru : '')
         .col-xs-12.col-sm-6
             .form-group
@@ -31,35 +31,7 @@
             .form-group
                 label Remember!
                 p Think then do ;-)
-        .col-xs-12.col-sm-6
-            .form-group
-                label No Padding
-                br
-                if (!oldVal.withPadding)
-                    label.checkbox-inline
-                        input(name="noPadding" type='checkbox', checked)
-                        |   Disable padding's
-                else
-                    label.checkbox-inline
-                        input(name="noPadding" type='checkbox')
-                        |   Disable padding's
 
-        .col-xs-12
-            .form-group
-                label.tagsLabel Project subscribed for tags:
-                div
-                    if(!tags.length)
-                        a.text-center(href="/control/cpanel/tags") Add the first tag
-                    else
-                        each itemTag in tags
-                            if (oldVal.tags.toString().indexOf(itemTag._id) != -1)
-                                label.checkbox-inline
-                                    input(name="tags" type='checkbox', value=itemTag._id checked)
-                                    |   #{itemTag.name.en}
-                            else
-                                label.checkbox-inline
-                                    input(name="tags" type='checkbox', value=itemTag._id)
-                                    |   #{itemTag.name.en}
         .col-xs-12
             .clearfix
         .col-xs-12.text-center.top-25

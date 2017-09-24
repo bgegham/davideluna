@@ -31,7 +31,7 @@ block content
                     strong
             .row
                 if(!portfolio.length)
-                    h1.text-center Add the first work in portfolio
+                    h1.text-center Add the first event in portfolio
                 else
                     .sortable
                         each item in portfolio
@@ -76,7 +76,3 @@ block content
                                         span.badge=moreInfo.dateOfCreate
                                     else
                                         span.badge.not-sel Not selected
-
-
-
-

@@ -11,35 +11,39 @@ footer#footer-block
                             div.contact-info-row
                                 p.contact-title Contact phone
                                 a(href='tel:+37499999881') (099) 999-881
-                            div.contact-info-row
-                                a.privace(data-toggle="modal" data-target="#privacy") Privacy policy
+                            br
+                            div.social-icons
+                                a(href='https://www.facebook.com/DavidelunAVEVO' target="_blank")
+                                    i.fa.fa-facebook-square.fa-lg
+                                a(href='https://www.linkedin.com/in/david-vardanov-b544a066/' target="_blank")
+                                    i.fa.fa-linkedin.fa-lg
+                                a(href='https://www.instagram.com/davitvardanov/' target="_blank")
+                                    i.fa.fa-instagram.fa-lg
                 .col-xs-12.col-sm-4
                     div.footer-image-info-block
                         div.contact-info
                             div.contact-links
                                 a(href="/about?lang=#{lang}")=_tr.about
-                                a(href="/services?lang=#{lang}")=_tr.services
+                                a(href="/successes?lang=#{lang}")=_tr.services
                                 a(href="/portfolio?lang=#{lang}")=_tr.portfolio
-                                a(href="/offices?lang=#{lang}")=_tr.offices
-                                a(href="/team?lang=#{lang}")=_tr.team
+                                a(href="/covers?lang=#{lang}")=_tr.offices
+                                a(href="/contacts?lang=#{lang}")=_tr.team
+                                a.language.en(data-lang="en")
+                                    img(src="/img/site/usa.png" width="25px")
+                                    |   Eng
+                                a.language.ru(data-lang="ru")
+                                    img(src="/img/site/rus.png" width="25px")
+                                    |   Рус
                 .col-xs-12.col-sm-4
                     div.footer-image-info-block
-                        div.contact-info
+                        div.contact-info.text-center
                             a(href="/?lang=#{lang}")
-                                img(src='/img/site/brand-name-black.png')
+                                img(src='/img/site/brand-name-black.png' width="80%")
     div.footer-centered.top-border
         .container
             .row
-                .col-xs-12
-                    div.footer-copyright-social-links-block
-                        div.social-icons
-                            a(href='https://www.facebook.com/DavidelunAVEVO' target="_blank")
-                                i.fa.fa-facebook-square.fa-lg
-                            a(href='https://www.linkedin.com/in/david-vardanov-b544a066/' target="_blank")
-                                i.fa.fa-linkedin.fa-lg
-                            a(href='https://www.instagram.com/davitvardanov/' target="_blank")
-                                i.fa.fa-instagram.fa-lg
+                .col-xs-12.text-center
+                    div.footer-copyright-social-links-block.float-center
                         div.copyright-text
                             i.fa.fa-copyright
                             span=_tr.copyright
-    include ../components/_privacy

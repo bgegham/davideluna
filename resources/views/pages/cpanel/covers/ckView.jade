@@ -23,7 +23,7 @@ block specific_js
                 console.log(CKEDITOR.instances.editor.getData());
                 $.ajax({
                     type: 'POST',
-                    url: '/control/admin/home/save/#{home._id}/#{lang}',
+                    url: '/control/admin/covers/save/#{covers._id}/#{lang}',
                     dataType: 'json',
                     data: {
                         content: CKEDITOR.instances.editor.getData()
@@ -44,7 +44,7 @@ block content
     #wrapper
         include ../../../partial/_sidebar
         .page-name
-            span Home page (#{lang})
+            span Covers page (#{lang})
             button.btn.btn-sm.btn-warning.pull-right.saveCK(title="Save")
                 i.fa.fa-floppy-o
                 |   Save
@@ -55,7 +55,7 @@ block content
                     strong
             .row
                 .col-xs-12.sortable
-                    if(!home)
+                    if(!covers)
                         h1.text-center Add the first content
                     else
-                        textarea#editor=home.content[lang]
+                        textarea#editor=covers.content[lang]

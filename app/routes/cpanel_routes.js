@@ -24,6 +24,11 @@ module.exports = function(app, multipart) {
     app.get('/control/admin/landing',                   multipart.array(),         function(req, res){ cPanelController.get_landing(req, res); });
     app.post('/control/admin/landing/save/:id/:lang',   multipart.array(),         function(req, res){ cPanelController.saveLandingCK(req, res)});
 
+    //covers
+    app.get('/control/admin/covers',              multipart.array(),          function(req, res){ cPanelController.get_covers(req, res); });
+    app.post('/control/admin/covers/save/:id/:lang',       multipart.array(),         function(req, res){ cPanelController.saveCoversCK(req, res)});
+
+
     // home
     app.get('/control/admin/home',              multipart.array(),          function(req, res){ cPanelController.get_home(req, res); });
     app.get('/control/admin/home/json',         multipart.array(),          function(req, res){ cPanelController.get_home_json(req, res); });
@@ -87,8 +92,8 @@ module.exports = function(app, multipart) {
     app.post('/control/admin/offices/add',      officesFiles,               function(req, res){ cPanelController.ADD_OFFICES(req, res); });
     app.post('/control/admin/offices/priority', multipart.array(),          function(req, res){ cPanelController.UPDATE_OFFICES_PRIOR(req, res); });
     app.post('/control/admin/offices/remove',   multipart.array(),          function(req, res){ cPanelController.REMOVE_OFFICES(req, res); });
-    app.get('/control/admin/offices/edit/:id',  multipart.array(),          function(req, res){ cPanelController.get_office_edit(req, res); });
-    app.post('/control/admin/offices/edit/:id', officesFiles,               function(req, res){ cPanelController.UPDATE_OFFICE(req, res); });
+    app.get('/control/admin/offices/edit/contacts',  multipart.array(),          function(req, res){ cPanelController.get_office_edit(req, res); });
+    app.post('/control/admin/offices/edit/contacts', officesFiles,               function(req, res){ cPanelController.UPDATE_OFFICE(req, res); });
 
     // services
     app.get('/control/admin/services',           multipart.array(),         function(req, res){ cPanelController.get_services(req, res); });

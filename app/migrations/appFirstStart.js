@@ -6,6 +6,7 @@ var md5                 = require('md5'),
     Admin               = require('../models/Admin'),
     Home                = require('../models/Home'),
     Landing             = require('../models/Landing'),
+    Covers              = require('../models/Covers'),
     Services            = require('../models/Services');
 
 // create super admin
@@ -45,6 +46,18 @@ Home.find({}, function(err, home){
             if(home.length == 0){
                 var home = new Home();
                 home.save();
+            }
+        }
+    }
+});
+Covers.find({}, function(err, covers){
+    if (err) {
+        console.log(err);
+    } else {
+        if (covers) {
+            if(covers.length == 0){
+                var covers = new Covers();
+                covers.save();
             }
         }
     }

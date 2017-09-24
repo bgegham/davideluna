@@ -10,6 +10,7 @@ var config                  = require('../../config')[APP_ENV],
     Admin                   = require('../models/Admin'),
     Landing                 = require('../models/Landing'),
     Home                    = require('../models/Home'),
+    Covers                  = require('../models/Covers'),
     Team                    = require('../models/Team'),
     Portfolio               = require('../models/Portfolio'),
     Tags                    = require('../models/Tags'),
@@ -35,7 +36,7 @@ var CPanelController    = function() {};
 // authentication
 CPanelController.prototype.get_login            = function (request, response) {
     response.render( path.resolve('resources/views/pages/cpanel/auth/login.jade'), {
-        title       : "MAEUTICA: cpanel login page"
+        title       : "DAVIDELUNA: cpanel login page"
     });
     response.end();
 };
@@ -77,7 +78,7 @@ CPanelController.prototype.get_greeting         = function (request, response) {
 
     if(request.session.admin){
         response.render( path.resolve('resources/views/pages/cpanel/greeting/view.jade'), {
-            title               : "MAEUTICA: greeting page",
+            title               : "DAVIDELUNA: greeting page",
             active_menu         : "greeting"
         });
         response.end();
@@ -104,7 +105,7 @@ CPanelController.prototype.get_landing          = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/landing/ckView.jade'), {
-                        title               : "MAEUTICA: landing page",
+                        title               : "DAVIDELUNA: landing page",
                         active_menu         : "landing",
                         lang                : lang,
                         landing             : _landing
@@ -154,6 +155,72 @@ CPanelController.prototype.saveLandingCK       = function (request, response) {
 
 };
 
+// covers
+CPanelController.prototype.get_covers             = function (request, response) {
+
+    if(request.session.admin){
+        var lang    = "en";
+        if(request.query.lang && request.query.lang == "ru") lang = "ru";
+
+        Covers
+            .findOne({})
+            .sort({"priority": 1})
+            .exec(function (err, _covers) {
+                if(err){
+                    response.redirect('/503');
+                    response.end();
+                } else {
+                    response.render( path.resolve('resources/views/pages/cpanel/covers/ckView.jade'), {
+                        title               : "DAVIDELUNA: covers page",
+                        active_menu         : "covers",
+                        lang                : lang,
+                        covers              : _covers
+                    });
+                    response.end();
+                }
+            });
+
+    } else {
+        response.redirect('/control/admin/oauth/login');
+        response.end();
+    }
+
+};
+
+CPanelController.prototype.saveCoversCK       = function (request, response) {
+
+    if(request.session.admin){
+        Covers
+            .findOne( { _id: request.params.id } , function (err, _covers) {
+                if (err) {
+                    response.redirect('/503');
+                    response.end();
+                }
+            }).then(function (_covers) {
+            _covers.content[request.params.lang] = request.body.content;
+            _covers.save( function(err) {
+                if (err) {
+                    response.cookie('snm', "Covers not updated! wrong image type or name", { maxAge: 900000, httpOnly: false });
+                    response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
+                    response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
+                    response.redirect('/control/admin/covers?lang='+request.params.lang);
+                    response.end();
+                } else {
+                    response.cookie('snm', "Covers successfully updated!", { maxAge: 900000, httpOnly: false });
+                    response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
+                    response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
+                    response.redirect('/control/admin/covers?lang='+request.params.lang);
+                    response.end();
+                }
+            });
+        });
+    } else {
+        response.redirect('/control/admin/oauth/login');
+        response.end();
+    }
+
+};
+
 // home
 CPanelController.prototype.get_home             = function (request, response) {
 
@@ -170,7 +237,7 @@ CPanelController.prototype.get_home             = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/home/ckView.jade'), {
-                        title               : "MAEUTICA: home page",
+                        title               : "DAVIDELUNA: home page",
                         active_menu         : "home",
                         lang                : lang,
                         home                : _home
@@ -285,7 +352,7 @@ CPanelController.prototype.get_team             = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/team/view.jade'), {
-                        title               : "MAEUTICA: team list",
+                        title               : "DAVIDELUNA: team list",
                         active_menu         : "team",
                         team                : _team
                     });
@@ -576,8 +643,8 @@ CPanelController.prototype.get_portfolio        = function (request, response) {
                     response.redirect('/503');
                     response.end();
                 } else {
-                    response.render( path.resolve('resources/views/pages/cpanel/portfolio/grid.jade'), {
-                        title               : "MAEUTICA: portfolio works list",
+                    response.render( path.resolve('resources/views/pages/cpanel/portfolio/view.jade'), {
+                        title               : "DAVIDELUNA: event works list",
                         active_menu         : "portfolio",
                         portfolio           : _portfolio
                     });
@@ -614,7 +681,7 @@ CPanelController.prototype.get_portfolio_add    = function (request, response) {
                 response.end();
             }
             response.render( path.resolve('resources/views/pages/cpanel/portfolio/add.jade'), {
-                title               : "MAEUTICA: portfolio add",
+                title               : "DAVIDELUNA: event add",
                 active_menu         : "portfolio",
                 tags                : _tags
             });
@@ -648,13 +715,13 @@ CPanelController.prototype.ADD_PORTFOLIO        = function (request, response) {
 
         _portfolio.save(function(err, result) {
             if (err) {
-                response.cookie('snm', "Portfolio not added!", { maxAge: 900000, httpOnly: false });
+                response.cookie('snm', "event not added!", { maxAge: 900000, httpOnly: false });
                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                 response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                 response.redirect('/control/admin/portfolio/add');
                 response.end();
             } else {
-                response.cookie('snm', "Portfolio successfully added! Now you can edit...", { maxAge: 900000, httpOnly: false });
+                response.cookie('snm', "event successfully added! Now you can edit...", { maxAge: 900000, httpOnly: false });
                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                 response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
                 response.redirect('/control/admin/portfolio/edit?section=general&id='+result._id);
@@ -677,21 +744,16 @@ CPanelController.prototype.UPDATE_PORT_PRIORITY = function (request, response) {
 
         async.forEachOf(dataArray, function(recipeItem, index, callback) {
             Portfolio
-            .findOne({ _id : ObjectId(recipeItem.priority) }).exec(function (err, _work) {
+                .findOne({ _id : ObjectId(recipeItem) }).exec(function (err, _work) {
                 if(err){
-                    console.log("wrong query portfolio priority update", err);
+                    console.log("wrong query event priority update", err);
                     callback();
                 }
             }).then(function (_work) {
-                _work.priority      = index;
-                _work.data_sizey    = recipeItem.data_sizey;
-                _work.data_sizex    = recipeItem.data_sizex;
-                _work.data_col      = recipeItem.data_col;
-                _work.data_row      = recipeItem.data_row;
-
+                _work.priority = index;
                 _work.save(function (err) {
                     if(err){
-                        console.log("cannot update portfolio priority", err);
+                        console.log("cannot update event priority", err);
                         callback();
                     } else {
                         callback();
@@ -701,13 +763,13 @@ CPanelController.prototype.UPDATE_PORT_PRIORITY = function (request, response) {
 
         }, function(err) {
             if(err) {
-                response.cookie('snm', "Priority not updated!", { maxAge: 900000, httpOnly: false });
+                response.cookie('snm', "event not updated!", { maxAge: 900000, httpOnly: false });
                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                 response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                 ResponseUtils.badRequest(response, ResponseUtils.removeProperties(err.errors));
                 console.log("err team priority", err)
             } else {
-                response.cookie('snm', "Priority successfully updated!", { maxAge: 900000, httpOnly: false });
+                response.cookie('snm', "event successfully updated!", { maxAge: 900000, httpOnly: false });
                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                 response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
                 ResponseUtils.updated(response, "success");
@@ -730,7 +792,7 @@ CPanelController.prototype.PUBLISH_PORT         = function (request, response) {
                 .findOne({_id : ObjectId(request.body.id)})
                 .exec(function (err, _work) {
                     if(err){
-                        response.cookie('snm', "Cannot publish! wrong id", { maxAge: 900000, httpOnly: false });
+                        response.cookie('snm', "event publish! wrong id", { maxAge: 900000, httpOnly: false });
                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                         response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                         ResponseUtils.badRequest(response, ResponseUtils.removeProperties({err: "wrong id"}));
@@ -740,12 +802,12 @@ CPanelController.prototype.PUBLISH_PORT         = function (request, response) {
                 _work.isPublished = true;
                 _work.save(function (err) {
                     if (err) {
-                        response.cookie('snm', "Portfolio is not published!", { maxAge: 900000, httpOnly: false });
+                        response.cookie('snm', "event is not published!", { maxAge: 900000, httpOnly: false });
                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                         response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                         ResponseUtils.badRequest(response, ResponseUtils.removeProperties({err: "wrong id"}));
                     } else {
-                        response.cookie('snm', "Portfolio successfully published!", { maxAge: 900000, httpOnly: false });
+                        response.cookie('snm', "event successfully published!", { maxAge: 900000, httpOnly: false });
                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                         response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
                         ResponseUtils.updated(response, "success");
@@ -778,7 +840,7 @@ CPanelController.prototype.UNPUBLISH_PORT       = function (request, response) {
                 .findOne({_id : ObjectId(request.body.id)})
                 .exec(function (err, _work) {
                     if(err){
-                        response.cookie('snm', "Cannot unpublish! wrong id", { maxAge: 900000, httpOnly: false });
+                        response.cookie('snm', "event unpublish! wrong id", { maxAge: 900000, httpOnly: false });
                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                         response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                         ResponseUtils.badRequest(response, ResponseUtils.removeProperties({err: "wrong id"}));
@@ -788,12 +850,12 @@ CPanelController.prototype.UNPUBLISH_PORT       = function (request, response) {
                 _work.isPublished = false;
                 _work.save(function (err) {
                     if (err) {
-                        response.cookie('snm', "Portfolio is not unpublished!", { maxAge: 900000, httpOnly: false });
+                        response.cookie('snm', "event is not unpublished!", { maxAge: 900000, httpOnly: false });
                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                         response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                         ResponseUtils.badRequest(response, ResponseUtils.removeProperties({err: "wrong id"}));
                     } else {
-                        response.cookie('snm', "Portfolio successfully unpublished!", { maxAge: 900000, httpOnly: false });
+                        response.cookie('snm', "event successfully unpublished!", { maxAge: 900000, httpOnly: false });
                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                         response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
                         ResponseUtils.updated(response, "success");
@@ -857,7 +919,7 @@ CPanelController.prototype.get_edit_portfolio   = function (request, response) {
                         } else {
                             _work.topSlider = _.sortBy(_work.topSlider, 'priority');
                             response.render( path.resolve('resources/views/pages/cpanel/portfolio/edit.jade'), {
-                                title               : "MAEUTICA: portfolio edit",
+                                title               : "DAVIDELUNA: event edit",
                                 active_menu         : "portfolio",
                                 active_section      : active_section,
                                 tags                : _tags,
@@ -883,7 +945,7 @@ CPanelController.prototype.UPDATE_PORT_GENERAL  = function (request, response) {
             .findOne( { _id: request.params.id } , function (err, _portfolio) {
             if(err){
                 console.log("Wrong query when find portfolio");
-                response.cookie('snm', "Portfolio not updated! wrong params", { maxAge: 900000, httpOnly: false });
+                response.cookie('snm', "event not updated! wrong params", { maxAge: 900000, httpOnly: false });
                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                 response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                 response.redirect('/control/admin/portfolio/edit?section=general&id='+request.params.id);
@@ -1495,7 +1557,7 @@ CPanelController.prototype.ADD_MEDIA_PORT       = function (request, response) {
                     }, function(err) {
                         if(err) {
                             console.log(err);
-                            response.cookie('snm', "Portfolio not updated!", { maxAge: 900000, httpOnly: false });
+                            response.cookie('snm', "event not updated!", { maxAge: 900000, httpOnly: false });
                             response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                             response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                             response.redirect('/control/admin/portfolio/edit?section=media&id='+request.params.id);
@@ -1514,7 +1576,7 @@ CPanelController.prototype.ADD_MEDIA_PORT       = function (request, response) {
                                 _rowPort.content = _sorted;
                                 _rowPort.save(function(err, result) {
                                     if (err) {
-                                        response.cookie('snm', "Portfolio not updated!", { maxAge: 900000, httpOnly: false });
+                                        response.cookie('snm', "event not updated!", { maxAge: 900000, httpOnly: false });
                                         response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                         response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                                         response.redirect('/control/admin/portfolio/edit?section=media&id='+request.params.id);
@@ -1524,13 +1586,13 @@ CPanelController.prototype.ADD_MEDIA_PORT       = function (request, response) {
                                         _portfolio.content.push(result);
                                         _portfolio.save(function (err, success) {
                                             if(err){
-                                                response.cookie('snm', "Portfolio not updated!", { maxAge: 900000, httpOnly: false });
+                                                response.cookie('snm', "event not updated!", { maxAge: 900000, httpOnly: false });
                                                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                                 response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                                                 response.redirect('/control/admin/portfolio/edit?section=media&id='+request.params.id);
                                                 response.end();
                                             } else {
-                                                response.cookie('snm', "Portfolio successfully updated!", { maxAge: 900000, httpOnly: false });
+                                                response.cookie('snm', "event successfully updated!", { maxAge: 900000, httpOnly: false });
                                                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                                 response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
                                                 response.redirect('/control/admin/portfolio/edit?section=media&id='+request.params.id);
@@ -1581,7 +1643,7 @@ CPanelController.prototype.UPDATE_ROW_SORT      = function (request, response) {
                             .findOne( { _id: recipeItem })
                             .exec(function (err, rowData) {
                                 if(err){
-                                    console.log("err portfolio row priority", err);
+                                    console.log("err event row priority", err);
                                     callback(false);
                                 } else {
                                     rowData.priority = index;
@@ -1784,7 +1846,7 @@ CPanelController.prototype.EDIT_MEDIA_PORT      = function (request, response) {
                         }, function(err) {
                             if(err) {
                                 console.log(err);
-                                response.cookie('snm', "Portfolio not updated!", { maxAge: 900000, httpOnly: false });
+                                response.cookie('snm', "event not updated!", { maxAge: 900000, httpOnly: false });
                                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                 response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                                 response.redirect('/control/admin/portfolio/edit?section=media&id='+request.body.portId);
@@ -1803,13 +1865,13 @@ CPanelController.prototype.EDIT_MEDIA_PORT      = function (request, response) {
                                     _section.content = _sorted;
                                     _section.save(function(err, result) {
                                         if (err) {
-                                            response.cookie('snm', "Portfolio not updated!", { maxAge: 900000, httpOnly: false });
+                                            response.cookie('snm', "event not updated!", { maxAge: 900000, httpOnly: false });
                                             response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                             response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
                                             response.redirect('/control/admin/portfolio/edit?section=media&id='+request.body.portId);
                                             response.end();
                                         } else {
-                                            response.cookie('snm', "Portfolio successfully updated!", { maxAge: 900000, httpOnly: false });
+                                            response.cookie('snm', "event successfully updated!", { maxAge: 900000, httpOnly: false });
                                             response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                             response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
                                             response.redirect('/control/admin/portfolio/edit?section=media&id='+request.body.portId);
@@ -1862,7 +1924,7 @@ CPanelController.prototype.get_recent           = function (request, response) {
                                 response.end();
                             } else {
                                 response.render( path.resolve('resources/views/pages/cpanel/recent/view.jade'), {
-                                    title               : "MAEUTICA: recent works",
+                                    title               : "DAVIDELUNA: recent works",
                                     active_menu         : "recent",
                                     recent              : _recent,
                                     portfolio           : _portfolio
@@ -2007,7 +2069,7 @@ CPanelController.prototype.get_tags             = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/tags/view.jade'), {
-                        title               : "MAEUTICA: tags list",
+                        title               : "DAVIDELUNA: tags list",
                         active_menu         : "tags",
                         tags                : _tags
                     });
@@ -2195,7 +2257,7 @@ CPanelController.prototype.get_offices          = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/offices/view.jade'), {
-                        title               : "MAEUTICA: offices list",
+                        title               : "DAVIDELUNA: offices list",
                         active_menu         : "offices",
                         offices             : _offices
                     });
@@ -2214,7 +2276,7 @@ CPanelController.prototype.get_offices_add      = function (request, response) {
     if(request.session.admin){
 
         response.render( path.resolve('resources/views/pages/cpanel/offices/add.jade'), {
-            title               : "MAEUTICA: offices add",
+            title               : "DAVIDELUNA: offices add",
             active_menu         : "offices"
         });
         response.end();
@@ -2474,24 +2536,24 @@ CPanelController.prototype.REMOVE_OFFICES       = function (request, response) {
 
 CPanelController.prototype.get_office_edit      = function (request, response) {
 
-    if(request.session.admin && request.params.id){
+    if(request.session.admin){
         Offices
-            .findOne({ _id : request.params.id })
+            .findOne({ uniqueName : "contacts" })
             .exec(function (err, _office) {
                 if(err){
                     response.redirect('/503');
                     response.end();
                 } else {
                     if(_office){
-                        var _clients = _.sortBy(_office.clients, function(o) { return o.priority; });
-                        _office.clients = _clients;
+       
                         response.render( path.resolve('resources/views/pages/cpanel/offices/edit.jade'), {
-                            title               : "MAEUTICA: offices edit",
+                            title               : "DAVIDELUNA: contacts edit",
                             active_menu         : "offices",
                             office              : _office,
                             oldVal              : _office
                         });
                         response.end();
+
                     } else {
                         response.redirect('/404');
                         response.end();
@@ -2510,7 +2572,7 @@ CPanelController.prototype.UPDATE_OFFICE        = function (request, response) {
     if(request.session.admin){
 
         Offices
-            .findOne( { _id: request.params.id } , function (err, _office) {
+            .findOne( { uniqueName: 'contacts' } , function (err, _office) {
                 if (err) {
                     response.redirect('/503');
                     response.end();
@@ -2751,16 +2813,16 @@ CPanelController.prototype.UPDATE_OFFICE        = function (request, response) {
 
                         _office.save(function(err) {
                             if (err) {
-                                response.cookie('snm', "Office not updated!", { maxAge: 900000, httpOnly: false });
+                                response.cookie('snm', "Contacts not updated!", { maxAge: 900000, httpOnly: false });
                                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                 response.cookie('snc', "alert-danger", { maxAge: 900000, httpOnly: false });
-                                response.redirect('/control/admin/offices/edit/'+request.params.id);
+                                response.redirect('/control/admin/offices/edit/contacts');
                                 response.end();
                             } else {
-                                response.cookie('snm', "Office successfully updated!", { maxAge: 900000, httpOnly: false });
+                                response.cookie('snm', "Contacts successfully updated!", { maxAge: 900000, httpOnly: false });
                                 response.cookie('sns', "true", { maxAge: 900000, httpOnly: false });
                                 response.cookie('snc', "alert-success", { maxAge: 900000, httpOnly: false });
-                                response.redirect('/control/admin/offices/edit/'+request.params.id);
+                                response.redirect('/control/admin/offices/edit/contacts');
                                 response.end();
                             }
                         });
@@ -2770,7 +2832,7 @@ CPanelController.prototype.UPDATE_OFFICE        = function (request, response) {
                 });
 
             } else {
-                response.redirect('/control/admin/offices/edit/'+request.params.id);
+                response.redirect('/control/admin/offices/edit/contacts');
                 response.end();
             }
 
@@ -2801,7 +2863,7 @@ CPanelController.prototype.get_services         = function (request, response) {
                 } else {
                     console.log("_services", _services.content[lang]);
                     response.render( path.resolve('resources/views/pages/cpanel/services/view.jade'), {
-                        title               : "MAEUTICA: services list",
+                        title               : "DAVIDELUNA: services list",
                         active_menu         : "services",
                         lang                : lang,
                         services            : _services
@@ -3123,7 +3185,7 @@ CPanelController.prototype.get_headers          = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/headers/view.jade'), {
-                        title               : "MAEUTICA: header banners",
+                        title               : "DAVIDELUNA: header banners",
                         active_menu         : "headers",
                         tab                 : option.page,
                         headers             : _headers
@@ -3157,7 +3219,7 @@ CPanelController.prototype.get_headers_add      = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/headers/add.jade'), {
-                        title               : "MAEUTICA: header banners add",
+                        title               : "DAVIDELUNA: header banners add",
                         active_menu         : "headers",
                         tab                 : option.page,
                         portfolio           : _portfolio
@@ -3275,7 +3337,7 @@ CPanelController.prototype.get_headers_edit     = function (request, response) {
                                 response.end();
                             } else {
                                 response.render( path.resolve('resources/views/pages/cpanel/headers/edit.jade'), {
-                                    title               : "MAEUTICA: header banner edit",
+                                    title               : "DAVIDELUNA: header banner edit",
                                     active_menu         : "headers",
                                     oldVal              : _header,
                                     portfolio           : _portfolio
@@ -3485,7 +3547,7 @@ CPanelController.prototype.get_footers          = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/footers/view.jade'), {
-                        title               : "MAEUTICA: footers images",
+                        title               : "DAVIDELUNA: footers images",
                         active_menu         : "footers",
                         tab                 : option.page,
                         footers             : _footers || false
@@ -3646,7 +3708,7 @@ CPanelController.prototype.get_blog             = function (request, response) {
 
     if(request.session.admin){
         response.render( path.resolve('resources/views/pages/cpanel/blog/view.jade'), {
-            title               : "MAEUTICA: blog list",
+            title               : "DAVIDELUNA: blog list",
             active_menu         : "blog",
             blog                : false
         });
@@ -3669,7 +3731,7 @@ CPanelController.prototype.get_media_files      = function (request, response) {
                     response.end();
                 } else {
                     response.render( path.resolve('resources/views/pages/cpanel/media_files/view.jade'), {
-                        title               : "MAEUTICA: media files",
+                        title               : "DAVIDELUNA: media files",
                         active_menu         : "media-files",
                         mediaFiles          : _mediaData
                     });

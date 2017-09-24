@@ -13,7 +13,7 @@ block content
     #wrapper
         include ../../../partial/_sidebar
         .page-name
-            span Add office
+            span Add genre
 
         #page-content-wrapper
             .alert-control(style='display: none;')
@@ -25,26 +25,19 @@ block content
                     .col-xs-12.col-sm-6
                         p English
                         .form-group
-                            label(for='name_en') Office name (end)
+                            label(for='name_en') genre name (end)
                             input#name_en.form-control(name="name_en", type='text', placeholder='Name', required=true)
                     .col-xs-12.col-sm-6
                         p Русский
                         .form-group
-                            label(for='name_ru') Office name (rus)
+                            label(for='name_ru') genre name (rus)
                             input#name_ru.form-control(name="name_ru", type='text', placeholder='Название', required=true)
                     .clearfix
                     hr
                     .col-xs-12.col-sm-6
                         .form-group
-                            label(for='main_color') Name and asterisk color (#fff)
+                            label(for='main_color') Name color (#fff)
                             input#main_color.form-control(name="main_color", type='text', placeholder='#fff', required=true)
-                    .col-xs-12.col-sm-6
-                        .form-group
-                            label Office time zone
-                            select.form-control(name="timezone")
-                                option(value="armenia") Armenia
-                                option(value="georgia") Georgia
-                                option(value="moscow") Moscow
                     .clearfix
                     hr
                     .col-xs-12.col-sm-6
@@ -109,16 +102,6 @@ block content
                             label(for="email") E-mail
                             input#email.form-control(name="email", type='email', placeholder='E-mail address', required=true)
                     .clearfix
-                    hr
-                    .col-xs-12
-                        .form-group
-                            div
-                                label Clients
-                            div#clientsControl.sortable-clients
-                            div
-                                button#addClient.btn.btn-sm.btn-warning(type="button")
-                                    i.fa.fa-plus
-                                    |   Add client
 
                     .clearfix
                     hr

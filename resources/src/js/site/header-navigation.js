@@ -24,6 +24,16 @@
             $('.nav-slider-container').removeClass('scrolled-navigation');
             $('#nav-hamburger').removeClass('span-black');
         }
+
+        if(scrollTop > 400 && window.innerWidth >= 580 ){
+            $(".header-nav-slider-block > .nav-slider-container").css({
+                top : "-85px"
+            });
+        } else {
+            $(".header-nav-slider-block > .nav-slider-container").css({
+                top : "0"
+            });
+        }
     });
 
     $('.mouse-btn').click(function() {

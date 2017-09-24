@@ -3,9 +3,6 @@
   #footer-block{
     background: #fff;
   }
-  .bg-about{
-    color: $bgservices;
-  }
 }
 
 .home-content {
@@ -48,13 +45,13 @@
     padding: 0 20px;
 
     .images-container {
-      margin-bottom: 100px
+      margin-bottom: 40px
     }
   }
 
   @media only screen and (min-width : 992px) {
     .images-container {
-      margin-bottom: 130px
+      margin-bottom: 40px
     }
   }
 
@@ -64,12 +61,12 @@
 }
 @media only screen and (min-width : 768px) {
   .images-container {
-    margin-bottom: 100px
+    margin-bottom: 40px
   }
 }
 @media only screen and (min-width : 992px) {
   .images-container {
-    margin-bottom: 130px
+    margin-bottom: 40px
   }
 }
 .mrgb20{

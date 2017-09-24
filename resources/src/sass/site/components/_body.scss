@@ -271,21 +271,20 @@ a.privace{
 
 
 h1.page-not-found{
-  font-family: 'Origo';
-  color : #009e83;
+  color : #303030;
   font-size: 10em;
   text-align: center;
   margin-bottom: -20px;
 }
 h1.page-crush{
-  font-family: 'Origo';
+  font-family: 'Dancing Script', cursive;
   color : #9e0d05;
   font-size: 10em;
   text-align: center;
   margin-bottom: -20px;
 }
 h1.page-bad-request{
-  font-family: 'Origo';
+  font-family: 'Dancing Script', cursive;
   color : #5463fd;
   font-size: 10em;
   text-align: center;
@@ -305,9 +304,9 @@ img.img-404{
   margin-bottom: 25px;
 }
 .btn-home{
-  background: #000;
-  color: #fff!important;
-  padding: 15px 45px;
+  background: transparent;
+  color: #000!important;
+  padding: 12px 55px;
   letter-spacing: 1px;
   border-radius: 0;
   margin-top: 15px;

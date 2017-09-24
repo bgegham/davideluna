@@ -9,31 +9,29 @@ div.header-nav-slider-block
                 li
                     a(href="/about?lang=#{lang}", class=(page == 'home') ? "active-nav" : "")=_tr.about
                 li
-                    a(href="/services?lang=#{lang}" class=(page == 'services') ? "active-nav" : "")=_tr.services
+                    a(href="/successes?lang=#{lang}" class=(page == 'services') ? "active-nav" : "")=_tr.services
                 li
                     a(href="/portfolio?lang=#{lang}" class=(page == 'portfolio') ? "active-nav" : "")=_tr.portfolio
                 li
-                    a(href="/offices?lang=#{lang}" class=(page == 'offices') ? "active-nav" : "")=_tr.offices
+                    a(href="/covers?lang=#{lang}" class=(page == 'covers') ? "active-nav" : "")=_tr.covers
                 li
-                    a(href="/team?lang=#{lang}" class=(page == 'team') ? "active-nav" : "")=_tr.team
+                    a(href="/contacts?lang=#{lang}" class=(page == 'contacts') ? "active-nav" : "")=_tr.team
 
 nav
     ul.cd-primary-nav
         li
             a(href="/about?lang=#{lang}", class="active-nav")=_tr.about
         li
-            a(href="/services?lang=#{lang}")=_tr.services
+            a(href="/successes?lang=#{lang}")=_tr.services
         li
             a(href="/portfolio?lang=#{lang}")=_tr.portfolio
         li
-            a(href="/offices?lang=#{lang}")=_tr.offices
+            a(href="/covers?lang=#{lang}")=_tr.covers
         li
-            a(href="/team?lang=#{lang}")=_tr.team
-        //li
-        //    a(href="/blog?lang=#{lang}")=_tr.blog
+            a(href="/contacts?lang=#{lang}")=_tr.team
         li
-            a.language.en(data-lang="en") en
-            a.language.ru(data-lang="ru") ру
+            a.language.en(data-lang="en") Eng
+            a.language.ru(data-lang="ru") Рус
 .cd-overlay-nav
     span
 .cd-overlay-content

@@ -17,10 +17,9 @@ block content
             .container.office-page.images-container
                 each data in offices
                     .col-xs-12.col-sm-4.one-office
-                        a(href='/office-detail?lang=#{lang}&office='+data.uniqueName)
+                        a(href='/genres-detail?lang=#{lang}&genre='+data.uniqueName)
                             .image-box-offices(style="background-image:url(/images/" + data.main_image_morning + ")")
                             h5=data.name[lang]
-                                img(src='/img/site/asterisk.svg')
 
 
         // site footer

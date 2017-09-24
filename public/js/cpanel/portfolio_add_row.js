@@ -1,1 +1,470 @@
-$(document).ready(function(){function t(t){if(t.files&&t.files[0]){var a=new FileReader;a.onload=function(a){var e=$(t).attr("data-preview");$("#img"+e).attr("src",a.target.result)},a.readAsDataURL(t.files[0])}}$(".page-name").find("span").html("Portfolio: ADD ROW");var a=$("#addNewRow"),e=$("#editModalText"),o=$("#editModalImage"),n=$("#editModalVideo"),i=function(t){return $("<div class='el-control-actions'><span class='fa fa-remove el-remove pull-right' title='Remove'></span><span class='fa fa-edit el-edit pull-right "+t+"' title='Edit'></span><span class='fa fa-arrows-alt el-move pull-right' title='Sort'></span></div>")},l=function(){return"_id_"+Math.floor(9954151998462e4*Math.random())},r=function(){$(".sortable-row").sortable({connectWith:".sortable-row",handle:"span.el-move"}).disableSelection(),$("#saveRowJson").show()},d=function(){$("#addElement").modal("hide"),r()};$(".element-text").on("click",function(){var t=$("<div class='col-xs-12 el-create-sort' data-layout='12' data-asterisk='true' data-bold='header' data-alignment='left' data-family='default' data-node='text' id='"+l()+"'></div>"),e=$("<div class='row-1 data-rows-count'><input name='eng' placeholder='eng' class='form-control width-6 el-header' type='text'><input name='rus' placeholder='rus' class='form-control width-6 el-header' type='text'><textarea rows='4' name='eng' placeholder='eng' class='form-control width-6'></textarea><textarea rows='4' name='rus' placeholder='rus' class='form-control width-6'></textarea></div>"),o=i("text-edit-mod");o.appendTo(t),e.appendTo(t),t.appendTo(a),d()});var s=function(t,a,o,n,i,l){e.attr("data-toggle-col",a),e.find(t).click(),"false"==o?e.find("#asteriskStatus").removeAttr("checked"):e.find("#asteriskStatus").prop("checked",!0),e.find("input[name='text-bold']").each(function(){$(this).val()==n&&$(this).click()}),e.find("input[name='text-alignment']").each(function(){$(this).val()==i&&$(this).click()}),e.find("input[name='text-font-family']").each(function(){$(this).val()==l&&$(this).click()}),e.modal("show")};$(document).on("click","span.text-edit-mod",function(t){t.preventDefault();var a=$(this),e=a.parents("div.el-create-sort"),o="#layout1",n=e.attr("data-layout");"6"==n&&(o="#layout2");var i=e.attr("id"),l="true";"false"===e.attr("data-asterisk")&&(l="false");var r="header";"all"===e.attr("data-bold")&&(r="all"),"none"===e.attr("data-bold")&&(r="none");var d="left";"center"===e.attr("data-alignment")&&(d="center"),"right"===e.attr("data-alignment")&&(d="right");var c="default";"default"!==e.attr("data-family")&&(c="custom"),s(o,i,l,r,d,c)}),$(document).on("click","label.layout-btn",function(t){t.preventDefault();var a=$(this),e=a.parents("div.modal").attr("data-toggle-col"),o=a.find("input").attr("data-class-name"),n=$("#"+e);n.attr("class",""),n.addClass(o+" col-xs-12 el-create-sort"),n.attr("data-layout",a.find("input").attr("value"))}),$(document).on("click","input#asteriskStatus",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.prop("checked"),o=$("#"+a);o.attr("data-asterisk",e)}),$(document).on("click","button#addtextRow",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=$("#"+a),o=e.find(".data-rows-count").length;if(3>o){var n=$("<div class='row-"+parseInt(o+1)+" data-rows-count'><input name='eng' placeholder='eng' class='form-control width-6 el-header' type='text'><input name='rus' placeholder='rus' class='form-control width-6 el-header' type='text'><textarea rows='4' name='eng' placeholder='eng' class='form-control width-6'></textarea><textarea rows='4' name='rus' placeholder='rus' class='form-control width-6'></textarea></div>");n.appendTo(e)}else t.attr("disabled")}),$(document).on("click","input[name='text-bold']",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),o=$("#"+a);o.attr("data-bold",e),"header"==e&&(o.find("input.form-control").css({"font-weight":600}),o.find("textarea.form-control").css({"font-weight":100})),"all"==e&&(o.find("input.form-control").css({"font-weight":600}),o.find("textarea.form-control").css({"font-weight":600})),"none"==e&&(o.find("input.form-control").css({"font-weight":100}),o.find("textarea.form-control").css({"font-weight":100}))}),$(document).on("click","input[name='text-alignment']",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),o=$("#"+a);o.attr("data-alignment",e),"left"==e&&o.find(".form-control").css({"text-align":"left"}),"center"==e&&o.find(".form-control").css({"text-align":"center"}),"right"==e&&o.find(".form-control").css({"text-align":"right"})}),$(document).on("click","input[name='text-font-family']",function(){var t=$(this),a=t.parents("div.modal").attr("data-toggle-col"),e=t.val(),o=$("#"+a);o.attr("data-family",e),"default"==e&&o.find("input.form-control").css({"font-family":""}),"custom"==e&&o.find("input.form-control").css({"font-family":"custom"})}),$(".element-image").on("click",function(){var t=l(),e=$("<div class='col-xs-12 el-create-sort' data-layout='12' data-node='image' id='"+t+"'></div>"),o=$("<div class='clearfix'><label class='pull-left'>Select image:</label></div><div class='form-group'><div class='input-group'><span class='input-group-btn'><span class='btn btn-default btn-file row-image'> Browse&mldr;<input name='image' class='imageview_rowimg inputFile' type='file' data-preview='"+t+"'></span></span><input class='form-control file-name' type='text' readonly=''/></div><img class='img-upload' id='img"+t+"' style='max-width: 100%;' src='/img/cpanel/pictureDefault.png'/></div>"),n=i("image-edit-mod");n.appendTo(e),o.appendTo(e),e.appendTo(a),d()}),$(document).on("click","span.image-edit-mod",function(t){t.preventDefault();var a=$(this),e=a.parents("div.el-create-sort"),o=".layout3",n=e.attr("data-layout");"6"==n&&(o=".layout4");var i=e.attr("id");c(o,i)});var c=function(t,a){o.attr("data-toggle-col",a),o.find(t).click(),o.modal("show")};$(document).on("change",".imageview_rowimg",function(){t(this)}),$(document).on("change",".btn-file.row-image :file",function(t){var a=$(this),e=a.val().replace(/\\/g,"/").replace(/.*\//,"");a.trigger("fileSelect",[t,e]);var o=$(this).parents(".input-group").find(".file-name");o.val(e)}),$(document).on("click","span.el-remove",function(t){t.preventDefault(),confirm("Are you sure?")&&$(this).parents(".el-create-sort").remove()}),$(".element-video").on("click",function(){var t=l(),e=$("<div class='col-xs-12 el-create-sort' data-layout='12' data-node='video' id='"+t+"'></div>"),o=$("<div class='clearfix col-xs-12'><label class='pull-left'>Video url:</label></div><div class='col-xs-12'><input name='video' placeholder='video url http://...' class='form-control video-thumb' type='text' data-preview='"+t+"'><img class='video-demo' id='img"+t+"' style='max-width: 100%;' src='/img/cpanel/pictureDefault.png'/></div>"),n=i("video-edit-mod");n.appendTo(e),o.appendTo(e),e.appendTo(a),d()}),$(document).on("change",".video-thumb",function(){var t=$(this).val().match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop();11==t.length&&$(".video-demo").attr("src","//img.youtube.com/vi/"+t+"/0.jpg")}),$(document).on("click","span.video-edit-mod",function(t){t.preventDefault();var a=$(this),e=a.parents("div.el-create-sort"),o="#layout5",n=e.attr("data-layout");"6"==n&&(o="#layout6");var i=e.attr("id");u(o,i)});var u=function(t,a){n.attr("data-toggle-col",a),n.find(t).click(),n.modal("show")};$("#_addElement").bind("click",function(){$("#addNewRow").find(".el-create-sort").length>=2?alert("Remember! You can create only 2 element in one row section..."):$("#addElement").modal("show")}),$("#saveRowJson").bind("click",function(t){t.preventDefault(),$(".loader-ajax").show();var a=[],e=$("#addNewRow").find(".el-create-sort");e.each(function(){var t=$(this);switch(t.attr("data-node")){case"text":var e=[];t.find(".data-rows-count").each(function(){e.push({valueHeader:{en:$(this).find("input[name='eng']").val(),ru:$(this).find("input[name='rus']").val()},valueMain:{en:$(this).find("textarea[name='eng']").val(),ru:$(this).find("textarea[name='rus']").val()}})}),a.push({node:t.attr("data-node"),id:t.attr("id"),layout:t.attr("data-layout"),className:t.attr("class"),asterisk:t.attr("data-asterisk"),styles:{bold:t.attr("data-bold"),textAlign:t.attr("data-alignment"),fontFamily:t.attr("data-family")},elements:e});break;case"image":a.push({node:t.attr("data-node"),className:t.attr("class"),id:t.attr("id"),layout:t.attr("data-layout"),elements:$("img#img"+t.attr("id")).attr("src")});break;case"video":a.push({node:t.attr("data-node"),className:t.attr("class"),id:t.attr("id"),layout:t.attr("data-layout"),elements:$("#"+t.attr("id")).find("input.video-thumb").val()})}}),setTimeout(function(){var t=$("input#prt_id").val().replace(/\"/g,"");$.ajax({type:"POST",url:"/control/admin/portfolio/add/media/"+t,dataType:"json",data:{data:a},success:function(){window.location.href="/control/admin/portfolio/edit?section=media&id="+t},error:function(){window.location.href="/control/admin/portfolio/edit?section=media&id="+t}})},500)}),$("#addElement").modal("show")});
+$(document).ready(function () {
+    $(".page-name").find("span").html("Portfolio: ADD ROW");
+
+    var $addNewRow          = $("#addNewRow");
+    var $edit_modal_text    = $("#editModalText");
+    var $edit_modal_image   = $("#editModalImage");
+    var $edit_modal_video   = $("#editModalVideo");
+
+    var _actions            = function (type) {
+        return $("<div class='el-control-actions'>" +
+            "<span class='fa fa-remove el-remove pull-right' title='Remove'></span>" +
+            "<span class='fa fa-edit el-edit pull-right " + type + "' title='Edit'></span>" +
+            "<span class='fa fa-arrows-alt el-move pull-right' title='Sort'></span>" +
+            "</div>");
+    };
+    var setId               = function () {
+        // create random ID
+        return "_id_" + Math.floor(Math.random() * 99541519984619999);
+    };
+    var initSortable        = function () {
+        $(".sortable-row").sortable({
+            connectWith: ".sortable-row",
+            handle: 'span.el-move'
+        }).disableSelection();
+        $("#saveRowJson").show();
+    };
+
+    var $addNewModalClose   = function () {
+        $('#addElement').modal('hide');
+        initSortable();
+    };
+
+    $(".element-text").on("click", function () {
+        var $newEl = $("<div class='col-xs-12 el-create-sort' " +
+            "data-layout='12' " +
+            "data-asterisk='true' " +
+            "data-bold='header' " +
+            "data-alignment='left' " +
+            "data-family='default' " +
+            "data-node='text' " +
+            "id='" + setId() + "'></div>");
+        var $content = $(
+            "<div class='row-1 data-rows-count'>" +
+                "<input name='eng' placeholder='eng' class='form-control width-6 el-header' type='text'>" +
+                "<input name='rus' placeholder='rus' class='form-control width-6 el-header' type='text'>" +
+                "<textarea rows='4' name='eng' placeholder='eng' class='form-control width-6'></textarea>" +
+                "<textarea rows='4' name='rus' placeholder='rus' class='form-control width-6'></textarea>" +
+            "</div>"
+        );
+        var $actions = _actions("text-edit-mod");
+
+        $actions.appendTo($newEl);
+        $content.appendTo($newEl);
+        $newEl.appendTo($addNewRow);
+        $addNewModalClose();
+    });
+    var $modalEditOpenText = function (targetLayoutId, refId, $asterisk, $bold, $alignment, $family) {
+        $edit_modal_text.attr("data-toggle-col", refId);
+        $edit_modal_text.find(targetLayoutId).click();
+        if ($asterisk == "false") {
+            $edit_modal_text.find("#asteriskStatus").removeAttr('checked');
+        } else {
+            $edit_modal_text.find("#asteriskStatus").prop('checked', true);
+        }
+        $edit_modal_text.find("input[name='text-bold']").each(function (index) {
+            if ($(this).val() == $bold) {
+                $(this).click();
+            }
+        });
+        $edit_modal_text.find("input[name='text-alignment']").each(function (index) {
+            if ($(this).val() == $alignment) {
+                $(this).click();
+            }
+        });
+        $edit_modal_text.find("input[name='text-font-family']").each(function (index) {
+            if ($(this).val() == $family) {
+                $(this).click();
+            }
+        });
+
+        //
+        $edit_modal_text.modal('show');
+    };
+
+    $(document).on("click", "span.text-edit-mod", function (e) {
+        e.preventDefault();
+        var _this = $(this),
+            _ref = _this.parents('div.el-create-sort');
+
+        // layout
+        var targetLayoutId = "#layout1";
+        var targetLayout = _ref.attr("data-layout");
+        if (targetLayout == '6') {
+            targetLayoutId = "#layout2";
+        }
+        var refId = _ref.attr("id");
+        // asterisk
+        var $asterisk = "true";
+        if (_ref.attr("data-asterisk") === 'false') {
+            $asterisk = "false";
+        }
+        // text bold
+        var $bold = "header";
+        if (_ref.attr("data-bold") === 'all') {
+            $bold = "all";
+        }
+        if (_ref.attr("data-bold") === 'none') {
+            $bold = "none";
+        }
+        // text alignment
+        var $alignment = "left";
+        if (_ref.attr("data-alignment") === 'center') {
+            $alignment = "center";
+        }
+        if (_ref.attr("data-alignment") === 'right') {
+            $alignment = "right";
+        }
+        // font-family
+        var $family = "default";
+        if (_ref.attr("data-family") !== 'default') {
+            $family = "custom";
+        }
+
+        $modalEditOpenText(targetLayoutId, refId, $asterisk, $bold, $alignment, $family);
+    });
+    $(document).on("click", "label.layout-btn" ,  function(e) {
+        e.preventDefault();
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _className  = _this.find('input').attr("data-class-name");
+
+        var $ref = $("#"+_ref);
+        $ref.attr('class','');
+        $ref.addClass(_className + " col-xs-12 el-create-sort");
+        $ref.attr( "data-layout", _this.find('input').attr("value"));
+    });
+    $(document).on("click", "input#asteriskStatus" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.prop("checked");
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-asterisk", _value);
+    });
+    $(document).on("click", "button#addtextRow" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col");
+
+        var $ref = $("#"+_ref);
+        var c = $ref.find(".data-rows-count").length;
+        if(c < 3){
+            var $content = $(
+                "<div class='row-"+parseInt(c+1)+" data-rows-count'>" +
+                "<input name='eng' placeholder='eng' class='form-control width-6 el-header' type='text'>" +
+                "<input name='rus' placeholder='rus' class='form-control width-6 el-header' type='text'>" +
+                "<textarea rows='4' name='eng' placeholder='eng' class='form-control width-6'></textarea>" +
+                "<textarea rows='4' name='rus' placeholder='rus' class='form-control width-6'></textarea>" +
+                "</div>"
+            );
+            $content.appendTo($ref);
+
+        } else {
+            _this.attr("disabled")
+        }
+    });
+    $(document).on("click", "input[name='text-bold']" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-bold", _value);
+        if(_value == "header"){
+            $ref.find("input.form-control").css({
+                "font-weight" : 600
+            });
+            $ref.find("textarea.form-control").css({
+                "font-weight" : 100
+            });
+        }
+        if(_value == "all"){
+            $ref.find("input.form-control").css({
+                "font-weight" : 600
+            });
+            $ref.find("textarea.form-control").css({
+                "font-weight" : 600
+            });
+        }
+        if(_value == "none"){
+            $ref.find("input.form-control").css({
+                "font-weight" : 100
+            });
+            $ref.find("textarea.form-control").css({
+                "font-weight" : 100
+            });
+        }
+
+    });
+    $(document).on("click", "input[name='text-alignment']" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-alignment", _value);
+        if(_value == "left"){
+            $ref.find(".form-control").css({
+                "text-align" : "left"
+            });
+        }
+        if(_value == "center"){
+            $ref.find(".form-control").css({
+                "text-align" : "center"
+            });
+        }
+        if(_value == "right"){
+            $ref.find(".form-control").css({
+                "text-align" : "right"
+            });
+        }
+
+    });
+    $(document).on("click", "input[name='text-font-family']" ,  function(e) {
+        var _this       = $(this),
+            _ref        = _this.parents('div.modal').attr("data-toggle-col"),
+            _value      = _this.val();
+
+        var $ref = $("#"+_ref);
+        $ref.attr("data-family", _value);
+        if(_value == "default"){
+            $ref.find("input.form-control").css({
+                "font-family" : ""
+            });
+        }
+        if(_value == "custom"){
+            $ref.find("input.form-control").css({
+                "font-family" : "custom"
+            });
+        }
+
+    });
+
+    $(".element-image").on("click", function () {
+        var $id = setId();
+        var $newEl = $("<div class='col-xs-12 el-create-sort' " +
+            "data-layout='12' " +
+            "data-node='image' " +
+            "id='" + $id + "'></div>");
+        var $content = $(
+            "<div class='clearfix'>" +
+            "<label class='pull-left'>Select image:</label>" +
+            "</div>" +
+            "<div class='form-group'>" +
+                "<div class='input-group'>" +
+                    "<span class='input-group-btn'>" +
+                        "<span class='btn btn-default btn-file row-image'> Browse&mldr;" +
+                            "<input name='image' class='imageview_rowimg inputFile' type='file' data-preview='"+$id+"'>" +
+                        "</span>" +
+                    "</span>" +
+                    "<input class='form-control file-name' type='text' readonly=''/>" +
+                "</div>" +
+                "<img class='img-upload' id='img"+$id+"' style='max-width: 100%;' src='/img/cpanel/pictureDefault.png'/>"+
+            "</div>"
+        );
+        var $actions = _actions("image-edit-mod");
+
+        $actions.appendTo($newEl);
+        $content.appendTo($newEl);
+        $newEl.appendTo($addNewRow);
+        $addNewModalClose();
+    });
+    $(document).on("click", "span.image-edit-mod" ,  function(e) {
+        e.preventDefault();
+        var _this       = $(this),
+            _ref        = _this.parents('div.el-create-sort');
+
+        // layout
+        var targetLayoutId = ".layout3";
+        var targetLayout = _ref.attr("data-layout");
+        if(targetLayout == '6') {
+            targetLayoutId = ".layout4";
+        }
+        var refId = _ref.attr("id");
+
+        $modalEditOpenImage(targetLayoutId, refId);
+    });
+    var $modalEditOpenImage = function (targetLayoutId, refId) {
+        $edit_modal_image.attr("data-toggle-col", refId);
+        $edit_modal_image.find(targetLayoutId).click();
+        //
+        $edit_modal_image.modal('show');
+    };
+
+    $(document).on("change", ".imageview_rowimg", function () {
+        readURLROWimg(this);
+    });
+    $(document).on('change', '.btn-file.row-image :file', function (e) {
+        var input = $(this),
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileSelect', [e,label]);
+
+        var inputName = $(this).parents('.input-group').find('.file-name');
+        inputName.val(label)
+    });
+
+    function readURLROWimg(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var _id = $(input).attr("data-preview");
+                $('#img'+_id).attr('src', e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(document).on("click", "span.el-remove" ,  function(e) {
+        e.preventDefault();
+        if(confirm("Are you sure?")){
+            $(this).parents(".el-create-sort").remove();
+        }
+    });
+
+    $(".element-video").on("click", function () {
+        var $id = setId();
+        var $newEl = $("<div class='col-xs-12 el-create-sort' " +
+            "data-layout='12' " +
+            "data-node='video' " +
+            "id='" + $id + "'></div>");
+        var $content = $(
+            "<div class='clearfix col-xs-12'>" +
+            "<label class='pull-left'>Video url:</label>" +
+            "</div>" +
+            "<div class='col-xs-12'>" +
+            "<input name='video' placeholder='video url http://...' class='form-control video-thumb' type='text' data-preview='"+$id+"'>" +
+            "<img class='video-demo' id='img"+$id+"' style='max-width: 100%;' src='/img/cpanel/pictureDefault.png'/>"+
+            "</div>"
+        );
+        var $actions = _actions("video-edit-mod");
+
+        $actions.appendTo($newEl);
+        $content.appendTo($newEl);
+        $newEl.appendTo($addNewRow);
+        $addNewModalClose();
+    });
+    $(document).on("change", ".video-thumb",  function () {
+        var youtube_video_id = $(this).val().match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop();
+        if (youtube_video_id.length == 11) {
+            $(".video-demo").attr("src", "//img.youtube.com/vi/"+youtube_video_id+"/0.jpg");
+        }
+    });
+    $(document).on("click", "span.video-edit-mod", function (e) {
+        e.preventDefault();
+        var _this = $(this),
+            _ref = _this.parents('div.el-create-sort');
+
+        // layout
+        var targetLayoutId = "#layout5";
+        var targetLayout = _ref.attr("data-layout");
+        if (targetLayout == '6') {
+            targetLayoutId = "#layout6";
+        }
+        var refId = _ref.attr("id");
+
+        $modalEditOpenVideo(targetLayoutId, refId);
+    });
+    var $modalEditOpenVideo = function (targetLayoutId, refId) {
+        $edit_modal_video.attr("data-toggle-col", refId);
+        $edit_modal_video.find(targetLayoutId).click();
+        //
+        $edit_modal_video.modal('show');
+    };
+
+
+
+    $("#_addElement").bind("click", function () {
+        if( $("#addNewRow").find(".el-create-sort").length >= 2 ){
+            alert("Remember! You can create only 2 element in one row section...")
+        } else {
+            $('#addElement').modal('show');
+        }
+    });
+    // serialize and save
+    $("#saveRowJson").bind("click", function (e) {
+        e.preventDefault();
+        $(".loader-ajax").show();
+        var result  = [];
+        var _data = $("#addNewRow").find(".el-create-sort");
+
+        _data.each(function() {
+            var _this = $(this);
+
+            switch( _this.attr("data-node") ) {
+                case "text":
+                    var _elements = [];
+                    _this.find(".data-rows-count").each(function () {
+                        _elements.push({
+                            valueHeader : {
+                                en : $(this).find("input[name='eng']").val(),
+                                ru : $(this).find("input[name='rus']").val()
+                            },
+                            valueMain   : {
+                                en : $(this).find("textarea[name='eng']").val(),
+                                ru : $(this).find("textarea[name='rus']").val()
+                            }
+                        });
+                    });
+                    result.push({
+                        node        : _this.attr("data-node"),
+                        id          : _this.attr("id"),
+                        layout      : _this.attr("data-layout"),
+                        className   : _this.attr("class"),
+                        asterisk    : _this.attr("data-asterisk"),
+                        styles      : {
+                            bold        : _this.attr("data-bold"),
+                            textAlign   : _this.attr("data-alignment"),
+                            fontFamily  : _this.attr("data-family")
+                        },
+                        elements    : _elements
+                    });
+                    break;
+                case "image":
+                    result.push({
+                        node        : _this.attr("data-node"),
+                        className   : _this.attr("class"),
+                        id          : _this.attr("id"),
+                        layout      : _this.attr("data-layout"),
+                        elements    : $("img#img"+_this.attr("id")).attr("src")
+                    });
+                    break;
+                case "video":
+                    result.push({
+                        node        : _this.attr("data-node"),
+                        className   : _this.attr("class"),
+                        id          : _this.attr("id"),
+                        layout      : _this.attr("data-layout"),
+                        elements    : $("#"+_this.attr("id")).find("input.video-thumb").val()
+                    });
+                    break;
+                default:
+                    break;
+            }
+
+        });
+
+        // save on db
+        setTimeout(function () {
+            var prt_id = $("input#prt_id").val().replace(/\"/g, "");
+
+            $.ajax({
+                type: 'POST',
+                url: '/control/admin/portfolio/add/media/'+prt_id,
+                dataType: 'json',
+                data: {
+                    data : result
+                },
+                success: function () {
+                    window.location.href = "/control/admin/portfolio/edit?section=media&id="+prt_id
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    window.location.href = "/control/admin/portfolio/edit?section=media&id="+prt_id
+                }
+            });
+        }, 500);
+
+    });
+    // open modal default
+    $('#addElement').modal('show');
+});
+

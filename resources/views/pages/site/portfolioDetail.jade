@@ -19,7 +19,6 @@ block content
                 .row
                     .col-xs-12
                         h1.text-center.prt-name= portfolio.name[lang]
-                            img(src='/img/site/asterisk.svg')
                         p.prt-tags
                             each tg, k in portfolio.tags
                                 if(k != portfolio.tags.length-1)
@@ -43,24 +42,9 @@ block content
                                     each txt, _index in _data.elements
                                         div(class="text-parent-"+_index)
                                             if(txt.valueHeader[lang])
-                                                h2.text-title(style="font-family:#{(_data.styles.fontFamily == 'custom') ? 'Origo' : 'fedra-book'}")=txt.valueHeader[lang]
-                                                    if(_data.asterisk == 'true')
-                                                        img(src='/img/site/asterisk.svg')
+                                                h2.text-title(style="text-align:#{_data.styles.textAlign}")=txt.valueHeader[lang]
                                             if(txt.valueMain[lang])
                                                 p.article-text(style=_data.style)=txt.valueMain[lang]
-        section.bg-portfolio-detail.footer-space
-            .container.portfolio-detail-page
-                .row
-                    .col-xs-12.col-sm-6.share-block
-                        .col-xs-12.col-sm-12.project-date
-                            p.col-xs-12.share-title=_tr.share
-                        .col-xs-12.col-sm-12
-                            .col-xs-12.social-icons
-                                i.fa.fa-facebook
-                                i.fa.fa-twitter
-                                i.fa.fa-rss
-                                i.fa.fa-google-plus
-                                i.fa.fa-pinterest-p
 
 
 

@@ -1,1 +1,118 @@
-$(document).ready(function(){function e(e){if(e.files&&e.files[0]){var i=new FileReader;i.onload=function(i){var t=$(e).attr("data-preview");$("#"+t).attr("src",i.target.result)},i.readAsDataURL(e.files[0])}}$(".sortPriority").bind("click",function(){$(".sortable").sortable({connectWith:".item-sort"}).disableSelection(),$(this).hide(),$(".savePriority").show()}),$(".savePriority").bind("click",function(){var e=[],i=$(".sortable").find("div[data-priority]");$.each(i,function(i,t){e.push($(t).attr("data-priority").replace(/\"/g,""))}),$.ajax({type:"POST",url:"/control/admin/services/priority",dataType:"json",data:{priority:e},success:function(){document.location.reload()},error:function(){document.location.reload()}}),$(this).hide(),$(".sortPriority").show()}),$(".removeServices").bind("click",function(){var e=$(this).attr("data-remove").replace(/\"/g,"");e&&confirm("Are you sure?")&&$.ajax({type:"POST",url:"/control/admin/services/remove",dataType:"json",data:{id:e},success:function(){document.location.reload()},error:function(){document.location.reload()}})}),$(document).on("change",".btn-file :file",function(){var e=$(this),i=e.val().replace(/\\/g,"/").replace(/.*\//,"");e.trigger("fileselect",[i])}),$(".btn-file :file").on("fileselect",function(e,i){var t=$(this).parents(".input-group").find(":text"),r=i;t.length?t.val(r):r&&alert(r)});var t=function(e,t){if(e.files){var r=e.files.length;for(i=0;i<r;i++){var a=new FileReader;a.onload=function(e){$($.parseHTML("<img>")).attr("src",e.target.result).appendTo(t)},a.readAsDataURL(e.files[i])}}};$(".inputFile").change(function(){e(this)}),$(".inputFileImages").on("change",function(){$("div.inputFileImages-gallery").html(""),t(this,"div.inputFileImages-gallery")})});
+$(document).ready(function () {
+
+    $(".sortPriority").bind("click", function () {
+
+        $( ".sortable" ).sortable({
+            connectWith: ".item-sort"
+        }).disableSelection();
+
+        $(this).hide();
+        $(".savePriority").show();
+    });
+
+    $(".savePriority").bind("click", function () {
+
+        var _data = [];
+        var sortCashe = $(".sortable").find("div[data-priority]");
+        $.each(sortCashe, function (index, item) {
+            _data.push($(item).attr('data-priority').replace(/\"/g, ""));
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/control/admin/services/priority',
+            dataType: 'json',
+            data: {
+                priority : _data
+            },
+            success: function () {
+                document.location.reload();
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                document.location.reload();
+            }
+        });
+
+        $(this).hide();
+        $(".sortPriority").show();
+    });
+
+    $(".removeServices").bind("click", function () {
+        var id = $(this).attr("data-remove").replace(/\"/g, "");
+
+        if(id && confirm("Are you sure?") ){
+            $.ajax({
+                type: 'POST',
+                url: '/control/admin/services/remove',
+                dataType: 'json',
+                data: {
+                    id : id
+                },
+                success: function () {
+                    document.location.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    document.location.reload();
+                }
+            });
+        }
+    });
+
+    $(document).on('change', '.btn-file :file', function () {
+        var input = $(this),
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [label]);
+    });
+
+    $('.btn-file :file').on('fileselect', function (event, label) {
+
+        var input = $(this).parents('.input-group').find(':text'),
+            log = label;
+
+        if (input.length) {
+            input.val(log);
+        } else {
+            if (log) alert(log);
+        }
+
+    });
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                var _id = $(input).attr("data-preview");
+                $('#'+_id).attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    var imagesPreview = function (input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function (event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $(".inputFile").change(function () {
+        readURL(this);
+    });
+    $('.inputFileImages').on('change', function () {
+        $("div.inputFileImages-gallery").html("");
+        imagesPreview(this, 'div.inputFileImages-gallery');
+    });
+
+});

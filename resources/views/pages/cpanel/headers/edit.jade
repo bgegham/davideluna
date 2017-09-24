@@ -47,15 +47,6 @@ block content
                                 label.radio-inline
                                     input(type='radio', name='layout', value="video", checked)
                                     | Video
-                    .col-xs-12
-                        if (oldVal && oldVal.is_portfolio == true)
-                            label(style='margin-top: 25px')
-                                input(type='checkbox', name='portfolioItem', value="true", checked)
-                                |   Link to portfolio item
-                        else
-                            label(style='margin-top: 25px')
-                                input(type='checkbox', name='portfolioItem', value="true")
-                                |   Link to portfolio item
 
                     .col-xs-12#portfolidBlock
                         label(style='margin-top: 25px') Link to portfolio (select by name)

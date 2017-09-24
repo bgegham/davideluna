@@ -11,6 +11,7 @@ var config                  = require('../../config')[APP_ENV],
 
     Landing                 = require('../models/Landing'),
     Home                    = require('../models/Home'),
+    Covers                  = require('../models/Covers'),
     Team                    = require('../models/Team'),
     Portfolio               = require('../models/Portfolio'),
     Tags                    = require('../models/Tags'),
@@ -128,6 +129,94 @@ SiteController.prototype.aboutPage              =  function (request, response) 
 
 };
 
+SiteController.prototype.coversPage              =  function (request, response) {
+
+    var lang    = "en";
+    var cCode   = request["cCode"];
+    if(request.query.lang){
+        if(request.query.lang == "ru") lang = "ru"
+    } else if(request["cCode"] && request["cCode"] == "RU"){
+        lang = "ru"
+    }
+
+    var _tr  = Translate[lang];
+
+    var $header,$home,$recent,$footer;
+    async.series([
+        function _Header(cb) {
+            Headers
+                .find({page : "covers"})
+                .sort({"priority": 1})
+                .exec( function (err, _header) {
+                    if(err){
+                        $header = null;
+                        cb();
+                    } else {
+                        if (_header == null) {
+                            $header = null;
+                            cb();
+                        } else {
+                            $header = _header;
+                            cb();
+                        }
+                    }
+                });
+        },
+        function _Home(cb) {
+            Covers
+                .findOne({})
+                .exec( function (err, _home) {
+                    if(err){
+                        $home = "";
+                        cb();
+                    } else {
+                        if (_home == null) {
+                            $home = "";
+                            cb();
+                        } else {
+                            $home = _home;
+                            cb();
+                        }
+                    }
+                });
+        },
+        function _Recent(cb) {
+            Recent
+                .find({})
+                .sort({"priority": 1})
+                .populate("work")
+                .exec( function (err, _recent) {
+                    if (_recent == null) {
+                        $recent = null;
+                        cb();
+                    } else {
+                        $recent = _recent;
+                        cb();
+                    }
+                });
+        }
+    ], function resolve (err) {
+        if(err){
+            response.redirect('/503');
+            response.end();
+        } else {
+            response.render( path.resolve('resources/views/pages/site/covers.jade'), {
+                title           : "DAVIDELUNA: covers page",
+                page            : "covers",
+                lang            : lang,
+                cCode           : cCode,
+                _tr             : _tr,
+                header          : $header,
+                covers            : $home,
+                recent          : $recent,
+                footer          : $footer
+            });
+            response.end();
+        }
+    });
+
+};
+
 SiteController.prototype.portfolioPage          =  function (request, response) {
 
     var lang    = "en";
@@ -191,49 +280,20 @@ SiteController.prototype.portfolioPage          =  function (request, response) 
                         }
                     }
                 });
-        },
-        function _Tags(cb) {
-            Tags
-                .find({})
-                .sort({"priority": 1})
-                .exec( function (err, _tags) {
-                    if (_tags == null) {
-                        $tags = null;
-                        cb();
-                    } else {
-                        $tags = _tags;
-                        cb();
-                    }
-                });
-        },
-        function _Footer(cb) {
-            Footers
-                .findOne({ page : "portfolio" })
-                .exec( function (err, _footer) {
-                    if (_footer == null) {
-                        $footer = null;
-                        cb();
-                    } else {
-                        $footer = _footer;
-                        cb();
-                    }
-                });
         }
     ], function resolve (err) {
         if(err){
             response.redirect('/503');
             response.end();
         } else {
-            if(request.query.tag){
-                response.cookie('to_section', "portfolioList", { maxAge: 900000, httpOnly: false });
-            }
+
             response.render( path.resolve('resources/views/pages/site/portfolio.jade'), {
-                title           : "DAVIDELUNA: portfolio list page",
+                title           : "DAVIDELUNA: works page",
                 page            : "portfolio",
                 lang            : lang,
                 cCode           : cCode,
                 _tr             : _tr,
-                tag             : request.query.tag || 'all',
+                tag             : 'all',
                 header          : $header,
                 portfolio       : $portfolio,
                 tags            : $tags,
@@ -292,19 +352,6 @@ SiteController.prototype.portfolioDetailPage    =  function (request, response) 
                         }
                     }
                 });
-        },
-        function _Footer(cb) {
-            Footers
-                .findOne({ page : "portfolio" })
-                .exec( function (err, _footer) {
-                    if (_footer == null) {
-                        $footer = null;
-                        cb();
-                    } else {
-                        $footer = _footer;
-                        cb();
-                    }
-                });
         }
     ], function resolve (err) {
         if(err){
@@ -351,7 +398,7 @@ SiteController.prototype.servicesPage           =  function (request, response) 
     async.series([
         function _Header(cb) {
             Headers
-                .find({page : "services"})
+                .find({page : "successes"})
                 .sort({"priority": 1})
                 .exec( function (err, _header) {
                     if(err){
@@ -383,19 +430,6 @@ SiteController.prototype.servicesPage           =  function (request, response) 
                             $services = _services;
                             cb();
                         }
-                    }
-                });
-        },
-        function _Footer(cb) {
-            Footers
-                .findOne({ page : "services" })
-                .exec( function (err, _footer) {
-                    if (_footer == null) {
-                        $footer = null;
-                        cb();
-                    } else {
-                        $footer = _footer;
-                        cb();
                     }
                 });
         }
@@ -523,14 +557,13 @@ SiteController.prototype.officeDetailPage       =  function (request, response) 
     }
 
     var _tr  = Translate[lang];
-    var _of = request.query.office.replace(" ", "").toLowerCase() || "null";
 
     var $recent,$office,$footer;
 
     async.series([
         function _Office(cb) {
             Offices
-                .findOne({ uniqueName : _of })
+                .findOne({ uniqueName : "contacts" })
                 .sort({"priority": 1})
                 .exec( function (err, _office) {
                     if(err){
@@ -561,24 +594,6 @@ SiteController.prototype.officeDetailPage       =  function (request, response) 
                         cb();
                     }
                 });
-        },
-        function _Footer(cb) {
-            Footers
-                .findOne({ page : "offices" })
-                .exec( function (err, _footer) {
-                    if(err){
-                        $footer = null;
-                        cb();
-                    } else {
-                        if (_footer == null) {
-                            $footer = null;
-                            cb();
-                        } else {
-                            $footer = _footer;
-                            cb();
-                        }
-                    }
-                });
         }
     ], function resolve (err) {
         if(err){
@@ -586,12 +601,10 @@ SiteController.prototype.officeDetailPage       =  function (request, response) 
             response.end();
         } else {
             if($office){
-                var _clients = _.sortBy($office.clients, function(o) { return o.priority; });
-                $office.clients = _clients;
-
+     
                 response.render( path.resolve('resources/views/pages/site/office_detail.jade'), {
-                    title           : "DAVIDELUNA: office detail page",
-                    page            : "offices",
+                    title           : "DAVIDELUNA: contacts page",
+                    page            : "contacts",
                     lang            : lang,
                     cCode           : cCode,
                     _tr             : _tr,

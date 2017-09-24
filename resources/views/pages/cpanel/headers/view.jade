@@ -27,18 +27,14 @@ block content
         #page-content-wrapper.tab-flow
             .row.no-margin
                 ul.nav.nav-tabs
-                    li( class=(tab == 'landing') ? "active" : null )
-                        a(href="/control/admin/headers?page=landing") Landing
                     li( class=(tab == 'home') ? "active" : null )
                         a(href="/control/admin/headers?page=home") About
                     li( class=(tab == 'portfolio') ? "active" : null )
-                        a(href="/control/admin/headers?page=portfolio") Portfolio
-                    li( class=(tab == 'offices') ? "active" : null )
-                        a(href="/control/admin/headers?page=offices") Offices
-                    li( class=(tab == 'services') ? "active" : null )
-                        a(href="/control/admin/headers?page=services") Services
-                    li( class=(tab == 'team') ? "active" : null )
-                        a(href="/control/admin/headers?page=team") Team
+                        a(href="/control/admin/headers?page=portfolio") My Works
+                    li( class=(tab == 'successes') ? "active" : null )
+                        a(href="/control/admin/headers?page=successes") Successes
+                    li( class=(tab == 'covers') ? "active" : null )
+                        a(href="/control/admin/headers?page=covers") Covers
              .pad-20(style="padding-top: 20px;padding-bottom: 0;")
                  .alert-control(style='display: none;')
                      .alert
@@ -53,7 +49,7 @@ block content
                             div.actions-control
                                 a.pull-right.fa.fa-edit(title="Edit", href="/control/admin/headers/edit/"+item._id)
                                 a.pull-right.fa.fa-trash.removeHeader(title="Remove", data-remove=item._id)
-                            .col-xs-6.banner-image
+                            .col-xs-12.banner-image
                                 if(item.layout == "image")
                                     img(src="/images/"+item.image)
                                 else
@@ -62,9 +58,4 @@ block content
                                     style="height:100%;width:100%"
                                     src=item.video
                                     frameborder="0")
-                            .col-xs-6.banner-info
-                                    label Portfolio url:
-                                    p
-                                        a(href='/portfolio/'+item.portfolio_url, target="_blank")= item.portfolio_url
-                                    hr
 

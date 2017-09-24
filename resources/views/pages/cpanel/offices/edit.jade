@@ -13,7 +13,7 @@ block content
     #wrapper
         include ../../../partial/_sidebar
         .page-name
-            span Update "#{oldVal.name.en}" office information
+            span Update "#{oldVal.name.en}" Contact information
             a.btn.btn-sm.btn-success.pull-right(title="back" onclick="window.history.back();")
                 i.fa.fa-arrow-left
                 |   Back
@@ -24,58 +24,39 @@ block content
                     a.close(href="#",data-dismiss="alert",aria-label="close") &times;
                     strong
             .row
-                form#editForm(method="post", role='form', action="/control/admin/offices/edit/#{oldVal._id}", enctype="multipart/form-data")
+                form#editForm(method="post", role='form', action="/control/admin/offices/edit/contacts", enctype="multipart/form-data")
                     .col-xs-12.col-sm-6
                         p English
                         .form-group
-                            label(for='name_en') Office name (end)
-                            input#name_en.form-control(name="name_en", type='text', placeholder='Name', required=true, value=(oldVal && oldVal.name.en) ? oldVal.name.en : '')
+                            label(for='name_en') Contact name (end)
+                            input#name_en.form-control(name="name_en", type='text', placeholder='Name', readonly=true, value='contacts')
                     .col-xs-12.col-sm-6
                         p Русский
                         .form-group
-                            label(for='name_ru') Office name (rus)
-                            input#name_ru.form-control(name="name_ru", type='text', placeholder='Название', required=true, value=(oldVal && oldVal.name.ru) ? oldVal.name.ru : '')
+                            label(for='name_ru') Contact name (rus)
+                            input#name_ru.form-control(name="name_ru", type='text', placeholder='Название', readonly=true, value='контакты')
                     .clearfix
                     hr
                     .col-xs-12.col-sm-6
                         .form-group
-                            label(for='main_color') Name and asterisk color (#fff)
+                            label(for='main_color') Name color (#fff)
                             input#main_color.form-control(name="main_color", type='text', placeholder='#fff', required=true, value=(oldVal && oldVal.main_color) ? oldVal.main_color : '')
-                    .col-xs-12.col-sm-6
-                        .form-group
-                            label Office time zone
-                            select.form-control(name="timezone")
-                                - repeation = [ 'Armenia', 'Georgia', 'Moscow']
-                                each opt in repeation
-                                    if(opt.toLowerCase() == oldVal.timezone)
-                                        option(selected="selected" , value=opt.toLowerCase()) #{opt}
-                                    else
-                                        option(value=value=opt.toLowerCase()) #{opt}
 
                     .clearfix
                     hr
-                    .col-xs-12.col-sm-6
-                        label Main image morning (*)
+                    .col-xs-12
+                        label Main image (*)
                         .custom-input-file(style="background-image:url(/images/"+oldVal.main_image_morning+")")
                             label.uploadPhoto
                                 | Browse image...
                                 input#main_image_morning.change-file-input(type='file', name='main_image_morning')
-                    .col-xs-12.col-sm-6
-                        label Main image night (*)
-                        .custom-input-file(style="background-image:url(/images/"+oldVal.main_image_night+")")
-                            label.uploadPhoto
-                                | Browse image...
-                                input#main_image_night.change-file-input(type='file', name='main_image_night')
                     .clearfix
                     hr
-                    .col-xs-12.col-sm-6
+                    .col-xs-12
                         .form-group
-                            label(for='main_video_morning') Main video(url) morning
+                            label(for='main_video_morning') Main video(url)
                             input#main_video_morning.form-control(name="main_video_morning", type='text', placeholder='https://', value=(oldVal && oldVal.main_video_morning) ? oldVal.main_video_morning : '')
-                    .col-xs-12.col-sm-6
-                        .form-group
-                            label(for='name_ru') Main video(url) night
-                            input#main_video_night.form-control(name="main_video_night", type='text', placeholder='https://', value=(oldVal && oldVal.main_video_night) ? oldVal.main_video_night : '')
+
                     .clearfix
                     hr
                     .col-xs-12.col-sm-6
@@ -123,40 +104,6 @@ block content
                         .form-group
                             label(for="email") E-mail
                             input#email.form-control(name="email", type='email', placeholder='E-mail address', required=true, value=(oldVal && oldVal.email) ? oldVal.email : '')
-                    .clearfix
-                    hr
-                    .col-xs-12
-                        .form-group
-                            div
-                                label Clients
-                            div#clientsControl.sortable-clients
-                                if(oldVal && oldVal.clients)
-                                    each client in oldVal.clients
-                                        .row.client-on-line
-                                            input(type="hidden", value=client.id, name="old_client_id" )
-                                            .col-xs-3
-                                                label Name en
-                                                input.form-control(name='client_name_en', type='text', placeholder='English', required='required', value=client.name.en)
-                                            .col-xs-3
-                                                label Name rus
-                                                input.form-control(name='client_name_ru', type='text', placeholder='Русский', required='required', value=client.name.ru)
-                                            .col-xs-3
-                                            .col-xs-3
-                                                img.image-show-clients(src="/images/#{client.image}")
-                                                button.btn.btn-xs.btn-danger.remove-old-client(data-client-id=client.id  type='button', style='margin-left: 30px;margin-top: 18px')
-                                                    i.fa.fa-remove
-                                                span.btn.btn-xs.btn-info.sort-clients(type='button', style='margin-left: 10px;margin-top: 18px;cursor:move;')
-                                                    i.fa.fa-bars
-                                    script.
-                                        // ini sortable
-                                           $( ".sortable-clients" ).sortable({
-                                               connectWith: ".client-on-line",
-                                               handle: 'span.sort-clients'
-                                           }).disableSelection();
-                            div
-                                button#addClient.btn.btn-sm.btn-warning(type="button")
-                                    i.fa.fa-plus
-                                    |   Add client
 
                     .clearfix
                     hr
