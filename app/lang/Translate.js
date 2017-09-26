@@ -5,7 +5,7 @@ module.exports = {
         offices                         : "Covers",
         covers                          : "My works",
         team                            : "Contacts",
-        services                        : "Successes",
+        services                        : "BIO",
         blog                            : "Blog",
         viewProject                     : "VIEW PROJECT",
         future_works                    : "Last events",
