@@ -16,7 +16,10 @@
                                             p=field.valueMain.en
                                 else if (item.node == 'video')
                                     .div(class=(item.layout == 6 ? 'col-xs-12 col-sm-6' : 'col-xs-12'))
-                                        img(src='//img.youtube.com/vi/'+item.elements.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop() + '/0.jpg' style="max-width: 100%;",)
+                                        if(item.elements)
+                                            img(src='//img.youtube.com/vi/'+item.elements.match(/youtube\.com.*(\?v=|\/embed\/)(.{11})/).pop() + '/0.jpg' style="max-width: 100%;",)
+                                        else
+                                            img(src='//img.youtube.com/vi/', style="max-width: 100%;")
                                 else
                                     .div(class=(item.layout == 6 ? 'col-xs-12 col-sm-6' : 'col-xs-12'))
                                         img(src="/images/#{item.elements}" style="max-width: 100%;",)
