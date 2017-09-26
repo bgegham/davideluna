@@ -1,7 +1,7 @@
 module.exports = {
     en: {
-        about                           : "About",
-        portfolio                       : "My works",
+        about                           : "HOME",
+        portfolio                       : "NEWS",
         offices                         : "Covers",
         covers                          : "Covers",
         team                            : "Contacts",
