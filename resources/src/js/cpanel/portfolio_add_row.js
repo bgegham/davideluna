@@ -429,12 +429,13 @@ $(document).ready(function () {
                     });
                     break;
                 case "video":
+                    var lnk = $("#"+_this.attr("id")).find("input.video-thumb").val();
                     result.push({
                         node        : _this.attr("data-node"),
                         className   : _this.attr("class"),
                         id          : _this.attr("id"),
                         layout      : _this.attr("data-layout"),
-                        elements    : $("#"+_this.attr("id")).find("input.video-thumb").val()
+                        elements    : (lnk && link!=null && link!=undefined && link!='undefined') ? lnk : "http://none"
                     });
                     break;
                 default:

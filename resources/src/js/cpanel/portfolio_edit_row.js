@@ -483,7 +483,7 @@ $(document).ready(function () {
             "<label class='pull-left'>Video url:</label>" +
             "</div>" +
             "<div class='col-xs-12'>" +
-            "<input name='video' placeholder='video url http://...' class='form-control video-thumb' type='text' data-preview='"+$id+"'>" +
+            "<input name='video' value='' placeholder='video url http://...' class='form-control video-thumb' type='text' data-preview='"+$id+"'>" +
             "<img class='video-demo' id='img"+$id+"' style='max-width: 100%;' src='/img/cpanel/pictureDefault.png'/>"+
             "</div>"
         );
@@ -571,12 +571,13 @@ $(document).ready(function () {
                     });
                     break;
                 case "video":
+                    var lnk = $("#"+_this.attr("id")).find("input.video-thumb").val();
                     result.push({
                         node        : _this.attr("data-node"),
                         className   : _this.attr("class"),
                         id          : _this.attr("id"),
                         layout      : _this.attr("data-layout"),
-                        elements    : $("#"+_this.attr("id")).find("input.video-thumb").val()
+                        elements    : (lnk && link!=null && link!=undefined && link!='undefined') ? lnk : "http://none"
                     });
                     break;
                 default:
