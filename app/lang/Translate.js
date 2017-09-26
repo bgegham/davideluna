@@ -3,7 +3,7 @@ module.exports = {
         about                           : "HOME",
         portfolio                       : "NEWS",
         offices                         : "Covers",
-        covers                          : "Covers",
+        covers                          : "My works",
         team                            : "Contacts",
         services                        : "Successes",
         blog                            : "Blog",
