@@ -6,8 +6,8 @@ section.top-border.recent-works-section
         .col-xs-12.images-container
             each _recent in recent
                 .col-xs-12.col-sm-6.col-md-3.mrgb20
-                    a(href="/portfolio/" + _recent.work.uniqueName + "?lang=#{lang}")
+                    a(href="/news/" + _recent.work.uniqueName + "?lang=#{lang}")
                         .image-cover
                             img(src="/images/"+_recent.work.coverImage)
-                    a.prt-desc(href="/portfolio/" + _recent.work.uniqueName + "?lang=#{lang}").image-link
+                    a.prt-desc(href="/news/" + _recent.work.uniqueName + "?lang=#{lang}").image-link
                     h5.image-titles(style="margin-top:6px")=_recent.work.name[lang]

@@ -21,7 +21,7 @@ block content
                     else
                         each data in portfolio
                             .col-xs-12.col-sm-4.sorting-control
-                                a(href="/portfolio/" + data.uniqueName + "?lang=#{lang}")
+                                a(href="/news/" + data.uniqueName + "?lang=#{lang}")
                                     img(src="/images/" + data.coverImage)
                                     .overlay
                                     h4(style="margin-top: 8px;margin-bottom: -5px;")=data.name[lang]

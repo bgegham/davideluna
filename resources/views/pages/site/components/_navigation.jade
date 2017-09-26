@@ -7,26 +7,26 @@ div.header-nav-slider-block
         nav.page-navigation.clearfix
             ul.navigation-items
                 li
-                    a(href="/about?lang=#{lang}", class=(page == 'home') ? "active-nav" : "")=_tr.about
+                    a(href="/home?lang=#{lang}", class=(page == 'home') ? "active-nav" : "")=_tr.about
                 li
-                    a(href="/successes?lang=#{lang}" class=(page == 'services') ? "active-nav" : "")=_tr.services
+                    a(href="/bio?lang=#{lang}" class=(page == 'services') ? "active-nav" : "")=_tr.services
                 li
-                    a(href="/portfolio?lang=#{lang}" class=(page == 'portfolio') ? "active-nav" : "")=_tr.portfolio
+                    a(href="/news?lang=#{lang}" class=(page == 'portfolio') ? "active-nav" : "")=_tr.portfolio
                 li
-                    a(href="/covers?lang=#{lang}" class=(page == 'covers') ? "active-nav" : "")=_tr.covers
+                    a(href="/my-works?lang=#{lang}" class=(page == 'covers') ? "active-nav" : "")=_tr.covers
                 li
                     a(href="/contacts?lang=#{lang}" class=(page == 'contacts') ? "active-nav" : "")=_tr.team
 
 nav
     ul.cd-primary-nav
         li
-            a(href="/about?lang=#{lang}", class="active-nav")=_tr.about
+            a(href="/home?lang=#{lang}", class="active-nav")=_tr.about
         li
-            a(href="/successes?lang=#{lang}")=_tr.services
+            a(href="/bio?lang=#{lang}")=_tr.services
         li
-            a(href="/portfolio?lang=#{lang}")=_tr.portfolio
+            a(href="/news?lang=#{lang}")=_tr.portfolio
         li
-            a(href="/covers?lang=#{lang}")=_tr.covers
+            a(href="/my-works?lang=#{lang}")=_tr.covers
         li
             a(href="/contacts?lang=#{lang}")=_tr.team
         li

@@ -7,15 +7,15 @@ module.exports = function(app, multipart) {
 
     app.get('/',                                multipart.array(), function(req, res){ siteController.aboutPage(req, res); });
 
-    app.get('/about',                           multipart.array(), function(req, res){ siteController.aboutPage(req, res); });
+    app.get('/home',                            multipart.array(), function(req, res){ siteController.aboutPage(req, res); });
 
-    app.get('/covers',                          multipart.array(), function(req, res){ siteController.coversPage(req, res); });
+    app.get('/my-works',                          multipart.array(), function(req, res){ siteController.coversPage(req, res); });
 
-    app.get('/portfolio',                       multipart.array(), function(req, res){ siteController.portfolioPage(req, res); });
+    app.get('/news',                       multipart.array(), function(req, res){ siteController.portfolioPage(req, res); });
 
-    app.get('/portfolio/:uniqueName',           multipart.array(), function(req, res){ siteController.portfolioDetailPage(req, res); });
+    app.get('/news/:uniqueName',           multipart.array(), function(req, res){ siteController.portfolioDetailPage(req, res); });
 
-    app.get('/successes',                       multipart.array(), function(req, res){ siteController.servicesPage(req, res); });
+    app.get('/bio',                       multipart.array(), function(req, res){ siteController.servicesPage(req, res); });
 
     app.get('/genres',                          multipart.array(), function(req, res){ siteController.officesPage(req, res); });
 
