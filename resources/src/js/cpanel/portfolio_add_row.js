@@ -435,7 +435,7 @@ $(document).ready(function () {
                         className   : _this.attr("class"),
                         id          : _this.attr("id"),
                         layout      : _this.attr("data-layout"),
-                        elements    : (lnk && link!=null && link!=undefined && link!='undefined') ? lnk : "http://none"
+                        elements    : (lnk && lnk!=null && lnk!=undefined && lnk!='undefined') ? lnk : "http://none"
                     });
                     break;
                 default:
